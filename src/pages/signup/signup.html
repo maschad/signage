@@ -11,15 +11,20 @@
   <form (submit)="doSignup()">
     <ion-list>
 
-      <ion-item>
-        <ion-label fixed>{{ 'NAME' | translate }}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.name" name="name"></ion-input>
-      </ion-item>
+        <ion-item>
+            <ion-label fixed>{{ 'FIRST_NAME' | translate }}</ion-label>
+            <ion-input type="text" [(ngModel)]="account.first_name" name="name"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
-      </ion-item>
+        <ion-item>
+            <ion-label fixed>{{ 'LAST_NAME' | translate }}</ion-label>
+            <ion-input type="text" [(ngModel)]="account.last_name" name="name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
+            <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+        </ion-item>
 
       <!--
       Want to add a Username? Here you go:

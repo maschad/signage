@@ -1,5 +1,4 @@
-# The Ionic Super Starter 🎮
-
+## Alligator Head Signage Application
 _Note: the Ionic Super Starter requires Ionic CLI 3._
 
 <img src="super2.png" width="400" />
