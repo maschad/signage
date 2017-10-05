@@ -1,15 +1,15 @@
-## Alligator Head Signage Application
-_Note: the Ionic Super Starter requires Ionic CLI 3._
+## ShieldsGate Signage Application
 
-<img src="super2.png" width="400" />
+<img src="reko_ware.png" width="400" />
 
-The Ionic Super Starter is a batteries-included starter project for Ionic apps complete with pre-built pages, providers, and best practices for Ionic development.
+This application was built by Reko ware to serve as a one stop solution for managing signage for Shields Gate :blush:
 
-The goal of the Super Starter is to get you from zero to app store faster than before, with a set of opinions from the Ionic team around page layout, data/user management, and project structure.
+Take a look at the [Settings page](https://github.com/ionic-team/ionic-starter-super/blob/master/src/pages/settings/settings.html#L38) for a cool example of a page navigating to itself to provide a different UI without duplicating code.
 
-The way to use this starter is to pick and choose the various page types you want use, and remove the ones you don't. If you want a blank slate, this starter isn't for you (use the `blank` type instead).
 
-One of the big advances in Ionic was moving from a rigid route-based navigation system to a flexible push/pop navigation system modeled off common native SDKs. We've embraced this pattern to provide a set of reusable pages that can be navigated to anywhere in the app. Take a look at the [Settings page](https://github.com/ionic-team/ionic-starter-super/blob/master/src/pages/settings/settings.html#L38) for a cool example of a page navigating to itself to provide a different UI without duplicating code.
+## Useful links
+
+#### [Coding Standards](https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines) | [Rekoware](http://www.rekoware.com/)
 
 ## Table of Contents
 
@@ -20,25 +20,68 @@ One of the big advances in Ionic was moving from a rigid route-based navigation 
 
 ## <a name="getting-started"></a>Getting Started
 
-To test this starter out, install the latest version of the Ionic CLI and run:
+To test this app out , install the latest version of the [Ionic CLI] (https://ionicframework.com/docs/cli/#installation) and run:
 
 ```bash
-ionic start mySuperApp super
+ionic serve alligatorhead
 ```
 
-## Pages
+## Branches
 
-The Super Starter comes with a variety of ready-made pages. These pages help you assemble common building blocks for your app so you can focus on your unique features and branding.
+* `master` - Should always contain tested releasable code, this branch is intended for production.
 
-The app loads with the `FirstRunPage` set to `TutorialPage` as the default. If the user has already gone through this page once, it will be skipped the next time they load the app.
+* `dev` - Should contain stable tested code, but these tests would exclude e2e tests.
 
-If the tutorial is skipped but the user hasn't logged in yet, the Welcome page will be displayed which is a "splash" prompting the user to log in or create an account.
+* `featurex` - This is a template for each feature which will be added, see [Git Workflow](#git-workflow)
 
-Once the user is authenticated, the app will load with the `MainPage` which is set to be the `TabsPage` as the default.
 
-The entry and main pages can be configured easily by updating the corresponding variables in [src/pages/pages.ts](https://github.com/ionic-team/ionic-starter-super/blob/master/src/pages/pages.ts).
+## <a name="git-workflow"></a>Git Workflow 
 
-Please read the [Pages](https://github.com/ionic-team/ionic-starter-super/tree/master/src/pages) readme, and the readme for each page in the source for more documentation on each.
+```
+
+                     +----------------+
+              +------> featurebranch-1 +-----------+ (pull request)
+              |      +----------------+            |
+              |                                    |
+  +--------+  |                                    +---------+      +--------+
+  | dev  + -                                       |  dev    |  --- | master |
+  +----+---+  |                                    +---------+      +--------+
+              |                                    |
+              |      +-----------------+           |            
+              +------> featurebranch-2 +-----------+  (pull request)
+                    +------------------+
+```
+
+`Master` branch is protected and direct pushes are not allowed.
+
+When working on a new feature:
+
+1. Create a new branch that branches off the `master` branch. 
+2. Complete the feature/work and submit a pull request to be merged into `master`.
+3. Each feature branch name should have the `page` the feature is related to, the `id` of the task
+or a short `description` of the feature or work to be carried out 
+
+Examples of descriptions: `selectors`, `create-login`, `create-logout`.
+
+**Examples of feature branch names:** 
+
+E.g `login`-`15`-`selectors` or `dashboard`-`13`-`create-login`
+
+## Pull Request  
+
+When submitting a pull request ensure the following:
+
+1. Ensure there are no merge conflicts
+2. Ensure all tests are passing or failing correctly.
+3. Ensure a description of the work done is provided
+4. Select `close branch when merged` . 
+
+After the reviewer has reviewed the pull - request, the reviewer should merge the pull request into the `dev` branch. Then **all tests** should be executed to ensure all tests are either passing or failing correctly. 
+
+** Note: ** If tests are failing incorrectly. The reviewer should immediately fix all broken tests.
+
+
+
 
 ## Providers
 
