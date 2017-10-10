@@ -35,7 +35,7 @@ export class User {
    * the user entered on the form.
    */
   login(accountInfo: any) {
-    let seq = this.api.post('login', accountInfo).share();
+    let seq = this.api.post('auth', accountInfo).share();
 
     seq
       .map(res => res.json())
@@ -84,6 +84,7 @@ export class User {
    * Process a login/signup response to store user data
    */
   _loggedIn(resp) {
-    this._user = resp.user;
+      console.log('response', resp);
+    this._user = resp;
   }
 }
