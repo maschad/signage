@@ -2,8 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav } from 'ionic-angular';
 
 import { ContentPage } from '../content/content';
-import { LoginPage } from '../login/login';
-import { SignupPage } from '../signup/signup';
+import {WaiversPage} from "../waivers/waivers";
+import {CreateWaiverPage} from "../create-waiver/create-waiver";
+import {IncidentsPage} from "../incidents/incidents";
+import {CreateIncidentPage} from "../create-incident/create-incident";
+import {SignOutPage} from "../sign-out/sign-out";
+
 
 
 @Component({
@@ -21,8 +25,11 @@ export class MenuPage {
   constructor(public navCtrl: NavController) {
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Sign in', component: LoginPage },
-      { title: 'Signup', component: SignupPage }
+        {title: 'Waivers', component: WaiversPage},
+        {title: 'New Waiver', component: CreateWaiverPage},
+        {title: 'Incidents', component: IncidentsPage},
+        {title: 'New Incident', component: CreateIncidentPage},
+        {title: 'Sign Out', component: SignOutPage}
     ];
   }
 
