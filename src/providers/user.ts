@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Headers,Http, RequestOptions} from '@angular/http';
 import { Api } from './api';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -35,7 +35,10 @@ export class User {
    * the user entered on the form.
    */
   login(accountInfo: any) {
-    let seq = this.api.post('login', accountInfo).share();
+    let headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
+    let options = new RequestOptions({ headers: headers });
+    let seq = this.api.post('signin', accountInfo, options).share();
 
     seq
       .map(res => res.json())
@@ -84,6 +87,7 @@ export class User {
    * Process a login/signup response to store user data
    */
   _loggedIn(resp) {
-    this._user = resp.user;
+      console.log('response', resp);
+    this._user = resp;
   }
 }
