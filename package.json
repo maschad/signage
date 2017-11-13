@@ -1,14 +1,12 @@
 {
     "name": "signage",
     "version": "1.0",
-    "author": "Ionic Framework",
-    "homepage": "http://ionicframework.com/",
+    "author": "Chad Nehemiah",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
-        "build": "ionic-app-scripts build",
-        "lint": "ionic-app-scripts lint",
         "ionic:build": "ionic-app-scripts build",
+        "lint": "ionic-app-scripts lint",
         "ionic:serve": "ionic-app-scripts serve"
     },
     "dependencies": {
@@ -29,14 +27,12 @@
         "@ngx-translate/core": "^6.0.1",
         "@ngx-translate/http-loader": "0.0.3",
         "angular2-signaturepad": "^2.6.0",
-        "cordova-android": "^6.2.3",
-        "cordova-plugin-console": "^1.0.5",
-        "cordova-plugin-device": "^1.1.4",
-        "cordova-plugin-splashscreen": "^4.0.3",
-        "cordova-plugin-statusbar": "^2.2.2",
-        "cordova-plugin-whitelist": "^1.3.1",
+        "cordova-plugin-device": "1.1.4",
+        "cordova-plugin-ionic-webview": "^1.1.16",
+        "cordova-plugin-splashscreen": "~4.0.1",
+        "cordova-plugin-whitelist": "1.3.1",
         "ionic-angular": "3.5.0",
-        "ionic-plugin-keyboard": "^2.2.1",
+        "ionic-plugin-keyboard": "~2.2.1",
         "ionicons": "3.0.0",
         "rxjs": "5.4.0",
         "sw-toolbox": "3.6.0",
@@ -44,20 +40,17 @@
     },
     "devDependencies": {
         "@ionic/app-scripts": "1.3.12",
+        "@ionic/cli-plugin-ionic-angular": "1.3.1",
         "typescript": "2.3.4"
     },
-    "description": "An Application to track guests",
+    "description": "An Application to track guest's waivers",
     "cordova": {
         "plugins": {
-            "cordova-plugin-console": {},
             "cordova-plugin-device": {},
+            "cordova-plugin-ionic-webview": {},
             "cordova-plugin-splashscreen": {},
-            "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {}
-        },
-        "platforms": [
-            "android"
-        ]
+        }
     }
 }
