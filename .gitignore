@@ -35,3 +35,7 @@ UserInterfaceState.xcuserstate
 /config.xml
 /package-lock.json
 /.github/
+resources/README.md
+resources/ios/icon/icon-1024.png
+resources/ios/splash/Default@2x~universal~anyany.png
+
