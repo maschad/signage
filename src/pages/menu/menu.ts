@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav } from 'ionic-angular';
 
-import { ContentPage } from '../content/content';
 import {WaiversPage} from "../waivers/waivers";
 import {CreateWaiverPage} from "../create-waiver/create-waiver";
 import {IncidentsPage} from "../incidents/incidents";
-import {CreateIncidentPage} from "../create-incident/create-incident";
+import {CreateIncidentsPage} from "../create-incident/create-incidents";
 import {SignOutPage} from "../sign-out/sign-out";
 
 
@@ -18,7 +17,7 @@ export class MenuPage {
   // A reference to the ion-nav in our component
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ContentPage;
+  rootPage: any = WaiversPage;
 
   pages: Array<{ title: string, component: any }>;
 
@@ -28,7 +27,7 @@ export class MenuPage {
         {title: 'Waivers', component: WaiversPage},
         {title: 'New Waiver', component: CreateWaiverPage},
         {title: 'Incidents', component: IncidentsPage},
-        {title: 'New Incident', component: CreateIncidentPage},
+        {title: 'New Incident', component: CreateIncidentsPage},
         {title: 'Sign Out', component: SignOutPage}
     ];
   }
