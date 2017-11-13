@@ -22,7 +22,6 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { WelcomePage } from '../pages/welcome/welcome';
 
 import { Api } from '../providers/api';
-import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/settings';
 import { User } from '../providers/user';
 
@@ -36,6 +35,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SignOutPage } from "../pages/sign-out/sign-out";
 import { WaiversPage } from "../pages/waivers/waivers";
 import {CreateWaiverPage} from "../pages/create-waiver/create-waiver";
+import {Waivers} from "../mocks/providers/waivers";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -114,7 +114,7 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
-    Items,
+    Waivers,
     User,
     Camera,
     GoogleMaps,

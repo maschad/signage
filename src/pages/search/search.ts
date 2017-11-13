@@ -3,9 +3,9 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { ItemDetailPage } from '../item-detail/item-detail';
 
-import { Item } from '../../models/item';
+import { Waiver } from '../../models/waiver';
 
-import { Items } from '../../providers/providers';
+import { Waivers } from '../../providers/providers';
 
 
 @Component({
@@ -14,9 +14,9 @@ import { Items } from '../../providers/providers';
 })
 export class SearchPage {
   
-  currentItems: any = [];
+  currentWaivers: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public waivers: Waivers) { }
 
   /**
    * Perform a service for the proper items.
@@ -24,10 +24,10 @@ export class SearchPage {
   getItems(ev) {
     let val = ev.target.value;
     if (!val || !val.trim()) {
-      this.currentItems = [];
+      this.currentWaivers = [];
       return;
     }
-    this.currentItems = this.items.query({
+    this.currentWaivers= this.waivers.query({
       name: val
     });
   }
@@ -35,9 +35,9 @@ export class SearchPage {
   /**
    * Navigate to the detail page for this item.
    */
-  openItem(item: Item) {
+  openItem(waiver: Waiver) {
     this.navCtrl.push(ItemDetailPage, {
-      item: item
+      waiver: waiver
     });
   }
 
