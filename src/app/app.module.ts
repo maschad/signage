@@ -33,8 +33,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import {SignOutPage} from "../pages/sign-out/sign-out";
-import {WaiversPage} from "../pages/waivers/waivers";
+import { SignOutPage } from "../pages/sign-out/sign-out";
+import { WaiversPage } from "../pages/waivers/waivers";
+import {CreateWaiverPage} from "../pages/create-waiver/create-waiver";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -62,6 +63,7 @@ export function provideSettings(storage: Storage) {
     MyApp,
     CardsPage,
     ContentPage,
+    CreateWaiverPage,
     ItemCreatePage,
     ItemDetailPage,
     ListMasterPage,
@@ -95,6 +97,7 @@ export function provideSettings(storage: Storage) {
     MyApp,
     CardsPage,
     ContentPage,
+    CreateWaiverPage,
     ItemCreatePage,
     ItemDetailPage,
     ListMasterPage,
@@ -106,6 +109,7 @@ export function provideSettings(storage: Storage) {
     SignupPage,
     TabsPage,
     TutorialPage,
+    WaiversPage,
     WelcomePage
   ],
   providers: [

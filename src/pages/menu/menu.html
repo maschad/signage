@@ -1,15 +1,6 @@
-<ion-header>
-    <ion-buttons end>
-        <button ion-button menuToggle icon-only>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-    </ion-buttons>
-</ion-header>
-
-<ion-nav #content [root]="rootPage" swipeBackEnabled="false"></ion-nav>
 
 
-<ion-menu [content]="content" type="overlay" side="right">
+<ion-menu [content]="content"  side="right">
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" detail-none>
@@ -18,3 +9,5 @@
     </ion-list>
   </ion-content>
 </ion-menu>
+
+<ion-nav #content [root]="rootPage" swipeBackEnabled="false"></ion-nav>
