@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Waiver} from "../../models/waiver";
+import {Waivers} from "../../mocks/providers/waivers";
+import {ItemDetailPage} from "../item-detail/item-detail";
 
 /**
  * Generated class for the WaiversPage page.
@@ -14,8 +17,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class WaiversPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    currentWaivers: Waiver[];
+
+    constructor(public navCtrl: NavController, public waivers: Waivers, public modalCtrl: ModalController) {
+        this.currentWaivers = this.waivers.query();
+    }
+
+
+
+    openItem(waiver: Waiver) {
+        this.navCtrl.push(ItemDetailPage, {
+            waiver: waiver
+        });
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaiversPage');

@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { Items } from '../../providers/providers';
+import { Waivers } from '../../providers/providers';
 
 @Component({
   selector: 'page-item-detail',
   templateUrl: 'item-detail.html'
 })
 export class ItemDetailPage {
-  item: any;
+  waiver: any;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, items: Items) {
-    this.item = navParams.get('item') || items.defaultItem;
+  constructor(public navCtrl: NavController, navParams: NavParams, waivers: Waivers) {
+    this.waiver = navParams.get('waiver') || waivers.defaultItem;
   }
 
 }
