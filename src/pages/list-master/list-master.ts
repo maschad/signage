@@ -6,14 +6,14 @@ import { ItemDetailPage } from '../item-detail/item-detail';
 
 import { Waivers } from '../../providers/providers';
 
-import { Waiver } from '../../models/waiver';
+import { model } from '../../models/model';
 
 @Component({
   selector: 'page-list-master',
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  currentWaivers: Waiver[];
+  currentWaivers: model[];
 
   constructor(public navCtrl: NavController, public waivers: Waivers, public modalCtrl: ModalController) {
     this.currentWaivers = this.waivers.query();
@@ -49,7 +49,7 @@ export class ListMasterPage {
   /**
    * Navigate to the detail page for this item.
    */
-  openItem(waiver: Waiver) {
+  openItem(waiver: model) {
     this.navCtrl.push(ItemDetailPage, {
       waiver: waiver
     });

@@ -13,28 +13,14 @@
         </ion-buttons>
         <ion-title>{{ 'LIST_MASTER_TITLE' | translate }}</ion-title>
     </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+    <ion-searchbar placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
     <ion-list>
-        <ion-item-sliding *ngFor="let waiver of currentWaivers">
-            <button ion-item (click)="openItem(waiver)">
-                <ion-avatar item-start>
-                    <img [src]="waiver.profilePic" />
-                </ion-avatar>
-                <h2>{{waiver.name}}</h2>
-                <p>{{waiver.about}}</p>
-                <ion-note item-end *ngIf="waiver.note">{{waiver.note}}</ion-note>
-            </button>
-
-            <ion-item-options>
-                <button ion-button color="danger" (click)="deleteItem(waiver)">
-                    {{ 'DELETE_BUTTON' | translate }}
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
+        <ion-item *ngFor="let waiver of waiversViewModel">
+            <p>{{waiver.name}}</p>
+        </ion-item>
     </ion-list>
-
 </ion-content>

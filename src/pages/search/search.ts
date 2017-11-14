@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { ItemDetailPage } from '../item-detail/item-detail';
 
-import { Waiver } from '../../models/waiver';
+import { model } from '../../models/model';
 
 import { Waivers } from '../../providers/providers';
 
@@ -35,7 +35,7 @@ export class SearchPage {
   /**
    * Navigate to the detail page for this item.
    */
-  openItem(waiver: Waiver) {
+  openItem(waiver: model) {
     this.navCtrl.push(ItemDetailPage, {
       waiver: waiver
     });
