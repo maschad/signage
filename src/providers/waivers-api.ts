@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Headers,Http, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { Api } from './api';
 
-import { Waiver } from '../models/waiver';
+import { model } from '../models/model';
 
 @Injectable()
 export class Waivers {
@@ -13,14 +13,17 @@ export class Waivers {
   }
 
   query(params?: any) {
-    return this.api.get('/waiver', params)
+      let headers = new Headers({'Content-Type': 'application/json'});
+      headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
+      let options = new RequestOptions({ headers: headers });
+    return this.api.get('/waiver', params,options)
       .map(resp => resp.json());
   }
 
-  add(waiver: Waiver) {
+  add(waiver: model) {
   }
 
-  delete(waiver: Waiver) {
+  delete(waiver: model) {
   }
 
 }

@@ -24,6 +24,8 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { Api } from '../providers/api';
 import { Settings } from '../providers/settings';
 import { User } from '../providers/user';
+import { Waivers } from "../providers/waivers-api";
+import { Guests} from "../providers/guests-api";
 
 import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
@@ -35,7 +37,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SignOutPage } from "../pages/sign-out/sign-out";
 import { WaiversPage } from "../pages/waivers/waivers";
 import {CreateWaiverPage} from "../pages/create-waiver/create-waiver";
-import {Waivers} from "../mocks/providers/waivers";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -114,12 +115,13 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
-    Waivers,
     User,
     Camera,
     GoogleMaps,
+    Guests,
     SplashScreen,
     StatusBar,
+    Waivers,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }

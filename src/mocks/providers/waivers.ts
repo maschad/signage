@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { Waiver } from '../../models/waiver';
+import { model } from '../../models/model';
 
 @Injectable()
 export class Waivers {
-  waivers: Waiver[] = [];
+  waivers: model[] = [];
 
   defaultItem: any = {
     "name": "Burt Bear",
@@ -54,7 +54,7 @@ export class Waivers {
     ];
 
     for (let waiver of waivers) {
-      this.waivers.push(new Waiver(waiver));
+      this.waivers.push(new model(waiver));
     }
   }
 
@@ -76,11 +76,11 @@ export class Waivers {
     });
   }
 
-  add(waiver: Waiver) {
+  add(waiver: model) {
     this.waivers.push(waiver);
   }
 
-  delete(waiver: Waiver) {
+  delete(waiver: model) {
     this.waivers.splice(this.waivers.indexOf(waiver), 1);
   }
 }
