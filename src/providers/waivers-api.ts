@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { Api } from './api';
 
 import { model } from '../models/model';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class Waivers {
@@ -12,7 +13,7 @@ export class Waivers {
   constructor(public http: Http, public api: Api) {
   }
 
-  query(params?: any) {
+  query(params?: any): Observable<any> {
       let headers = new Headers({'Content-Type': 'application/json'});
       headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
       let options = new RequestOptions({ headers: headers });
@@ -20,10 +21,10 @@ export class Waivers {
       .map(resp => resp.json());
   }
 
-  add(waiver: model) {
+  add(waiver: model): void {
   }
 
-  delete(waiver: model) {
+  delete(waiver: model): void {
   }
 
 }

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams, ToastController} from 'ionic-angular';
-import {model} from "../../models/model";
 import {Waivers} from "../../providers/waivers-api";
 import {Guests} from "../../providers/guests-api";
 import {TranslateService} from "@ngx-translate/core";
-import {Observable} from "rxjs/Rx";
+import {Observable} from "rxjs";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+
 
 /**
  * Generated class for the WaiversPage page.
@@ -36,15 +38,40 @@ export class WaiversPage {
             this.guestsErrorString = value;
         });
 
-        Observable.forkJoin(this.waivers.query(),this.guests.query()).subscribe( data => {
-            console.log('data ', JSON.stringify(data));
-        })
     }
 
 
 
     ionViewDidLoad() {
-    console.log('ionViewDidLoad WaiversPage');
+        this.loadWaiverViewModel().subscribe( data => console.log('data', JSON.stringify(data[1])))
+    }
+
+    loadWaiverViewModel() {
+        return this.waivers.query()
+            .flatMap(waivers => {
+                if (waivers.length > 0) {
+                    return Observable.forkJoin(
+                        waivers.map(waiver => {
+                            return this.guests.query(waiver.guestId)
+                                .map(guests => {
+                                    let toRet = [];
+                                    for(let x = 0; x < guests.length; x++){
+                                        toRet.push({
+                                            name: guests[x].name,
+                                            lastName: guests[x].lastName,
+                                            trn: guests[x].trn,
+                                            address: guests[x].address,
+                                            expirationDate: waiver.expirationDate
+                                        })
+                                    }
+                                    return toRet
+                                });
+                        })
+                    );
+                }
+                console.log('here');
+                return Observable.of([]);
+            })
     }
 
 }
