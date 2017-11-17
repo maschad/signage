@@ -18,10 +18,37 @@
 
 <ion-content padding>
     <ion-searchbar placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-sm>
+                Name
+            </ion-col>
+            <ion-col col-sm>
+                Last Name
+            </ion-col>
+            <ion-col col-sm>
+                TRN
+            </ion-col>
+            <ion-col col-sm>
+                Address
+            </ion-col>
+            <ion-col col-sm>
+                Expiration Date
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <ion-list>
-
         <ion-item *ngFor="let waiver of waiversViewModel">
-            <p>{{waiver.guest[0].name}}</p>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-sm>{{waiver.guest[0].name}}</ion-col>
+                    <ion-col col-sm>{{waiver.guest[0].lastname}}</ion-col>
+                    <ion-col col-sm>{{waiver.guest[0].trn}}</ion-col>
+                    <ion-col col-sm>{{waiver.guest[0].address}}</ion-col>
+                    <ion-col col-sm>{{waiver.expirationDate}}</ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-item>
     </ion-list>
+
 </ion-content>
