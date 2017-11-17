@@ -17,7 +17,7 @@ export class Waivers {
       let headers = new Headers({'Content-Type': 'application/json'});
       headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
       let options = new RequestOptions({ headers: headers });
-    return this.api.get('/waiver', params,options)
+    return this.api.get('/waiver_v', params,options)
       .map(resp => resp.json());
   }
 

@@ -43,35 +43,8 @@ export class WaiversPage {
 
 
     ionViewDidLoad() {
-        this.loadWaiverViewModel().subscribe( data => console.log('data', JSON.stringify(data[1])))
+        this.waivers.query().subscribe( data => this.waiversViewModel = data)
     }
 
-    loadWaiverViewModel() {
-        return this.waivers.query()
-            .flatMap(waivers => {
-                if (waivers.length > 0) {
-                    return Observable.forkJoin(
-                        waivers.map(waiver => {
-                            return this.guests.query(waiver.guestId)
-                                .map(guests => {
-                                    let toRet = [];
-                                    for(let x = 0; x < guests.length; x++){
-                                        toRet.push({
-                                            name: guests[x].name,
-                                            lastName: guests[x].lastName,
-                                            trn: guests[x].trn,
-                                            address: guests[x].address,
-                                            expirationDate: waiver.expirationDate
-                                        })
-                                    }
-                                    return toRet
-                                });
-                        })
-                    );
-                }
-                console.log('here');
-                return Observable.of([]);
-            })
-    }
 
 }
