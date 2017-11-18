@@ -37,6 +37,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SignOutPage } from "../pages/sign-out/sign-out";
 import { WaiversPage } from "../pages/waivers/waivers";
 import {CreateWaiverPage} from "../pages/create-waiver/create-waiver";
+import {CreateIncidentsPage} from "../pages/create-incident/create-incidents";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -65,6 +66,7 @@ export function provideSettings(storage: Storage) {
     CardsPage,
     ContentPage,
     CreateWaiverPage,
+    CreateIncidentsPage,
     ItemCreatePage,
     ItemDetailPage,
     ListMasterPage,
@@ -99,6 +101,7 @@ export function provideSettings(storage: Storage) {
     CardsPage,
     ContentPage,
     CreateWaiverPage,
+    CreateIncidentsPage,
     ItemCreatePage,
     ItemDetailPage,
     ListMasterPage,
