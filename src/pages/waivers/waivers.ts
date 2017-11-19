@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams, ToastController} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Waivers} from "../../providers/waivers-api";
 import {Guests} from "../../providers/guests-api";
 import {TranslateService} from "@ngx-translate/core";
@@ -22,6 +22,7 @@ export class WaiversPage {
 
     waiverErrorString: string;
     guestsErrorString: string;
+    loading: any;
     waiversViewModel: any[];
 
     constructor(public navCtrl: NavController,
@@ -29,6 +30,7 @@ export class WaiversPage {
                 public  guests: Guests,
                 public toastCtrl: ToastController,
                 public translateService: TranslateService,
+                public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController) {
         this.translateService.get('WAIVER_LOAD_ERROR').subscribe((value) => {
             this.waiverErrorString = value;
@@ -36,13 +38,20 @@ export class WaiversPage {
         this.translateService.get('GUESTS_LOAD_ERROR').subscribe( (value) => {
             this.guestsErrorString = value;
         });
-
+        this.loading = this.loadingCtrl.create({
+            spinner: 'dots',
+        });
     }
 
 
 
     ionViewDidLoad() {
-        this.waivers.query().subscribe( data => this.waiversViewModel = data)
+        this.loading.present();
+        this.waivers.query().subscribe( data => {
+            this.waiversViewModel = data;
+            this.loading.dismiss();
+        });
+
     }
 
 
