@@ -66,7 +66,7 @@
   "CARDS_TITLE": "Social",
 
   "SEARCH_TITLE": "Search",
-  "SEARCH_PLACEHOLDER" : "Search for waivers via a TRN, Name or Last Name, e.g. \"John Brown\"",
+  "SEARCH_PLACEHOLDER" : "Filter by TRN, Name or Last Name",
   "WAIVER_LOAD_ERROR": "Unable to load Waivers",
   "GUESTS_LOAD_ERROR": "Unable to load Guests"
 }

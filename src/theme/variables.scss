@@ -44,9 +44,12 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
-
-
+$label-md-text-color: #083e0c;
+$label-md-text-color-focused: #61b824;
+$loading-md-background: transparent;
+$loading-md-box-shadow: 0 0 0 0px;
+$loading-md-spinner-color: opacify(#67ca67, 0.8);
+$loading-md-spinner-dots-color: opacify(#67ca67, 0.8);
 
 // App Windows Variables
 // --------------------------------------------------
@@ -63,6 +66,8 @@ $colors: (
 // default are overridden.
 
 @import "ionic.theme.default";
+
+
 
 
 // Ionicons

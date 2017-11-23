@@ -22,6 +22,7 @@ export class WaiversPage {
 
     waiverErrorString: string;
     guestsErrorString: string;
+    currentDate: number;
     loading: any;
     waiversViewModel: any[];
 
@@ -39,8 +40,10 @@ export class WaiversPage {
             this.guestsErrorString = value;
         });
         this.loading = this.loadingCtrl.create({
-            spinner: 'dots',
+            spinner: 'circles',
         });
+        //Getting Unix timestamp to compare
+        this.currentDate = Date.now()/1000 | 0;
     }
 
 
