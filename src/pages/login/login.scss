@@ -2,7 +2,9 @@
 .logo-bg {
   background-image: url('../assets/img/alligator_head.png');
   background-size: cover;
-  height: 57%;
+  display: flex;
+  align-items: center;
+  height: 52%;
   max-width: 100%;
 }
 
