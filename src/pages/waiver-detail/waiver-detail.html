@@ -1,0 +1,21 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ 'LIST_DETAIL_TITLE' | translate }}</ion-title>
+    <ion-title [ngClass]="{'expired' : expired,  'valid': !expired}"> {{waiver.expirationDate * 1000 | date:'dd/MM/yyyy'}} </ion-title>
+    <ion-title [ngClass]="{'expired-header' : expired,  'valid-header': !expired}" ></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <button ion-item color="primary" (click)="toggleSection(waiver.guest)" detail-none [ngClass]="{'section-active': waiver.guest.open, 'section': !waiver.guest.open}">
+        <ion-icon item-right name="arrow-dropup" *ngIf="!waiver.guest.open"></ion-icon>
+        <ion-icon item-right name="arrow-dropdown" *ngIf="waiver..guest.open"></ion-icon>
+        Guest
+    </button>
+    <ion-card *ngIf="waiver.guest.open">
+        {{ waiver.guest.name }}
+    </ion-card>
+</ion-content>

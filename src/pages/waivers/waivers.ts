@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams, ToastController} from 'ionic-angular';
+import {LoadingController, ModalController, NavController, ToastController} from 'ionic-angular';
 import {Waivers} from "../../providers/waivers-api";
 import {Guests} from "../../providers/guests-api";
 import {TranslateService} from "@ngx-translate/core";
-import {Observable} from "rxjs";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import {model} from "../../models/model";
+import {WaiverDetailPage} from "../waiver-detail/waiver-detail";
 
 
 /**
@@ -25,6 +26,17 @@ export class WaiversPage {
     currentDate: number;
     loading: any;
     waiversViewModel: any[];
+
+    /**
+     * This component handles the loading of all different waivers
+     * @param {NavController} navCtrl
+     * @param {Waivers} waivers
+     * @param {Guests} guests
+     * @param {ToastController} toastCtrl
+     * @param {TranslateService} translateService
+     * @param {LoadingController} loadingCtrl
+     * @param {ModalController} modalCtrl
+     */
 
     constructor(public navCtrl: NavController,
                 public waivers: Waivers,
@@ -57,5 +69,27 @@ export class WaiversPage {
 
     }
 
+    /**
+     * Perform a service for the proper items.
+     */
+
+    filterItems(ev: any) {
+        let val = ev.target.value;
+
+        if (val && val.trim() !== '') {
+            this.waiversViewModel = this.waiversViewModel.filter(function(waiver) {
+                return waiver.guest.firstName.toLowerCase().includes(val.toLowerCase());
+            });
+        }
+    }
+
+    /**
+     * Navigate to the detail page for this item.
+     */
+    openWaiver(waiver: model) {
+        this.navCtrl.push(WaiverDetailPage, {
+            waiver: waiver
+        });
+    }
 
 }
