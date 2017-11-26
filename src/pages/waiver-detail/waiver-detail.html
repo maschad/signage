@@ -11,11 +11,39 @@
 
 <ion-content>
     <button ion-item color="primary" (click)="toggleSection(waiver.guest)" detail-none [ngClass]="{'section-active': waiver.guest.open, 'section': !waiver.guest.open}">
-        <ion-icon item-right name="arrow-dropup" *ngIf="!waiver.guest.open"></ion-icon>
-        <ion-icon item-right name="arrow-dropdown" *ngIf="waiver..guest.open"></ion-icon>
+        <ion-icon item-right name="arrow-dropup" *ngIf="waiver.guest.open"></ion-icon>
+        <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.guest.open"></ion-icon>
         Guest
     </button>
     <ion-card *ngIf="waiver.guest.open">
-        {{ waiver.guest.name }}
+        <ion-list no-lines>
+            <ion-item>
+                Name: {{ waiver.guest.name }}
+            </ion-item>
+            <ion-item>
+                Last Name: {{waiver.guest.lastName}}
+            </ion-item>
+            <ion-item>
+                Email: {{waiver.guest.email}}
+            </ion-item>
+            <ion-item>
+                TRN: {{waiver.guest.trn}}
+            </ion-item>
+            <ion-item>
+                Address: {{waiver.guest.address}}
+            </ion-item>
+            <ion-item>
+                City: {{waiver.guest.city}}
+            </ion-item>
+            <ion-item>
+                Phone: {{waiver.guest.phone}}
+            </ion-item>
+            <ion-item>
+                Occupation: {{waiver.guest.occupation}}
+            </ion-item>
+            <ion-item>
+                Date: {{currentDate | date: 'dd/mm/yyyy'}}
+            </ion-item>
+        </ion-list>
     </ion-card>
 </ion-content>
