@@ -8,16 +8,18 @@ import { NavController, NavParams } from 'ionic-angular';
 export class WaiverDetailPage {
   waiver: any;
   expired: boolean;
+  currentDate: number;
 
   constructor(public navCtrl: NavController, navParams: NavParams) {
     this.waiver = navParams.get('waiver');
     console.log('waiver', JSON.stringify(this.waiver));
-    this.waiver.map(item => item.open = false);
-    this.expired = this.waiver.expirationDate < Date.now()
+    this.waiver.guest.open = false;
+    this.expired = this.waiver.expirationDate < Date.now();
+    this.currentDate = Date.now();
   }
 
-    toggleSection(key) {
-        this.waiver.open = !this.waiver[key].open;
+    toggleSection(item) {
+      item.open = !item.open
     }
 
 
