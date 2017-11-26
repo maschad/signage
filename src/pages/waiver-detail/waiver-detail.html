@@ -21,7 +21,7 @@
                 Name: {{ waiver.guest.name }}
             </ion-item>
             <ion-item>
-                Last Name: {{waiver.guest.lastName}}
+                Last Name: {{waiver.guest.lastname}}
             </ion-item>
             <ion-item>
                 Email: {{waiver.guest.email}}
@@ -36,10 +36,76 @@
                 City: {{waiver.guest.city}}
             </ion-item>
             <ion-item>
+                Country: {{waiver.guest.country}}
+            </ion-item>
+            <ion-item>
                 Phone: {{waiver.guest.phone}}
             </ion-item>
             <ion-item>
                 Occupation: {{waiver.guest.occupation}}
+            </ion-item>
+            <ion-item>
+                Date: {{currentDate | date: 'dd/mm/yyyy'}}
+            </ion-item>
+        </ion-list>
+    </ion-card>
+    <button ion-item color="primary" (click)="toggleSection(waiver.attachments)" detail-none [ngClass]="{'section-active': waiver.attachments.open, 'section': !waiver.attachments.open}">
+        <ion-icon item-right name="arrow-dropup" *ngIf="waiver.attachments.open"></ion-icon>
+        <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.attachments.open"></ion-icon>
+        Attachments
+    </button>
+    <ion-card *ngIf="waiver.attachments.open">
+        <ion-list *ngFor="let attachment of waiver.attachments">
+            <ion-item>
+                <img src="{{attachment}}">
+            </ion-item>
+        </ion-list>
+    </ion-card>
+    <button ion-item color="primary" (click)="toggleSection(waiver.signature)" detail-none [ngClass]="{'section-active': waiver.attachments.open, 'section': !waiver.attachments.open}">
+        <ion-icon item-right name="arrow-dropup" *ngIf="waiver.signature.open"></ion-icon>
+        <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.signature.open"></ion-icon>
+        Signature
+    </button>
+    <ion-card *ngIf="waiver.signature.open">
+        <ion-list *ngFor="let signature of waiver.signature">
+            <ion-item>
+                <img src="{{signature}}">
+            </ion-item>
+        </ion-list>
+    </ion-card>
+    <button ion-item color="primary" (click)="toggleSection(waiver.witness)" detail-none [ngClass]="{'section-active': waiver.witness.open, 'section': !waiver.witness.open}">
+        <ion-icon item-right name="arrow-dropup" *ngIf="waiver.witness.open"></ion-icon>
+        <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.witness.open"></ion-icon>
+        Witness
+    </button>
+    <ion-card *ngIf="waiver.witness.open">
+        <ion-list no-lines>
+            <ion-item>
+                Name: {{ waiver.witness.name }}
+            </ion-item>
+            <ion-item>
+                Last Name: {{waiver.witness.lastname}}
+            </ion-item>
+            <ion-item>
+                Email: {{waiver.witness.email}}
+            </ion-item>
+            <ion-item>
+                TRN: {{waiver.witness.trn}}
+            </ion-item>
+            <ion-item>
+                Address: {{waiver.witness.address}}
+            </ion-item>
+            <ion-item>
+                City: {{waiver.witness.city}}
+            </ion-item>
+            <ion-item>
+                Country: {{waiver.witness.country}}
+            </ion-item>
+            <ion-item>
+                Phone: {{waiver.witness.phone}}
+            </ion-item>
+            <ion-item>
+                Occupation: {{waiver.witness.occupation}}
             </ion-item>
             <ion-item>
                 Date: {{currentDate | date: 'dd/mm/yyyy'}}
