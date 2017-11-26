@@ -61,12 +61,15 @@ export class WaiversPage {
 
 
     ionViewDidLoad() {
+        this.loadWaivers();
+    }
+    //Load all the waivers
+    loadWaivers() {
         this.loading.present();
         this.waivers.query().subscribe( data => {
             this.waiversViewModel = data;
             this.loading.dismiss();
         });
-
     }
 
     /**
@@ -74,11 +77,12 @@ export class WaiversPage {
      */
 
     filterItems(ev: any) {
+        //Target value to search with
         let val = ev.target.value;
-
+        //Don't search on empty string
         if (val && val.trim() !== '') {
             this.waiversViewModel = this.waiversViewModel.filter(function(waiver) {
-                return waiver.guest.firstName.toLowerCase().includes(val.toLowerCase());
+                return waiver.guest.name.toLowerCase().includes(val.toLowerCase() > -1);
             });
         }
     }

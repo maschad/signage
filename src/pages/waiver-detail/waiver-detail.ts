@@ -12,8 +12,13 @@ export class WaiverDetailPage {
 
   constructor(public navCtrl: NavController, navParams: NavParams) {
     this.waiver = navParams.get('waiver');
-    console.log('waiver', JSON.stringify(this.waiver));
+    //Set all initial items' open to false
+    //#TODO: Optimize this
     this.waiver.guest.open = false;
+    this.waiver.attachments.open = false;
+    this.waiver.signature.open = false;
+    this.waiver.witness.open = false;
+    //Set whether this waiver is expired
     this.expired = this.waiver.expirationDate < Date.now();
     this.currentDate = Date.now();
   }
