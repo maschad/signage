@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { Item } from '../../models/item';
+import { model } from '../../models/model';
 
 @Injectable()
-export class Items {
-  items: Item[] = [];
+export class Waivers {
+  waivers: model[] = [];
 
   defaultItem: any = {
     "name": "Burt Bear",
@@ -15,7 +15,7 @@ export class Items {
 
 
   constructor(public http: Http) {
-    let items = [
+    let waivers = [
       {
         "name": "Burt Bear",
         "profilePic": "assets/img/speakers/bear.jpg",
@@ -53,17 +53,17 @@ export class Items {
       }
     ];
 
-    for (let item of items) {
-      this.items.push(new Item(item));
+    for (let waiver of waivers) {
+      this.waivers.push(new model(waiver));
     }
   }
 
   query(params?: any) {
     if (!params) {
-      return this.items;
+      return this.waivers;
     }
 
-    return this.items.filter((item) => {
+    return this.waivers.filter((item) => {
       for (let key in params) {
         let field = item[key];
         if (typeof field == 'string' && field.toLowerCase().indexOf(params[key].toLowerCase()) >= 0) {
@@ -76,11 +76,11 @@ export class Items {
     });
   }
 
-  add(item: Item) {
-    this.items.push(item);
+  add(waiver: model) {
+    this.waivers.push(waiver);
   }
 
-  delete(item: Item) {
-    this.items.splice(this.items.indexOf(item), 1);
+  delete(waiver: model) {
+    this.waivers.splice(this.waivers.indexOf(waiver), 1);
   }
 }

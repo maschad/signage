@@ -9,12 +9,10 @@ import { MyApp } from './app.component';
 import { CardsPage } from '../pages/cards/cards';
 import { ContentPage } from '../pages/content/content';
 import { ItemCreatePage } from '../pages/item-create/item-create';
-import { ItemDetailPage } from '../pages/item-detail/item-detail';
-import { ListMasterPage } from '../pages/list-master/list-master';
+import { WaiverDetailPage } from '../pages/waiver-detail/waiver-detail';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
 import { MenuPage } from '../pages/menu/menu';
-import { SearchPage } from '../pages/search/search';
 import { SettingsPage } from '../pages/settings/settings';
 import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -22,9 +20,10 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { WelcomePage } from '../pages/welcome/welcome';
 
 import { Api } from '../providers/api';
-import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/settings';
 import { User } from '../providers/user';
+import { Waivers } from "../providers/waivers-api";
+import { Guests} from "../providers/guests-api";
 
 import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
@@ -36,6 +35,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SignOutPage } from "../pages/sign-out/sign-out";
 import { WaiversPage } from "../pages/waivers/waivers";
 import {CreateWaiverPage} from "../pages/create-waiver/create-waiver";
+import {CreateIncidentsPage} from "../pages/create-incident/create-incidents";
+import {UtilitiesModule} from "../utilities/utilities-module";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -52,9 +53,9 @@ export function provideSettings(storage: Storage) {
    */
   return new Settings(storage, {
     option1: true,
-    option2: 'Ionitron J. Framework',
-    option3: '3',
-    option4: 'Hello'
+    option2: 'setting',
+    option3: 'setting2',
+    option4: 'setting3'
   });
 }
 
@@ -64,13 +65,12 @@ export function provideSettings(storage: Storage) {
     CardsPage,
     ContentPage,
     CreateWaiverPage,
+    CreateIncidentsPage,
     ItemCreatePage,
-    ItemDetailPage,
-    ListMasterPage,
+    WaiverDetailPage,
     LoginPage,
     MapPage,
     MenuPage,
-    SearchPage,
     SettingsPage,
     SignupPage,
     SignOutPage,
@@ -82,6 +82,7 @@ export function provideSettings(storage: Storage) {
   imports: [
     BrowserModule,
     HttpModule,
+    UtilitiesModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -98,13 +99,12 @@ export function provideSettings(storage: Storage) {
     CardsPage,
     ContentPage,
     CreateWaiverPage,
+    CreateIncidentsPage,
     ItemCreatePage,
-    ItemDetailPage,
-    ListMasterPage,
+    WaiverDetailPage,
     LoginPage,
     MapPage,
     MenuPage,
-    SearchPage,
     SettingsPage,
     SignupPage,
     TabsPage,
@@ -114,12 +114,13 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
-    Items,
     User,
     Camera,
     GoogleMaps,
+    Guests,
     SplashScreen,
     StatusBar,
+    Waivers,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }
