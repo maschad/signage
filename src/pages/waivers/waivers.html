@@ -18,11 +18,11 @@
 
 <ion-content padding>
     <ion-toolbar no-border-top>
-        <ion-searchbar animated="true" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}" (ionInput)="filterItems($event)"></ion-searchbar>
+        <ion-searchbar animated="true" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}" [(ngModel)]="searchTerm" [formControl] ="searchControl"></ion-searchbar>
     </ion-toolbar>
     <ion-list>
         <ion-item *ngFor="let waiver of waiversViewModel">
-            <button color="tertiary" ion-item (click)="openWaiver(waiver)">
+            <button color="primary" ion-item (click)="openWaiver(waiver)">
                 <p [ngStyle]="{ 'color' : waiver.expirationDate < currentDate ? 'red' : 'white' }">{{waiver.guest.name}} {{waiver.guest.lastname}} {{waiver.expirationDate * 1000 | date:'dd/MM/yyyy'}}</p>
             </button>
         </ion-item>

@@ -5,8 +5,10 @@ import {Guests} from "../../providers/guests-api";
 import {TranslateService} from "@ngx-translate/core";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/debounceTime';
 import {model} from "../../models/model";
 import {WaiverDetailPage} from "../waiver-detail/waiver-detail";
+import {FormControl} from "@angular/forms";
 
 
 /**
@@ -24,8 +26,9 @@ export class WaiversPage {
     waiverErrorString: string;
     guestsErrorString: string;
     currentDate: number;
-    loading: any;
     waiversViewModel: any[];
+    searchTerm: string = '';
+    searchControl: FormControl;
 
     /**
      * This component handles the loading of all different waivers
@@ -51,24 +54,28 @@ export class WaiversPage {
         this.translateService.get('GUESTS_LOAD_ERROR').subscribe( (value) => {
             this.guestsErrorString = value;
         });
-        this.loading = this.loadingCtrl.create({
-            spinner: 'circles',
-        });
         //Getting Unix timestamp to compare
         this.currentDate = Date.now()/1000 | 0;
+        this.searchControl = new FormControl();
     }
 
 
 
     ionViewDidLoad() {
         this.loadWaivers();
+        this.searchControl.valueChanges.debounceTime(700).subscribe(search => this.setFilteredWaivers())
     }
+
     //Load all the waivers
     loadWaivers() {
-        this.loading.present();
-        this.waivers.query().subscribe( data => {
-            this.waiversViewModel = data;
-            this.loading.dismiss();
+        let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+        });
+        loading.present().then(() => {
+            this.waivers.query().subscribe( data => {
+                this.waiversViewModel = data;
+                loading.dismiss().catch();
+            });
         });
     }
 
@@ -76,15 +83,10 @@ export class WaiversPage {
      * Perform a service for the proper items.
      */
 
-    filterItems(ev: any) {
-        //Target value to search with
-        let val = ev.target.value;
-        //Don't search on empty string
-        if (val && val.trim() !== '') {
-            this.waiversViewModel = this.waiversViewModel.filter(function(waiver) {
-                return waiver.guest.name.toLowerCase().includes(val.toLowerCase() > -1);
-            });
-        }
+    setFilteredWaivers() {
+        this.waiversViewModel =  this.waiversViewModel.filter(waiver => {
+            return waiver.guest.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+        });
     }
 
     /**
