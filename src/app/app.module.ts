@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { PhotoViewer } from "@ionic-native/photo-viewer";
 import { Storage, IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
@@ -118,6 +119,7 @@ export function provideSettings(storage: Storage) {
     Camera,
     GoogleMaps,
     Guests,
+    PhotoViewer,
     SplashScreen,
     StatusBar,
     Waivers,
