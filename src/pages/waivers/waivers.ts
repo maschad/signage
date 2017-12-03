@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, LoadingController, NavController, ToastController} from 'ionic-angular';
+import {AlertController, LoadingController, NavController} from 'ionic-angular';
 import {Waivers} from "../../providers/waivers-api";
 import {TranslateService} from "@ngx-translate/core";
 import 'rxjs/add/operator/map';

@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuController, NavController } from 'ionic-angular';
-
-import { WelcomePage } from '../welcome/welcome';
-
 import { TranslateService } from '@ngx-translate/core';
-import {SignupPage} from "../signup/signup";
 import {LoginPage} from "../login/login";
 
 
