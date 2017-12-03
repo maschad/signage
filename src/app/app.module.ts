@@ -37,6 +37,9 @@ import { WaiversPage } from "../pages/waivers/waivers";
 import {CreateWaiverPage} from "../pages/create-waiver/create-waiver";
 import {CreateIncidentsPage} from "../pages/create-incident/create-incidents";
 import {UtilitiesModule} from "../utilities/utilities-module";
+import {IncidentsPage} from "../pages/incidents/incidents";
+import {IncidentDetailPage} from "../pages/incident-detail/incident-detail";
+import {Incidents} from "../providers/incidents-api";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -67,6 +70,8 @@ export function provideSettings(storage: Storage) {
     CreateWaiverPage,
     CreateIncidentsPage,
     ItemCreatePage,
+    IncidentsPage,
+    IncidentDetailPage,
     WaiverDetailPage,
     LoginPage,
     MapPage,
@@ -100,7 +105,8 @@ export function provideSettings(storage: Storage) {
     CreateWaiverPage,
     CreateIncidentsPage,
     ItemCreatePage,
-    WaiverDetailPage,
+    IncidentsPage,
+    IncidentDetailPage,
     LoginPage,
     MapPage,
     MenuPage,
@@ -109,6 +115,7 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     TutorialPage,
     WaiversPage,
+    WaiverDetailPage,
     WelcomePage
   ],
   providers: [
@@ -117,6 +124,7 @@ export function provideSettings(storage: Storage) {
     Camera,
     GoogleMaps,
     Guests,
+    Incidents,
     PhotoViewer,
     SplashScreen,
     StatusBar,
