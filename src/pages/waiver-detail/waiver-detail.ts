@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {PhotoViewer} from "@ionic-native/photo-viewer";
 
 @Component({
   selector: 'waiver-detail',
@@ -10,7 +11,7 @@ export class WaiverDetailPage {
   expired: boolean;
   currentDate: number;
 
-  constructor(public navCtrl: NavController, navParams: NavParams) {
+  constructor(public navCtrl: NavController, navParams: NavParams, private photoViewer: PhotoViewer) {
     this.waiver = navParams.get('waiver');
     //Set all initial items' open to false
     //#TODO: Optimize this
@@ -25,6 +26,10 @@ export class WaiverDetailPage {
 
     toggleSection(item) {
       item.open = !item.open
+    }
+
+    showPicture (url) {
+      this.photoViewer.show(url, `${this.waiver.guest.name} ${this.waiver.guest.lastname}`,{share:false})
     }
 
 

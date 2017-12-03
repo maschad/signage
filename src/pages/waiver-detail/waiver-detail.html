@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ 'LIST_DETAIL_TITLE' | translate }}</ion-title>
+    <ion-title>{{ 'WAIVER_DETAIL_TITLE' | translate }}</ion-title>
     <ion-title [ngClass]="{'expired' : expired,  'valid': !expired}"> {{waiver.expirationDate * 1000 | date:'dd/MM/yyyy'}} </ion-title>
     <ion-title [ngClass]="{'expired-header' : expired,  'valid-header': !expired}" ></ion-title>
   </ion-navbar>
@@ -57,7 +57,7 @@
     <ion-card *ngIf="waiver.attachments.open">
         <ion-list *ngFor="let attachment of waiver.attachments">
             <ion-item>
-                <img src="{{attachment}}">
+                <img src="{{attachment}}" (click)="showPicture(attachment)">
             </ion-item>
         </ion-list>
     </ion-card>
@@ -69,7 +69,7 @@
     <ion-card *ngIf="waiver.signature.open">
         <ion-list *ngFor="let signature of waiver.signature">
             <ion-item>
-                <img src="{{signature}}">
+                <img src="{{signature}}" (click)="showPicture(signature)">
             </ion-item>
         </ion-list>
     </ion-card>
