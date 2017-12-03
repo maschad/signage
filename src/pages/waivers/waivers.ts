@@ -23,7 +23,6 @@ import {FormControl} from "@angular/forms";
 export class WaiversPage {
 
     waiverErrorString: string;
-    guestsErrorString: string;
     currentDate: number;
     waiversViewModel: any[];
     searchTerm: string = '';
@@ -37,13 +36,11 @@ export class WaiversPage {
      * @param {ToastController} toastCtrl
      * @param {TranslateService} translateService
      * @param {LoadingController} loadingCtrl
-     * @param {ModalController} modalCtrl
      */
 
     constructor(private alertCtrl: AlertController,
                 public navCtrl: NavController,
                 public waivers: Waivers,
-                public toastCtrl: ToastController,
                 public translateService: TranslateService,
                 public loadingCtrl: LoadingController
     ) {

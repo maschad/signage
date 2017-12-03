@@ -12,8 +12,8 @@
     <button ion-item color="primary" (click)="toggleSection(incident.report)" detail-none [ngClass]="{'section-active': incident.report.open, 'section': !incident.report.open}">
         <ion-icon item-right name="arrow-dropup" *ngIf="incident.report.open"></ion-icon>
         <ion-icon item-right name="arrow-dropdown" *ngIf="!incident.report.open"></ion-icon>
-    </button>
         Report
+    </button>
     <ion-card *ngIf="incident.report.open" padding>
         <p> {{incident.report}}</p>
     </ion-card>
