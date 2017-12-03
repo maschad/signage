@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {LoadingController, ModalController, NavController, ToastController} from 'ionic-angular';
+import {AlertController, LoadingController, NavController, ToastController} from 'ionic-angular';
 import {Waivers} from "../../providers/waivers-api";
-import {Guests} from "../../providers/guests-api";
 import {TranslateService} from "@ngx-translate/core";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
@@ -41,22 +40,28 @@ export class WaiversPage {
      * @param {ModalController} modalCtrl
      */
 
-    constructor(public navCtrl: NavController,
+    constructor(private alertCtrl: AlertController,
+                public navCtrl: NavController,
                 public waivers: Waivers,
-                public  guests: Guests,
                 public toastCtrl: ToastController,
                 public translateService: TranslateService,
-                public loadingCtrl: LoadingController,
-                public modalCtrl: ModalController) {
+                public loadingCtrl: LoadingController
+    ) {
         this.translateService.get('WAIVER_LOAD_ERROR').subscribe((value) => {
             this.waiverErrorString = value;
-        });
-        this.translateService.get('GUESTS_LOAD_ERROR').subscribe( (value) => {
-            this.guestsErrorString = value;
         });
         //Getting Unix timestamp to compare
         this.currentDate = Date.now()/1000 | 0;
         this.searchControl = new FormControl();
+    }
+
+    presentAlert() {
+        let alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: this.waiverErrorString,
+            buttons: ['Dismiss']
+        });
+        alert.present();
     }
 
 
@@ -75,7 +80,7 @@ export class WaiversPage {
             this.waivers.query().subscribe( data => {
                 this.waiversViewModel = data;
                 loading.dismiss().catch();
-            });
+            }, () => this.presentAlert());
         });
     }
 

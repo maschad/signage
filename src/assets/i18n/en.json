@@ -67,7 +67,12 @@
   "CARDS_TITLE": "Social",
 
   "SEARCH_TITLE": "Search",
-  "SEARCH_PLACEHOLDER" : "Filter by TRN, Name or Last Name",
+  "SEARCH_WAIVERS_PLACEHOLDER" : "Filter by TRN, Name or Last Name",
+  "SEARCH_INCIDENTS_PLACEHOLDER": "Filter by title, report or user",
   "WAIVER_LOAD_ERROR": "Unable to load Waivers",
-  "GUESTS_LOAD_ERROR": "Unable to load Guests"
+  "GUESTS_LOAD_ERROR": "Unable to load Guests",
+  "INCIDENT_LOAD_ERROR": "unable to load Incidents",
+
+  "INCIDENT_MASTER_TITLE": "Incidents",
+  "INCIDENT_DETAIL_TITLE": "Incidents"
 }
