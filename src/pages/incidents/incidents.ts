@@ -4,6 +4,11 @@ import {TranslateService} from "@ngx-translate/core";
 import {Incidents} from "../../providers/incidents-api";
 import {model} from "../../models/model";
 import {IncidentDetailPage} from "../incident-detail/incident-detail";
+import {FormControl} from "@angular/forms";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/debounceTime';
+
 
 /**
  * Generated class for the IncidentsPage page.
@@ -18,6 +23,8 @@ import {IncidentDetailPage} from "../incident-detail/incident-detail";
 export class IncidentsPage {
     incidentsErrorString: string;
     incidentViewModel: any[];
+    searchTerm: string = '';
+    searchControl: FormControl;
 
   constructor(public navCtrl: NavController,
               public incidents: Incidents,
@@ -27,10 +34,12 @@ export class IncidentsPage {
       this.translateService.get('INCIDENT_LOAD_ERROR').subscribe((value) => {
           this.incidentsErrorString = value;
       });
+      this.searchControl = new FormControl();
   }
 
   ionViewDidLoad() {
       this.loadIncidents();
+      this.searchControl.valueChanges.debounceTime(700).subscribe(search => this.loadIncidents())
   }
 
     presentAlert() {
@@ -50,6 +59,12 @@ export class IncidentsPage {
         loading.present().then(() => {
             this.incidents.query().subscribe( data => {
                 this.incidentViewModel = data;
+                //Filter on criteria
+                this.incidentViewModel =  this.incidentViewModel.filter(incident => {
+                    return incident.title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1 ||
+                        incident.user.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1 ||
+                        incident.user.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+                });
                 loading.dismiss().catch();
             }, () => this.presentAlert());
         });
