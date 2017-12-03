@@ -33,7 +33,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { SignOutPage } from "../pages/sign-out/sign-out";
 import { WaiversPage } from "../pages/waivers/waivers";
 import {CreateWaiverPage} from "../pages/create-waiver/create-waiver";
 import {CreateIncidentsPage} from "../pages/create-incident/create-incidents";
@@ -74,7 +73,6 @@ export function provideSettings(storage: Storage) {
     MenuPage,
     SettingsPage,
     SignupPage,
-    SignOutPage,
     TabsPage,
     TutorialPage,
     WelcomePage,
