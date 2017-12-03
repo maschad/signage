@@ -80,7 +80,10 @@ export class WaiversPage {
             this.waivers.query().subscribe( data => {
                 this.waiversViewModel = data;
                 this.waiversViewModel =  this.waiversViewModel.filter(waiver => {
-                    return waiver.guest.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+                    return waiver.guest.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1 ||
+                        waiver.guest.lastname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1 ||
+                        waiver.guest.trn.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1 ||
+                        waiver.guest.address.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
                 });
                 loading.dismiss().catch();
             }, () => this.presentAlert());
