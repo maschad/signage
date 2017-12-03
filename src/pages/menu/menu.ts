@@ -5,7 +5,7 @@ import {WaiversPage} from "../waivers/waivers";
 import {CreateWaiverPage} from "../create-waiver/create-waiver";
 import {IncidentsPage} from "../incidents/incidents";
 import {CreateIncidentsPage} from "../create-incident/create-incidents";
-import {SignOutPage} from "../sign-out/sign-out";
+import {LoginPage} from "../login/login";
 
 
 
@@ -28,7 +28,7 @@ export class MenuPage {
         {title: 'New Waiver', component: CreateWaiverPage},
         {title: 'Incidents', component: IncidentsPage},
         {title: 'New Incident', component: CreateIncidentsPage},
-        {title: 'Sign Out', component: SignOutPage}
+        {title: 'Sign Out', component: LoginPage}
     ];
   }
 
