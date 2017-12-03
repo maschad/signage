@@ -68,7 +68,7 @@ export class WaiversPage {
 
     ionViewDidLoad() {
         this.loadWaivers();
-        this.searchControl.valueChanges.debounceTime(700).subscribe(search => this.setFilteredWaivers())
+        this.searchControl.valueChanges.debounceTime(700).subscribe(search => this.loadWaivers())
     }
 
     //Load all the waivers
@@ -79,20 +79,14 @@ export class WaiversPage {
         loading.present().then(() => {
             this.waivers.query().subscribe( data => {
                 this.waiversViewModel = data;
+                this.waiversViewModel =  this.waiversViewModel.filter(waiver => {
+                    return waiver.guest.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+                });
                 loading.dismiss().catch();
             }, () => this.presentAlert());
         });
     }
 
-    /**
-     * Perform a service for the proper items.
-     */
-
-    setFilteredWaivers() {
-        this.waiversViewModel =  this.waiversViewModel.filter(waiver => {
-            return waiver.guest.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-        });
-    }
 
     /**
      * Navigate to the detail page for this item.
