@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { PhotoViewer } from "@ionic-native/photo-viewer";
 import { Storage, IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
@@ -32,11 +33,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { SignOutPage } from "../pages/sign-out/sign-out";
 import { WaiversPage } from "../pages/waivers/waivers";
 import {CreateWaiverPage} from "../pages/create-waiver/create-waiver";
 import {CreateIncidentsPage} from "../pages/create-incident/create-incidents";
 import {UtilitiesModule} from "../utilities/utilities-module";
+import {IncidentsPage} from "../pages/incidents/incidents";
+import {IncidentDetailPage} from "../pages/incident-detail/incident-detail";
+import {Incidents} from "../providers/incidents-api";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -67,13 +70,14 @@ export function provideSettings(storage: Storage) {
     CreateWaiverPage,
     CreateIncidentsPage,
     ItemCreatePage,
+    IncidentsPage,
+    IncidentDetailPage,
     WaiverDetailPage,
     LoginPage,
     MapPage,
     MenuPage,
     SettingsPage,
     SignupPage,
-    SignOutPage,
     TabsPage,
     TutorialPage,
     WelcomePage,
@@ -101,7 +105,8 @@ export function provideSettings(storage: Storage) {
     CreateWaiverPage,
     CreateIncidentsPage,
     ItemCreatePage,
-    WaiverDetailPage,
+    IncidentsPage,
+    IncidentDetailPage,
     LoginPage,
     MapPage,
     MenuPage,
@@ -110,6 +115,7 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     TutorialPage,
     WaiversPage,
+    WaiverDetailPage,
     WelcomePage
   ],
   providers: [
@@ -118,6 +124,8 @@ export function provideSettings(storage: Storage) {
     Camera,
     GoogleMaps,
     Guests,
+    Incidents,
+    PhotoViewer,
     SplashScreen,
     StatusBar,
     Waivers,

@@ -32,7 +32,6 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-/config.xml
 /package-lock.json
 /.github/
 resources/README.md
@@ -42,3 +41,6 @@ resources/ios/splash/Default@2x~universal~anyany.png
 /my-release-key.jks
 /shieldsGate-0.1.apk
 /shieldsGate_0.0.2.apk
+/package.json
+/AHGate-0.0.1.apk
+/my-release-key.keystore

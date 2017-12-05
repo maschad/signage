@@ -1,0 +1,53 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{ 'INCIDENT_DETAIL_TITLE' | translate }}</ion-title>
+        <ion-title> {{title}} </ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <button ion-item color="primary" (click)="toggleSection(incident.report)" detail-none [ngClass]="{'section-active': incident.report.open, 'section': !incident.report.open}">
+        <ion-icon item-right name="arrow-dropup" *ngIf="incident.report.open"></ion-icon>
+        <ion-icon item-right name="arrow-dropdown" *ngIf="!incident.report.open"></ion-icon>
+        Report
+    </button>
+    <ion-card *ngIf="incident.report.open" padding>
+        <p> {{incident.report}}</p>
+    </ion-card>
+    <button ion-item color="primary" (click)="toggleSection(incident.attachments)" detail-none [ngClass]="{'section-active': incident.attachments.open, 'section': !incident.attachments.open}">
+        <ion-icon item-right name="arrow-dropup" *ngIf="incident.attachments.open"></ion-icon>
+        <ion-icon item-right name="arrow-dropdown" *ngIf="!incident.attachments.open"></ion-icon>
+        Attachments
+    </button>
+    <ion-card *ngIf="incident.attachments.open">
+        <ion-list *ngFor="let attachment of incident.attachments">
+            <ion-item>
+                <img src="{{attachment}}" (click)="showPicture(attachment)">
+            </ion-item>
+        </ion-list>
+    </ion-card>
+    <button ion-item color="primary" (click)="toggleSection(incident.user)" detail-none [ngClass]="{'section-active': incident.user.open, 'section': !incident.user.open}">
+        <ion-icon item-right name="arrow-dropup" *ngIf="incident.user.open"></ion-icon>
+        <ion-icon item-right name="arrow-dropdown" *ngIf="!incident.user.open"></ion-icon>
+        User
+    </button>
+    <ion-card *ngIf="incident.user.open">
+        <ion-list no-lines>
+            <ion-item>
+                Name: {{ incident.user.name }}
+            </ion-item>
+            <ion-item>
+                Last Name: {{incident.user.lastname}}
+            </ion-item>
+            <ion-item>
+                Email: {{incident.user.email}}
+            </ion-item>
+            <ion-item>
+                Date: {{currentDate | date: 'dd/mm/yyyy'}}
+            </ion-item>
+        </ion-list>
+    </ion-card>
+</ion-content>

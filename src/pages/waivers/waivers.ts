@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import {LoadingController, ModalController, NavController, ToastController} from 'ionic-angular';
+import {AlertController, LoadingController, NavController} from 'ionic-angular';
 import {Waivers} from "../../providers/waivers-api";
-import {Guests} from "../../providers/guests-api";
 import {TranslateService} from "@ngx-translate/core";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/debounceTime';
 import {model} from "../../models/model";
 import {WaiverDetailPage} from "../waiver-detail/waiver-detail";
+import {FormControl} from "@angular/forms";
 
 
 /**
@@ -22,10 +23,10 @@ import {WaiverDetailPage} from "../waiver-detail/waiver-detail";
 export class WaiversPage {
 
     waiverErrorString: string;
-    guestsErrorString: string;
     currentDate: number;
-    loading: any;
     waiversViewModel: any[];
+    searchTerm: string = '';
+    searchControl: FormControl;
 
     /**
      * This component handles the loading of all different waivers
@@ -35,57 +36,57 @@ export class WaiversPage {
      * @param {ToastController} toastCtrl
      * @param {TranslateService} translateService
      * @param {LoadingController} loadingCtrl
-     * @param {ModalController} modalCtrl
      */
 
-    constructor(public navCtrl: NavController,
+    constructor(private alertCtrl: AlertController,
+                public navCtrl: NavController,
                 public waivers: Waivers,
-                public  guests: Guests,
-                public toastCtrl: ToastController,
                 public translateService: TranslateService,
-                public loadingCtrl: LoadingController,
-                public modalCtrl: ModalController) {
+                public loadingCtrl: LoadingController
+    ) {
         this.translateService.get('WAIVER_LOAD_ERROR').subscribe((value) => {
             this.waiverErrorString = value;
         });
-        this.translateService.get('GUESTS_LOAD_ERROR').subscribe( (value) => {
-            this.guestsErrorString = value;
-        });
-        this.loading = this.loadingCtrl.create({
-            spinner: 'circles',
-        });
         //Getting Unix timestamp to compare
         this.currentDate = Date.now()/1000 | 0;
+        this.searchControl = new FormControl();
+    }
+
+    presentAlert() {
+        let alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: this.waiverErrorString,
+            buttons: ['Dismiss']
+        });
+        alert.present();
     }
 
 
 
     ionViewDidLoad() {
         this.loadWaivers();
+        this.searchControl.valueChanges.debounceTime(700).subscribe(search => this.loadWaivers())
     }
+
     //Load all the waivers
     loadWaivers() {
-        this.loading.present();
-        this.waivers.query().subscribe( data => {
-            this.waiversViewModel = data;
-            this.loading.dismiss();
+        let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+        });
+        loading.present().then(() => {
+            this.waivers.query().subscribe( data => {
+                this.waiversViewModel = data;
+                this.waiversViewModel =  this.waiversViewModel.filter(waiver => {
+                    return waiver.guest.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1 ||
+                        waiver.guest.lastname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1 ||
+                        waiver.guest.trn.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1 ||
+                        waiver.guest.address.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+                });
+                loading.dismiss().catch();
+            }, () => this.presentAlert());
         });
     }
 
-    /**
-     * Perform a service for the proper items.
-     */
-
-    filterItems(ev: any) {
-        //Target value to search with
-        let val = ev.target.value;
-        //Don't search on empty string
-        if (val && val.trim() !== '') {
-            this.waiversViewModel = this.waiversViewModel.filter(function(waiver) {
-                return waiver.guest.name.toLowerCase().includes(val.toLowerCase() > -1);
-            });
-        }
-    }
 
     /**
      * Navigate to the detail page for this item.
