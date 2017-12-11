@@ -54,8 +54,10 @@
   "WAIVER_MASTER_TITLE": "Waivers",
   "WAIVER_DETAIL_TITLE": "Waiver Info",
 
-  "ITEM_CREATE_TITLE": "New Item",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Add Image",
+  "WAIVER_FORM_SLIDE1_TITLE": "Guest",
+  "WAIVER_FORM_SLIDE2_TITLE": "Witness",
+  "WAIVER_FORM_SLIDE3_TITLE": "Attachments",
+  "WAIVER_FORM_SLIDE5_TITLE": "Summary",
 
   "ITEM_NAME_PLACEHOLDER" : "Name",
   "ITEM_ABOUT_PLACEHOLDER" : "About",

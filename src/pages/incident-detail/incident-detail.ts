@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {PhotoViewer} from "@ionic-native/photo-viewer";
+import { PhotoViewer } from "@ionic-native/photo-viewer";
 import 'rxjs/add/operator/map';
+import * as _ from 'lodash';
+import { tassign } from 'tassign';
 
 
 /**
@@ -15,19 +17,16 @@ import 'rxjs/add/operator/map';
   templateUrl: 'incident-detail.html',
 })
 export class IncidentDetailPage {
-    incident: any;
-    title: string;
+  incident: any;
+  title: string;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private photoViewer: PhotoViewer) {
-      this.incident = navParams.get('incident');
-      this.title = this.incident.title;
-      // #TODO: Optimize this
-      this.incident.report = new Object(this.incident.report);
-      this.incident.report.open = true;
-      this.incident.attachments.open = true;
-      this.incident.user.open = true;
+    public navParams: NavParams,
+    private photoViewer: PhotoViewer) {
+    this.incident = navParams.get('incident');
+    this.title = this.incident.title;
+    //Set all initial items' open to true
+    _.forEach(this.incident, (item) => tassign(item.open, true));
 
   }
 
@@ -35,13 +34,13 @@ export class IncidentDetailPage {
     console.log('ionViewDidLoad IncidentDetailPage');
   }
 
-    toggleSection(item) {
-        item.open = !item.open
-    }
+  toggleSection(item) {
+    item.open = !item.open
+  }
 
-    showPicture (url) {
-        this.photoViewer.show(url, `${this.title}`,{share:false})
-    }
+  showPicture(url) {
+    this.photoViewer.show(url, `${this.title}`, { share: false })
+  }
 
 
 }

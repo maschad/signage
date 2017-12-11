@@ -40,6 +40,7 @@ import {UtilitiesModule} from "../utilities/utilities-module";
 import {IncidentsPage} from "../pages/incidents/incidents";
 import {IncidentDetailPage} from "../pages/incident-detail/incident-detail";
 import {Incidents} from "../providers/incidents-api";
+import {CreateWaiverModule} from "../pages/create-waiver/create-waiver-module";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -67,7 +68,6 @@ export function provideSettings(storage: Storage) {
     MyApp,
     CardsPage,
     ContentPage,
-    CreateWaiverPage,
     CreateIncidentsPage,
     ItemCreatePage,
     IncidentsPage,
@@ -85,6 +85,7 @@ export function provideSettings(storage: Storage) {
   ],
   imports: [
     BrowserModule,
+    CreateWaiverModule,
     HttpModule,
     UtilitiesModule.forRoot(),
     TranslateModule.forRoot({
@@ -95,7 +96,7 @@ export function provideSettings(storage: Storage) {
       }
     }),
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

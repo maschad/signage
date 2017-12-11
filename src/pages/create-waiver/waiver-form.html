@@ -1,0 +1,35 @@
+<form [formGroup]="waiver" (ngSubmit)="slideNext()">
+    <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Last Name</ion-label>
+        <ion-input type="text" formControlName="lastName"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>TRN</ion-label>
+        <ion-input type="text" formControlName="trn"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Address</ion-label>
+        <ion-input type="text" formControlName="address"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>City</ion-label>
+        <ion-input type="text" formControlName="city"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Occupation</ion-label>
+        <ion-input type="text" formControlName="occupation"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Phone</ion-label>
+        <ion-input type="number" formControlName="phone"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!waiver.valid">Next</button>
+</form>

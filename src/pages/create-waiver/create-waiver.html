@@ -5,19 +5,23 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-      <ion-buttons end>
-          <button ion-button menuToggle icon-only>
-              <ion-icon name="menu"></ion-icon>
-          </button>
-      </ion-buttons>
-    <ion-title>Create a Waiver</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button menuToggle icon-only>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ 'WAIVER_MASTER_TITLE' | translate }}</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-
+    <ion-slides pager #createWaiverSlider>
+        <ion-slide *ngFor="let slide of slides">
+            <h2 [innerHTML]="slide.title"></h2>
+            <waiver-form></waiver-form>
+        </ion-slide>
+        <button ion-button color="primary" (click)="next(slide.page.getValidity())"></button>
+    </ion-slides>
 </ion-content>
