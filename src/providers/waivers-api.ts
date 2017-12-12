@@ -23,8 +23,9 @@ export class Waivers {
       .map(resp => resp.json());
   }
 
-  add(waiver: model): void {
-
+  add(waiver: model): Observable<any> {
+    return this.api.post('/waiver', waiver, this.options)
+        .map(resp => resp.json());
   }
 
   delete(waiver: model): void {

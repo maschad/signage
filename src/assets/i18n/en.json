@@ -76,5 +76,7 @@
   "INCIDENT_LOAD_ERROR": "unable to load Incidents",
 
   "INCIDENT_MASTER_TITLE": "Incidents",
-  "INCIDENT_DETAIL_TITLE": "Incidents"
+  "INCIDENT_DETAIL_TITLE": "Incidents",
+
+  "CREATE_ATTACHMENT_TITLE": "Attachements"
 }

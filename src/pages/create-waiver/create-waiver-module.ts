@@ -3,6 +3,7 @@ import {WaiverForm} from "./waiver-form";
 import {CreateWaiverPage} from "./create-waiver";
 import {IonicPageModule} from "ionic-angular";
 import {TranslateModule} from "@ngx-translate/core";
+import {CreateAttachmentPage} from "../create-attachment/create-attachment";
 
 @NgModule({
     imports: [
@@ -11,6 +12,7 @@ import {TranslateModule} from "@ngx-translate/core";
     ],
     declarations: [
         CreateWaiverPage,
+        CreateAttachmentPage,
         WaiverForm
     ],
     exports: [CreateWaiverPage]
