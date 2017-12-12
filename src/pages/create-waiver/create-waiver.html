@@ -21,7 +21,7 @@
         <ion-slide *ngFor="let slide of slides">
             <h2 [innerHTML]="slide.title"></h2>
             <waiver-form></waiver-form>
+            <button [disabled]="!slide.page.getValidity()" ion-button color="primary" (click)="next()">Next</button>
         </ion-slide>
-        <button ion-button color="primary" (click)="next(slide.page.getValidity())"></button>
     </ion-slides>
 </ion-content>
