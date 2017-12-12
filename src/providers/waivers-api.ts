@@ -9,19 +9,22 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class Waivers {
+    options: any;
+    headers: any;
 
   constructor(public http: Http, public api: Api) {
+      this.headers = new Headers({'Content-Type': 'application/json'});
+      this.headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
+      this.options = new RequestOptions({ headers: this.headers });
   }
 
   query(params?: any): Observable<any> {
-      let headers = new Headers({'Content-Type': 'application/json'});
-      headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
-      let options = new RequestOptions({ headers: headers });
-    return this.api.get('/waiver', params,options)
+    return this.api.get('/waiver', params, this.options)
       .map(resp => resp.json());
   }
 
   add(waiver: model): void {
+
   }
 
   delete(waiver: model): void {
