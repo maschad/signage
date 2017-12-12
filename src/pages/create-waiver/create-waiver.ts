@@ -3,6 +3,7 @@ import {NavController} from 'ionic-angular';
 import {FormBuilder} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {WaiverForm} from "./waiver-form";
+import {Waivers} from "../../providers/waivers-api";
 
 /**
  * Generated class for the CreateWaiverPage page.
@@ -26,7 +27,7 @@ export class CreateWaiverPage {
     @ViewChild('createWaiverSlider') createWaiverSlider: any;
     slides: Slide[];
 
-  constructor(public navCtrl: NavController, translate: TranslateService, formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, translate: TranslateService, formBuilder: FormBuilder, waivers: Waivers) {
       translate.get(['WAIVER_FORM_SLIDE1_TITLE',
           'WAIVER_FORM_SLIDE2_TITLE',
           'WAIVER_FORM_SLIDE3_TITLE',
@@ -58,6 +59,10 @@ export class CreateWaiverPage {
 
   ionViewDidLoad() {
     this.createWaiverSlider.lockSwipes(true);
+  }
+
+  submit() {
+
   }
 
 
