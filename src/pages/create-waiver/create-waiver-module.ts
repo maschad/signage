@@ -6,6 +6,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CreateAttachmentPage} from "../create-attachment/create-attachment";
 import {CreateSignaturePage} from "../create-signature/create-signature";
 import {SignaturePadModule} from "angular2-signaturepad";
+import {SubmitWaiver} from "./submit-waiver";
 
 @NgModule({
     imports: [
@@ -18,6 +19,7 @@ import {SignaturePadModule} from "angular2-signaturepad";
         CreateWaiverPage,
         WaiverForm,
         CreateSignaturePage,
+        SubmitWaiver
     ],
     exports: [CreateWaiverPage]
 })
