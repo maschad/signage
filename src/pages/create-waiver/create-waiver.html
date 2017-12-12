@@ -25,12 +25,12 @@
             <button [disabled]="i == 0" (click)="prev()"></button>
         </ion-slide>
         <ion-slide>
-            <page-create-attachment></page-create-attachment>
+            <page-create-attachment [item]="attachments" ></page-create-attachment>
             <button ion-button color="primary" (click)="next()">Next</button>
             <button  (click)="prev()"></button>
         </ion-slide>
         <ion-slide>
-            <page-create-signature></page-create-signature>
+            <page-create-signature [signature]="signature"></page-create-signature>
             <button ion-button color="primary" (click)="next()">Next</button>
             <button  (click)="prev()"></button>
         </ion-slide>

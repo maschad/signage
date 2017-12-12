@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {NavController, ToastController} from 'ionic-angular';
 import {SignaturePad} from "angular2-signaturepad/signature-pad";
 import {Storage} from "@ionic/storage";
@@ -14,6 +14,7 @@ import {Storage} from "@ionic/storage";
   templateUrl: 'create-signature.html',
 })
 export class CreateSignaturePage {
+    @Input()
     signature = '';
     isDrawing = false;
 

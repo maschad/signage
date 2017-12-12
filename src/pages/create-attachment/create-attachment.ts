@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, Input, Output, ViewChild} from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, ViewController } from 'ionic-angular';
 
@@ -14,6 +14,7 @@ export class CreateAttachmentPage {
 
   isReadyToSave: boolean;
 
+  @Input()
   item: any;
 
   form: FormGroup;
