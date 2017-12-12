@@ -46,18 +46,19 @@ export class CreateWaiverPage {
               ]
           }
       )
-
   }
 
-  next(isValid) {
-      if(isValid)
-          this.createWaiverSlider.slideNext();
+  next() {
+      this.createWaiverSlider.slideNext();
   }
 
   prev() {
       this.createWaiverSlider.slidePrev();
   }
 
+  ionViewDidLoad() {
+    this.createWaiverSlider.lockSwipes(true);
+  }
 
 
 }
