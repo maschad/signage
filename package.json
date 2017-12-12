@@ -27,7 +27,7 @@
         "@ionic/storage": "2.0.1",
         "@ngx-translate/core": "^6.0.1",
         "@ngx-translate/http-loader": "0.0.3",
-        "angular2-signaturepad": "^2.6.0",
+        "angular2-signaturepad": "^2.6.1",
         "com-sarriaroman-photoviewer": "^1.1.11",
         "cordova-plugin-device": "1.1.4",
         "cordova-plugin-ionic-webview": "^1.1.16",

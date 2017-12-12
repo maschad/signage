@@ -41,6 +41,7 @@ import {IncidentsPage} from "../pages/incidents/incidents";
 import {IncidentDetailPage} from "../pages/incident-detail/incident-detail";
 import {Incidents} from "../providers/incidents-api";
 import {CreateWaiverModule} from "../pages/create-waiver/create-waiver-module";
+import {SignaturePadModule} from "angular2-signaturepad";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -69,7 +70,6 @@ export function provideSettings(storage: Storage) {
     CardsPage,
     ContentPage,
     CreateIncidentsPage,
-    ItemCreatePage,
     IncidentsPage,
     IncidentDetailPage,
     WaiverDetailPage,
@@ -97,6 +97,7 @@ export function provideSettings(storage: Storage) {
     }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
+    SignaturePadModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -105,7 +106,6 @@ export function provideSettings(storage: Storage) {
     ContentPage,
     CreateWaiverPage,
     CreateIncidentsPage,
-    ItemCreatePage,
     IncidentsPage,
     IncidentDetailPage,
     LoginPage,

@@ -21,7 +21,11 @@
         <ion-slide *ngFor="let slide of slides">
             <h2 [innerHTML]="slide.title"></h2>
             <waiver-form></waiver-form>
-            <button [disabled]="!slide.page.getValidity()" ion-button color="primary" (click)="next()">Next</button>
+            <button [disabled]="slide.page.getValidity()" ion-button color="primary" (click)="next()">Next</button>
+            <button [disabled]="!slide[0]" (click)="prev()"></button>
+        </ion-slide>
+        <ion-slide>
+            <page-create-attachment></page-create-attachment>
         </ion-slide>
     </ion-slides>
 </ion-content>

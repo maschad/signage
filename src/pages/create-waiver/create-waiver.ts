@@ -50,7 +50,9 @@ export class CreateWaiverPage {
   }
 
   next() {
+      this.createWaiverSlider.lockSwipes(false);
       this.createWaiverSlider.slideNext();
+      this.createWaiverSlider.lockSwipes(true);
   }
 
   prev() {
