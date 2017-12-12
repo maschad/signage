@@ -24,6 +24,8 @@
 
 
 <ion-content>
+    <p> Take a picture or select from your gallery</p>
+  <img src="../../assets/img/attachment_placeholder.png">
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
     <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
     <div class="profile-image-wrapper" (click)="getPicture()">
@@ -35,13 +37,5 @@
       </div>
       <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.profilePic.value"></div>
     </div>
-    <ion-list>
-      <ion-item>
-        <ion-input type="text" placeholder="{{ 'ITEM_NAME_PLACEHOLDER' | translate }}" formControlName="name"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="{{ 'ITEM_ABOUT_PLACEHOLDER' | translate }}" formControlName="about"></ion-input>
-      </ion-item>
-    </ion-list>
   </form>
 </ion-content>
