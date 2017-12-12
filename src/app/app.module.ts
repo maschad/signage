@@ -9,7 +9,6 @@ import { MyApp } from './app.component';
 
 import { CardsPage } from '../pages/cards/cards';
 import { ContentPage } from '../pages/content/content';
-import { ItemCreatePage } from '../pages/item-create/item-create';
 import { WaiverDetailPage } from '../pages/waiver-detail/waiver-detail';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
@@ -18,7 +17,6 @@ import { SettingsPage } from '../pages/settings/settings';
 import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-import { WelcomePage } from '../pages/welcome/welcome';
 
 import { Api } from '../providers/api';
 import { Settings } from '../providers/settings';
@@ -80,7 +78,6 @@ export function provideSettings(storage: Storage) {
     SignupPage,
     TabsPage,
     TutorialPage,
-    WelcomePage,
     WaiversPage
   ],
   imports: [
@@ -116,8 +113,7 @@ export function provideSettings(storage: Storage) {
     TabsPage,
     TutorialPage,
     WaiversPage,
-    WaiverDetailPage,
-    WelcomePage
+    WaiverDetailPage
   ],
   providers: [
     Api,

@@ -1,11 +1,12 @@
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
     selector: 'waiver-form',
     templateUrl: 'waiver-form.html'
 })
 export class WaiverForm {
+    @Input()
     waiver : FormGroup;
 
     constructor( private formBuilder: FormBuilder ) {
@@ -23,7 +24,6 @@ export class WaiverForm {
     }
 
     getValidity() {
-        console.log('waiver validity', this.waiver.valid);
         return this.waiver.valid;
     }
 

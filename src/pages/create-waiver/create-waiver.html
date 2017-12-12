@@ -18,11 +18,11 @@
 
 <ion-content padding>
     <ion-slides pager #createWaiverSlider>
-        <ion-slide *ngFor="let slide of slides">
+        <ion-slide *ngFor="let slide of slides; let i = index">
             <h2 [innerHTML]="slide.title"></h2>
-            <waiver-form></waiver-form>
-            <button [disabled]="slide.page.getValidity()" ion-button color="primary" (click)="next()">Next</button>
-            <button [disabled]="!slide[0]" (click)="prev()"></button>
+            <waiver-form [waiver]="slide.page.waiver"></waiver-form>
+            <button [disabled]="!slide.page.getValidity()" ion-button color="primary" (click)="next()">Next</button>
+            <button [disabled]="i == 0" (click)="prev()"></button>
         </ion-slide>
         <ion-slide>
             <page-create-attachment></page-create-attachment>
@@ -33,6 +33,9 @@
             <page-create-signature></page-create-signature>
             <button ion-button color="primary" (click)="next()">Next</button>
             <button  (click)="prev()"></button>
+        </ion-slide>
+        <ion-slide>
+            <submit-waiver [waiver]="waiver"></submit-waiver>
         </ion-slide>
     </ion-slides>
 </ion-content>

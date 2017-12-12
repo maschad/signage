@@ -26,6 +26,7 @@ export interface Slide {
 export class CreateWaiverPage {
     @ViewChild('createWaiverSlider') createWaiverSlider: any;
     slides: Slide[];
+    waiver: any;
 
   constructor(public navCtrl: NavController, translate: TranslateService, formBuilder: FormBuilder, waivers: Waivers) {
       translate.get(['WAIVER_FORM_SLIDE1_TITLE',
@@ -62,6 +63,7 @@ export class CreateWaiverPage {
   ionViewDidLoad() {
     this.createWaiverSlider.lockSwipes(true);
   }
+
 
   submit() {
 
