@@ -56,8 +56,6 @@
 
   "WAIVER_FORM_SLIDE1_TITLE": "Guest",
   "WAIVER_FORM_SLIDE2_TITLE": "Witness",
-  "WAIVER_FORM_SLIDE3_TITLE": "Attachments",
-  "WAIVER_FORM_SLIDE5_TITLE": "Summary",
 
   "ITEM_NAME_PLACEHOLDER" : "Name",
   "ITEM_ABOUT_PLACEHOLDER" : "About",
@@ -78,5 +76,6 @@
   "INCIDENT_MASTER_TITLE": "Incidents",
   "INCIDENT_DETAIL_TITLE": "Incidents",
 
-  "CREATE_ATTACHMENT_TITLE": "Attachements"
+  "CREATE_ATTACHMENT_TITLE": "Attachements",
+  "CREATE_WAIVER_FINAL_SUMMARY_TITLE": "Summary"
 }

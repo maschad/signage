@@ -61,4 +61,8 @@ export class CreateSignaturePage {
         this.signaturePad.clear();
     }
 
+    getValidity() {
+      return this.signature === '';
+    }
+
 }

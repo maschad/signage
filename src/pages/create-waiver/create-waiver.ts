@@ -1,9 +1,11 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {FormBuilder} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {WaiverForm} from "./waiver-form";
-import {Waivers} from "../../providers/waivers-api";
+import {WaiversPage} from "../waivers/waivers";
+import * as _ from 'lodash';
+import {tassign} from "tassign";
 
 /**
  * Generated class for the CreateWaiverPage page.
@@ -11,8 +13,6 @@ import {Waivers} from "../../providers/waivers-api";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-
-
 
 export interface Slide {
     title: string;
@@ -23,39 +23,59 @@ export interface Slide {
     selector: 'page-create-waiver',
     templateUrl: 'create-waiver.html'
 })
-export class CreateWaiverPage {
+export class CreateWaiverPage implements OnChanges{
+
     @ViewChild('createWaiverSlider') createWaiverSlider: any;
     slides: Slide[];
     waiver: any;
     signature:any;
     attachments: any;
 
-  constructor(public navCtrl: NavController, translate: TranslateService, formBuilder: FormBuilder, waivers: Waivers) {
+  constructor(public navCtrl: NavController,
+              public translate: TranslateService,
+              public formBuilder: FormBuilder
+             ) {
       translate.get(['WAIVER_FORM_SLIDE1_TITLE',
-          'WAIVER_FORM_SLIDE2_TITLE',
-          'WAIVER_FORM_SLIDE3_TITLE',
-          'WAIVER_FORM_SLIDE4_TITLE',
-          'WAIVER_FORM_SLIDE5_TITLE'
+          'WAIVER_FORM_SLIDE2_TITLE'
       ]).subscribe(
           (values) => {
               this.slides = [
                   {
-                      title: values.FORM_SLIDE1_TITLE,
+                      title: values.WAIVER_FORM_SLIDE1_TITLE,
                       page: new WaiverForm (formBuilder),
                   },
                   {
-                      title: values.FORM_SLIDE2_TITLE,
+                      title: values.WAIVER_FORM_SLIDE2_TITLE,
                       page: new WaiverForm (formBuilder)
                   }
               ]
           }
-      )
+      );
+
+      this.waiver = {
+          guest: {
+              open: false
+          },
+          attachments: {
+              open: false
+          },
+          signature: {
+              open: false
+          },
+          witness: {
+              open: false
+          }
+      };
   }
 
   next() {
       this.createWaiverSlider.lockSwipes(false);
       this.createWaiverSlider.slideNext();
       this.createWaiverSlider.lockSwipes(true);
+  }
+
+  cancel() {
+      this.navCtrl.push(WaiversPage);
   }
 
   prev() {
@@ -66,10 +86,19 @@ export class CreateWaiverPage {
     this.createWaiverSlider.lockSwipes(true);
   }
 
+    ngOnChanges(changes: SimpleChanges): void {
+      if(changes.signature) {
+          this.waiver = {
+              guest: this.slides[0].page.waiver.value,
+              witness: this.slides[1].page.waiver.value,
+              attachments: this.attachments,
+              signature: this.signature
+          };
+          _.forEach(this.waiver, (item) => tassign(item.open, false))
+      }
+    }
 
-  submit() {
 
-  }
 
 
 }

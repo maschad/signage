@@ -1,4 +1,4 @@
-import {Component, Input, Output, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, ViewController } from 'ionic-angular';
 
@@ -79,5 +79,9 @@ export class CreateAttachmentPage {
   done() {
     if (!this.form.valid) { return; }
     this.viewCtrl.dismiss(this.form.value);
+  }
+
+  getValidity() {
+      return this.form.valid;
   }
 }
