@@ -19,21 +19,28 @@
 <ion-content padding>
     <ion-slides pager #createWaiverSlider>
         <ion-slide *ngFor="let slide of slides; let i = index">
+            <!--First two forms-->
             <h2 [innerHTML]="slide.title"></h2>
             <waiver-form [waiver]="slide.page.waiver"></waiver-form>
             <button [disabled]="!slide.page.getValidity()" ion-button color="primary" (click)="next()">Next</button>
-            <button [disabled]="i == 0" (click)="prev()"></button>
+            <button ion-button color="primary" (click)="cancel()">Cancel</button>
+            <button ion-button color="primary" [disabled]="i == 0" (click)="prev()">Previous</button>
         </ion-slide>
+        <!--Attachments page-->
         <ion-slide>
             <page-create-attachment [item]="attachments" ></page-create-attachment>
             <button ion-button color="primary" (click)="next()">Next</button>
-            <button  (click)="prev()"></button>
+            <button ion-button color="primary" (click)="cancel()">Cancel</button>
+            <button ion-button color="primary"  (click)="prev()">Previous</button>
         </ion-slide>
+        <!--Signature page-->
         <ion-slide>
-            <page-create-signature [signature]="signature"></page-create-signature>
-            <button ion-button color="primary" (click)="next()">Next</button>
-            <button  (click)="prev()"></button>
+           <page-create-signature [signature]="signature"></page-create-signature>
+           <button ion-button color="primary" (click)="next()">Next</button>
+            <button ion-button color="primary" (click)="cancel()">Cancel</button>
+            <button ion-button color="primary"  (click)="prev()">Previous</button>
         </ion-slide>
+        <!--Submit page-->
         <ion-slide>
             <submit-waiver [waiver]="waiver"></submit-waiver>
         </ion-slide>

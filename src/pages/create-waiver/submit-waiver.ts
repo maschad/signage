@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
-import * as _ from "lodash";
-import {NavController, NavParams} from "ionic-angular";
-import {tassign} from "tassign";
-import {PhotoViewer} from "@ionic-native/photo-viewer";
+import {NavController} from "ionic-angular";
+import {Waivers} from "../../providers/waivers-api";
+import {WaiversPage} from "../waivers/waivers";
+
 
 /**
  * Generated class for the IncidentDetailPage page.
@@ -16,15 +16,25 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
 })
 export class SubmitWaiver {
     @Input()
-    waiver: any;
+    waiver:any;
 
-    constructor(public navCtrl: NavController,
-                private photoViewer: PhotoViewer) {
-        // this.title = this.item.title;
-        // //Set all initial items' open to true
-        // _.forEach(this.item, (item) => tassign(item.open, false));
-
+    constructor(public navCtrl: NavController, private waiversApi: Waivers) {
+        this.waiver = {
+            guest: {
+                open: false
+            },
+            attachments: {
+                open: false
+            },
+            signature: {
+                open: false
+            },
+            witness: {
+                open: false
+            }
+        };
     }
+
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad IncidentDetailPage');
@@ -32,6 +42,14 @@ export class SubmitWaiver {
 
     toggleSection(item) {
         item.open = !item.open
+    }
+
+    submit() {
+        this.waiversApi.add(this.waiver)
+    }
+
+    cancel() {
+        this.navCtrl.push(WaiversPage)
     }
 
 
