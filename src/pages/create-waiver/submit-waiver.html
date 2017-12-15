@@ -1,43 +1,32 @@
-<ion-header>
+<!-- Guest Accordion -->
+<button ion-item color="primary" (click)="toggleSection(waiver.guest)" detail-none [ngClass]="{'section-active': waiver.guest.open, 'section': !waiver.guest.open}">
+    <ion-icon item-right name="arrow-dropup" *ngIf="waiver.guest.open"></ion-icon>
+    <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.guest.open"></ion-icon>
+    Guest
+</button>
+<ion-card *ngIf="waiver.guest.open" padding>
+    <p> {{waiver.guest}}</p>
+</ion-card>
 
-    <ion-navbar>
-        <ion-title>{{ 'CREATE_WAIVER_FINAL_SUMMARY_TITLE' | translate }}</ion-title>
-    </ion-navbar>
+<!-- Attachment Accordion -->
+<button ion-item color="primary" (click)="toggleSection(waiver.attachments)" detail-none [ngClass]="{'section-active': waiver.attachments.open, 'section': !waiver.attachments.open}">
+    <ion-icon item-right name="arrow-dropup" *ngIf="waiver.attachments.open"></ion-icon>
+    <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.attachments.open"></ion-icon>
+    Attachments
+</button>
+<ion-card *ngIf="waiver.attachments.open">
+    <ion-list *ngFor="let attachment of waiver.attachments">
+        <ion-item>
+            <img src="{{attachment}}" (click)="showPicture(attachment)">
+        </ion-item>
+    </ion-list>
+</ion-card>
 
-</ion-header>
-
-
-<ion-content>
-    <!-- Guest Accordion -->
-    <button ion-item color="primary" (click)="toggleSection(waiver.guest)" detail-none [ngClass]="{'section-active': waiver.guest.open, 'section': !waiver.guest.open}">
-        <ion-icon item-right name="arrow-dropup" *ngIf="waiver.guest.open"></ion-icon>
-        <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.guest.open"></ion-icon>
-        Guest
-    </button>
-    <ion-card *ngIf="waiver.guest.open" padding>
-        <p> {{waiver.guest}}</p>
-    </ion-card>
-
-    <!-- Attachment Accordion -->
-    <button ion-item color="primary" (click)="toggleSection(waiver.attachments)" detail-none [ngClass]="{'section-active': waiver.attachments.open, 'section': !waiver.attachments.open}">
-        <ion-icon item-right name="arrow-dropup" *ngIf="waiver.attachments.open"></ion-icon>
-        <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.attachments.open"></ion-icon>
-        Attachments
-    </button>
-    <ion-card *ngIf="waiver.attachments.open">
-        <ion-list *ngFor="let attachment of waiver.attachments">
-            <ion-item>
-                <img src="{{attachment}}" (click)="showPicture(attachment)">
-            </ion-item>
-        </ion-list>
-    </ion-card>
-
-    <!-- Signature Accordion -->
-    <button ion-item color="primary" (click)="toggleSection(waiver.signature)" detail-none [ngClass]="{'section-active': waiver.signature.open, 'section': !waiver.signature.open}">
-        <ion-icon item-right name="arrow-dropup" *ngIf="waiver.signature.open"></ion-icon>
-        <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.signature.open"></ion-icon>
-        User
-    </button>
-    <button ion-button color="primary" (click)="submit()">Save</button>
-    <button ion-button color="primary" (click)="cancel()">Cancel</button>
-</ion-content>
+<!-- Signature Accordion -->
+<button ion-item color="primary" (click)="toggleSection(waiver.signature)" detail-none [ngClass]="{'section-active': waiver.signature.open, 'section': !waiver.signature.open}">
+    <ion-icon item-right name="arrow-dropup" *ngIf="waiver.signature.open"></ion-icon>
+    <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.signature.open"></ion-icon>
+    User
+</button>
+<button ion-button color="primary" (click)="submit()">Save</button>
+<button ion-button color="primary" (click)="cancel()">Cancel</button>

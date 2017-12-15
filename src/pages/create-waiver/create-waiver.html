@@ -18,8 +18,8 @@
 
 <ion-content padding>
     <ion-slides #createWaiverSlider>
+        <!--First two forms-->
         <ion-slide *ngFor="let slide of slides; let i = index">
-            <!--First two forms-->
             <h2 [innerHTML]="slide.title"></h2>
             <waiver-form [waiver]="slide.page.waiver"></waiver-form>
             <button [disabled]="!slide.page.getValidity()" ion-button color="primary" (click)="next()">Next</button>
@@ -35,10 +35,12 @@
         </ion-slide>
         <!--Signature page-->
         <ion-slide>
-           <page-create-signature (signatureEvent)="recieveSignature($event)"></page-create-signature>
-           <button ion-button color="primary" (click)="next()">Next</button>
-            <button ion-button color="primary" (click)="cancel()">Cancel</button>
-            <button ion-button color="primary"  (click)="prev()">Previous</button>
+            <ion-scroll>
+                <page-create-signature (signatureEvent)="recieveSignature($event)"></page-create-signature>
+                <button ion-button color="primary" (click)="next()">Next</button>
+                <button ion-button color="primary" (click)="cancel()">Cancel</button>
+                <button ion-button color="primary"  (click)="prev()">Previous</button>
+            </ion-scroll>
         </ion-slide>
         <!--Submit page-->
         <ion-slide>
