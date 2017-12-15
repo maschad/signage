@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {NavController, ToastController} from 'ionic-angular';
 import {SignaturePad} from "angular2-signaturepad/signature-pad";
 import {Storage} from "@ionic/storage";
@@ -14,8 +14,11 @@ import {Storage} from "@ionic/storage";
   templateUrl: 'create-signature.html',
 })
 export class CreateSignaturePage {
-    @Input()
-    signature = '';
+    signature = null;
+
+    @Output()
+    signatureEvent = new EventEmitter<any>();
+
     isDrawing = false;
 
     @ViewChild(SignaturePad) signaturePad: SignaturePad;
@@ -28,14 +31,10 @@ export class CreateSignaturePage {
     };
 
   constructor(private navCtrl: NavController,
-              private storage: Storage,
               private toastCtrl: ToastController) {}
 
     ionViewDidEnter() {
-        this.signaturePad.clear()
-        this.storage.get('savedSignature').then((data) => {
-            this.signature = data;
-        });
+        this.signaturePad.clear();
     }
 
     drawComplete() {
@@ -48,7 +47,7 @@ export class CreateSignaturePage {
 
     savePad() {
         this.signature = this.signaturePad.toDataURL();
-        this.storage.set('savedSignature', this.signature);
+        this.signatureEvent.emit(this.signature);
         this.signaturePad.clear();
         let toast = this.toastCtrl.create({
             message: 'New Signature saved.',

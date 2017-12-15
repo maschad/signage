@@ -29,7 +29,7 @@ export class CreateWaiverPage implements OnChanges{
     slides: Slide[];
     waiver: any;
     signature:any;
-    attachments: any;
+    attachments: any[] = [];
 
   constructor(public navCtrl: NavController,
               public translate: TranslateService,
@@ -80,6 +80,14 @@ export class CreateWaiverPage implements OnChanges{
 
   prev() {
       this.createWaiverSlider.slidePrev();
+  }
+
+  recieveImages($event) {
+      this.attachments = $event;
+  }
+
+  recieveSignature($event) {
+      this.signature = $event;
   }
 
   ionViewDidLoad() {
