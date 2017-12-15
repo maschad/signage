@@ -40,6 +40,7 @@ import {IncidentDetailPage} from "../pages/incident-detail/incident-detail";
 import {Incidents} from "../providers/incidents-api";
 import {CreateWaiverModule} from "../pages/create-waiver/create-waiver-module";
 import {SignaturePadModule} from "angular2-signaturepad";
+import {ImagePicker} from "@ionic-native/image-picker";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -92,7 +93,10 @@ export function provideSettings(storage: Storage) {
         deps: [Http]
       }
     }),
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,
+        {
+            scrollAssist: false
+        }),
     IonicStorageModule.forRoot(),
     SignaturePadModule
   ],
@@ -122,6 +126,7 @@ export function provideSettings(storage: Storage) {
     GoogleMaps,
     Guests,
     Incidents,
+    ImagePicker,
     PhotoViewer,
     SplashScreen,
     StatusBar,

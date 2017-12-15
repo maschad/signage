@@ -17,7 +17,7 @@
 
 
 <ion-content padding>
-    <ion-slides pager #createWaiverSlider>
+    <ion-slides #createWaiverSlider>
         <ion-slide *ngFor="let slide of slides; let i = index">
             <!--First two forms-->
             <h2 [innerHTML]="slide.title"></h2>
@@ -28,14 +28,14 @@
         </ion-slide>
         <!--Attachments page-->
         <ion-slide>
-            <page-create-attachment [item]="attachments" ></page-create-attachment>
+            <page-create-attachment (imagesEvent)="recieveImages($event)" ></page-create-attachment>
             <button ion-button color="primary" (click)="next()">Next</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
             <button ion-button color="primary"  (click)="prev()">Previous</button>
         </ion-slide>
         <!--Signature page-->
         <ion-slide>
-           <page-create-signature [signature]="signature"></page-create-signature>
+           <page-create-signature (signatureEvent)="recieveSignature($event)"></page-create-signature>
            <button ion-button color="primary" (click)="next()">Next</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
             <button ion-button color="primary"  (click)="prev()">Previous</button>
