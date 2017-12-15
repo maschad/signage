@@ -93,10 +93,7 @@ export function provideSettings(storage: Storage) {
         deps: [Http]
       }
     }),
-    IonicModule.forRoot(MyApp,
-        {
-            scrollAssist: false
-        }),
+    IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     SignaturePadModule
   ],

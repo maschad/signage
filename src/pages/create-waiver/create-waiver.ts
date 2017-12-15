@@ -1,5 +1,5 @@
 import {Component, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, ViewController} from 'ionic-angular';
 import {FormBuilder} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {WaiverForm} from "./waiver-form";
@@ -33,8 +33,11 @@ export class CreateWaiverPage implements OnChanges{
 
   constructor(public navCtrl: NavController,
               public translate: TranslateService,
-              public formBuilder: FormBuilder
+              public formBuilder: FormBuilder,
+              private viewCtrl: ViewController
              ) {
+
+
       translate.get(['WAIVER_FORM_SLIDE1_TITLE',
           'WAIVER_FORM_SLIDE2_TITLE'
       ]).subscribe(
