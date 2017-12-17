@@ -1,4 +1,7 @@
-import {Component, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {
+    Component, EventEmitter, OnChanges, Output, QueryList, SimpleChanges, ViewChild,
+    ViewChildren
+} from '@angular/core';
 import {NavController, ViewController} from 'ionic-angular';
 import {FormBuilder} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
@@ -6,6 +9,7 @@ import {WaiverForm} from "./waiver-form";
 import {WaiversPage} from "../waivers/waivers";
 import * as _ from 'lodash';
 import {tassign} from "tassign";
+import {CreateSignaturePage} from "../create-signature/create-signature";
 
 /**
  * Generated class for the CreateWaiverPage page.
@@ -23,13 +27,13 @@ export interface Slide {
     selector: 'page-create-waiver',
     templateUrl: 'create-waiver.html'
 })
-export class CreateWaiverPage implements OnChanges{
+export class CreateWaiverPage {
 
     @ViewChild('createWaiverSlider') createWaiverSlider: any;
     slides: Slide[];
     waiver: any;
-    signature:any;
     attachments: any[] = [];
+    signature: any;
 
   constructor(public navCtrl: NavController,
               public translate: TranslateService,
@@ -62,10 +66,10 @@ export class CreateWaiverPage implements OnChanges{
           attachments: {
               open: false
           },
-          signature: {
+          witness: {
               open: false
           },
-          witness: {
+          signature: {
               open: false
           }
       };
@@ -82,7 +86,9 @@ export class CreateWaiverPage implements OnChanges{
   }
 
   prev() {
+      this.createWaiverSlider.lockSwipes(false);
       this.createWaiverSlider.slidePrev();
+      this.createWaiverSlider.lockSwipes(true);
   }
 
   recieveImages($event) {
@@ -91,25 +97,18 @@ export class CreateWaiverPage implements OnChanges{
 
   recieveSignature($event) {
       this.signature = $event;
+      this.waiver = {
+          guest: this.slides[0].page.waiver.value,
+          witness: this.slides[1].page.waiver.value,
+          attachments: this.attachments,
+          signature: { signature:this.signature, open: false}
+      };
+      _.forEach(this.waiver, (item) => tassign(item.open, false))
   }
 
   ionViewDidLoad() {
     this.createWaiverSlider.lockSwipes(true);
   }
-
-    ngOnChanges(changes: SimpleChanges): void {
-      if(changes.signature) {
-          this.waiver = {
-              guest: this.slides[0].page.waiver.value,
-              witness: this.slides[1].page.waiver.value,
-              attachments: this.attachments,
-              signature: this.signature
-          };
-          _.forEach(this.waiver, (item) => tassign(item.open, false))
-      }
-    }
-
-
 
 
 }

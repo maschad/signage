@@ -16,7 +16,10 @@ export class WaiverDetailPage {
   constructor(public navCtrl: NavController, navParams: NavParams, private photoViewer: PhotoViewer) {
     this.waiver = navParams.get('waiver');
     //Set all initial items' open to true
-    _.forEach(this.waiver,(item) => tassign(item.open,true));
+    this.waiver.guest.open = true;
+    this.waiver.attachments.open = true;
+    this.waiver.signature.open = true;
+    this.waiver.witness.open = true;
     //Set whether this waiver is expired
     this.expired = this.waiver.expirationDate < Date.now();
     this.currentDate = Date.now();

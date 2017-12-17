@@ -26,7 +26,11 @@ export class IncidentDetailPage {
     this.incident = navParams.get('incident');
     this.title = this.incident.title;
     //Set all initial items' open to true
-    _.forEach(this.incident, (item) => tassign(item.open, true));
+    this.incident.report = new Object(this.incident.report);
+    this.incident.report.open = true;
+    this.incident.attachments.open = true;
+    this.incident.user.open = true;
+
 
   }
 
