@@ -50,6 +50,9 @@ export class CreateAttachmentPage {
         });
     }
 
+    getValidity() {
+        return this.images !== [];
+    }
 
 
 
