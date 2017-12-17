@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {NavController} from "ionic-angular";
+import {NavController, ToastController} from "ionic-angular";
 import {Waivers} from "../../providers/waivers-api";
 import {WaiversPage} from "../waivers/waivers";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
@@ -19,7 +19,7 @@ export class SubmitWaiver {
     @Input()
     waiver:any;
 
-    constructor(public navCtrl: NavController, private waiversApi: Waivers, private photoViewer:PhotoViewer) {}
+    constructor(public navCtrl: NavController, private waiversApi: Waivers, private photoViewer:PhotoViewer, private toastCtrl: ToastController) {}
 
 
     ionViewDidLoad() {
@@ -31,7 +31,23 @@ export class SubmitWaiver {
     }
 
     submit() {
-        this.waiversApi.add(this.waiver)
+        //#TODO: Fix this is future
+        this.waiver.userId = 1;
+        this.waiversApi.add(this.waiver).subscribe(
+            response => {
+                let toast = this.toastCtrl.create({
+                    message: 'New Waiver saved.',
+                    duration: 3000
+                });
+                toast.present();
+            }, error => {
+                console.log(`error ${error}`);
+                let toast = this.toastCtrl.create({
+                    message: 'Oops! There was an error sending your request',
+                    duration: 3000
+                });
+                toast.present();
+        })
     }
 
     cancel() {

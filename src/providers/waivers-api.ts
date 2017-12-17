@@ -19,12 +19,12 @@ export class Waivers {
   }
 
   query(params?: any): Observable<any> {
-    return this.api.get('/waiver', params, this.options)
+    return this.api.get('waiver', params, this.options)
       .map(resp => resp.json());
   }
 
   add(waiver: model): Observable<any> {
-    return this.api.post('/waiver', waiver, this.options)
+    return this.api.post('waiver', waiver, this.options)
         .map(resp => resp.json());
   }
 

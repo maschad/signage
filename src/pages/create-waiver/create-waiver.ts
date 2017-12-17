@@ -101,9 +101,9 @@ export class CreateWaiverPage {
           guest: this.slides[0].page.waiver.value,
           witness: this.slides[1].page.waiver.value,
           attachments: this.attachments,
-          signature: { signature:this.signature, open: false}
+          signature: { signature:this.signature, open: true}
       };
-      _.forEach(this.waiver, (item) => tassign(item.open, false))
+      _.forEach(this.waiver, (item) => tassign(item.open, true))
   }
 
   ionViewDidLoad() {

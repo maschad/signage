@@ -97,5 +97,9 @@
     <ion-icon item-right name="arrow-dropdown" *ngIf="!waiver.signature.open"></ion-icon>
     Signature
 </button>
+<ion-card *ngIf="waiver.signature.open">
+    <img src="{{signature}}">
+</ion-card>
+
 <button ion-button color="primary" (click)="submit()">Save</button>
 <button ion-button color="primary" (click)="cancel()">Cancel</button>
