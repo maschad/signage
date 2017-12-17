@@ -61,7 +61,7 @@ export class CreateSignaturePage {
     }
 
     getValidity() {
-      return this.signature === '';
+      return this.signature === null;
     }
 
 }

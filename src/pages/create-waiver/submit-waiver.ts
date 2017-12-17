@@ -1,7 +1,8 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {Waivers} from "../../providers/waivers-api";
 import {WaiversPage} from "../waivers/waivers";
+import {PhotoViewer} from "@ionic-native/photo-viewer";
 
 
 /**
@@ -18,22 +19,7 @@ export class SubmitWaiver {
     @Input()
     waiver:any;
 
-    constructor(public navCtrl: NavController, private waiversApi: Waivers) {
-        this.waiver = {
-            guest: {
-                open: false
-            },
-            attachments: {
-                open: false
-            },
-            signature: {
-                open: false
-            },
-            witness: {
-                open: false
-            }
-        };
-    }
+    constructor(public navCtrl: NavController, private waiversApi: Waivers, private photoViewer:PhotoViewer) {}
 
 
     ionViewDidLoad() {
@@ -50,6 +36,10 @@ export class SubmitWaiver {
 
     cancel() {
         this.navCtrl.push(WaiversPage)
+    }
+
+    showPicture (url) {
+        this.photoViewer.show(url, `${this.waiver.guest.name} ${this.waiver.guest.lastname}`,{share:false})
     }
 
 
