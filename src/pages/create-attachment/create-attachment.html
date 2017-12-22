@@ -1,10 +1,12 @@
-<p> Take a picture or select from your gallery</p>
-<img src="../../assets/img/attachment_placeholder.png">
-<button ion-button color="primary" (click)="openGallery()"><ion-icon name="images"></ion-icon></button>
-<button ion-button color="primary" (click)="takePicture()"><ion-icon name="camera"></ion-icon></button>
-<ion-list *ngIf="images.length > 0">
-    <ion-item *ngFor="let image of images">
-        <img src="{{image}}">
-    </ion-item>
-</ion-list>
+<ion-card>
+    <h2> Take a picture or select from your gallery</h2>
+    <button ion-button color="primary" (click)="openGallery()"><ion-icon name="images"></ion-icon></button>
+    <button ion-button color="primary" (click)="takePicture()"><ion-icon name="camera"></ion-icon></button>
+    <ion-list *ngIf="images.length > 0">
+        <ion-item *ngFor="let image of images">
+            <img src="{{image}}">
+        </ion-item>
+    </ion-list>
+</ion-card>
+
 
