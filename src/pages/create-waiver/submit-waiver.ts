@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {NavController, ToastController} from "ionic-angular";
 import {Waivers} from "../../providers/waivers-api";
 import {WaiversPage} from "../waivers/waivers";

@@ -25,7 +25,7 @@ export class CreateAttachmentPage {
 
         this.imagePicker.getPictures(options).then(
             images => {
-                this.images = images;
+                this.images.push(images);
                 this.imagesEvent.emit(this.images);
             },
                     err => console.log('Error retrieving photos')

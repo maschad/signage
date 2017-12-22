@@ -8,6 +8,7 @@ import 'rxjs/add/operator/debounceTime';
 import {model} from "../../models/model";
 import {WaiverDetailPage} from "../waiver-detail/waiver-detail";
 import {FormControl} from "@angular/forms";
+import {CreateWaiverPage} from "../create-waiver/create-waiver";
 
 
 /**
@@ -91,10 +92,15 @@ export class WaiversPage {
     /**
      * Navigate to the detail page for this item.
      */
-    openWaiver(waiver: model) {
-        this.navCtrl.push(WaiverDetailPage, {
-            waiver: waiver
-        });
+    openWaiver(waiver: any) {
+        if(waiver.expirationDate < this.currentDate) {
+            this.navCtrl.push(CreateWaiverPage, {
+                guest: waiver.guest
+            });
+        } else {
+            this.navCtrl.push(WaiverDetailPage, {
+                waiver: waiver
+            });
+        }
     }
-
 }
