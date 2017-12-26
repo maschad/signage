@@ -1,11 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, NavController, ViewController} from 'ionic-angular';
+import {AlertController, NavController} from 'ionic-angular';
 import {FormBuilder} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {WaiverForm} from "./waiver-form";
 import {WaiversPage} from "../waivers/waivers";
-import * as _ from 'lodash';
-import {tassign} from "tassign";
+
 
 /**
  * Generated class for the CreateWaiverPage page.
@@ -54,22 +53,6 @@ export class CreateWaiverPage {
               ]
           }
       );
-      //Initial waiver object
-      this.waiver = {
-          guest: {
-              open: false
-          },
-          attachments: {
-              open: false
-          },
-          witness: {
-              open: false
-          },
-          signature: {
-              signature: '',
-              open: false
-          }
-      };
   }
 
   next() {
@@ -117,12 +100,8 @@ export class CreateWaiverPage {
           guest: this.slides[0].page.waiver.value,
           witness: this.slides[1].page.waiver.value,
           attachments: this.attachments,
-          signature: {
-              signature: $event,
-              open: true
-          }
+          signature: $event
       };
-      _.forEach(this.waiver, (item) => tassign(item.open, true))
   }
 
   ionViewDidLoad() {

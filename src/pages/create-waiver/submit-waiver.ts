@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {AlertController, NavController, ToastController} from "ionic-angular";
 import {Waivers} from "../../providers/waivers-api";
 import {WaiversPage} from "../waivers/waivers";
@@ -15,9 +15,24 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
     selector: 'submit-waiver',
     templateUrl: 'submit-waiver.html',
 })
-export class SubmitWaiver {
+export class SubmitWaiver implements OnChanges{
     @Input()
     waiver:any;
+    waiverViewModel: any = {
+        guest: {
+            open: true
+        },
+        attachments: {
+            open: true
+        },
+        witness: {
+            open: true
+        },
+        signature: {
+            signature: '',
+            open: true
+        }
+    };
 
     constructor(public navCtrl: NavController,
                 public alertCtrl: AlertController,
@@ -25,10 +40,6 @@ export class SubmitWaiver {
                 private photoViewer:PhotoViewer,
                 private toastCtrl: ToastController) {}
 
-
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad IncidentDetailPage');
-    }
 
     toggleSection(item) {
         item.open = !item.open
@@ -39,19 +50,27 @@ export class SubmitWaiver {
         this.waiver.userId = 1;
         this.waiversApi.add(this.waiver).subscribe(
             response => {
-                let toast = this.toastCtrl.create({
-                    message: 'New Waiver saved.',
-                    duration: 3000
-                });
-                toast.present();
+                this.successPopup()
             }, error => {
                 console.log(`error ${error}`);
-                let toast = this.toastCtrl.create({
-                    message: 'Oops! There was an error sending your request',
-                    duration: 3000
-                });
-                toast.present();
+                this.failurePopup();
         })
+    }
+
+    successPopup () {
+        let toast = this.toastCtrl.create({
+            message: 'New Waiver saved.',
+            duration: 3000
+        });
+        toast.present();
+    }
+
+    failurePopup() {
+        let toast = this.toastCtrl.create({
+            message: 'Oops! There was an error sending your request',
+            duration: 3000
+        });
+        toast.present();
     }
 
     cancel() {
@@ -79,6 +98,16 @@ export class SubmitWaiver {
 
     showPicture (url) {
         this.photoViewer.show(url, `${this.waiver.guest.name} ${this.waiver.guest.lastname}`,{share:false})
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        for(let propName in changes) {
+            if(propName == 'signature') {
+                this.waiverViewModel.signature.signature = changes['signature']
+            } else {
+                this.waiverViewModel[propName] = changes[propName]
+            }
+        }
     }
 
 
