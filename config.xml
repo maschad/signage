@@ -3,7 +3,7 @@
     <name>AHGate</name>
     <description>Application for AlligatorHead</description>
     <author email="info@yam.ba" href="">Yamba</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.100.72:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

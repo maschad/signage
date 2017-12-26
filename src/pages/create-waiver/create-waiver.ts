@@ -1,15 +1,11 @@
-import {
-    Component, EventEmitter, OnChanges, Output, QueryList, SimpleChanges, ViewChild,
-    ViewChildren
-} from '@angular/core';
-import {NavController, ViewController} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, NavController, ViewController} from 'ionic-angular';
 import {FormBuilder} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {WaiverForm} from "./waiver-form";
 import {WaiversPage} from "../waivers/waivers";
 import * as _ from 'lodash';
 import {tassign} from "tassign";
-import {CreateSignaturePage} from "../create-signature/create-signature";
 
 /**
  * Generated class for the CreateWaiverPage page.
@@ -33,12 +29,12 @@ export class CreateWaiverPage {
     slides: Slide[];
     waiver: any;
     attachments: any[] = [];
-    signature: any;
+    signature: any[] = [];
 
-  constructor(public navCtrl: NavController,
+  constructor(public alertCtrl: AlertController,
+              public navCtrl: NavController,
               public translate: TranslateService,
-              public formBuilder: FormBuilder,
-              private viewCtrl: ViewController
+              public formBuilder: FormBuilder
              ) {
 
 
@@ -58,7 +54,7 @@ export class CreateWaiverPage {
               ]
           }
       );
-
+      //Initial waiver object
       this.waiver = {
           guest: {
               open: false
@@ -70,6 +66,7 @@ export class CreateWaiverPage {
               open: false
           },
           signature: {
+              signature: '',
               open: false
           }
       };
@@ -82,8 +79,28 @@ export class CreateWaiverPage {
   }
 
   cancel() {
-      this.navCtrl.push(WaiversPage);
+        let alert = this.alertCtrl.create({
+            title: 'Waiver Incomplete',
+            message: 'Are you sure you want to exit the waiver creation process?',
+            buttons: [
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        this.navCtrl.setRoot(WaiversPage)
+                    }
+                }
+            ]
+        });
+        alert.present();
   }
+
 
   prev() {
       this.createWaiverSlider.lockSwipes(false);
@@ -96,12 +113,14 @@ export class CreateWaiverPage {
   }
 
   recieveSignature($event) {
-      this.signature = $event;
       this.waiver = {
           guest: this.slides[0].page.waiver.value,
           witness: this.slides[1].page.waiver.value,
           attachments: this.attachments,
-          signature: { signature:this.signature, open: true}
+          signature: {
+              signature: $event,
+              open: true
+          }
       };
       _.forEach(this.waiver, (item) => tassign(item.open, true))
   }
@@ -111,4 +130,7 @@ export class CreateWaiverPage {
   }
 
 
+
+
 }
+

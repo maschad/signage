@@ -24,21 +24,21 @@
             <waiver-form [waiver]="slide.page.waiver"></waiver-form>
             <button ion-button color="primary" [disabled]="i == 0" (click)="prev()">Previous</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
-            <button [disabled]="!slide.page.getValidity() && i !== 0" ion-button color="primary" (click)="next()">Next</button>
+            <button [disabled]="!slide.page.valid() && i !== 1" ion-button color="primary" (click)="next()">Next</button>
         </ion-slide>
         <!--Attachments page-->
         <ion-slide>
             <page-create-attachment #attachmentPage (imagesEvent)="recieveImages($event)" ></page-create-attachment>
             <button ion-button color="primary"  (click)="prev()">Previous</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
-            <button [disabled]="attachmentPage.getValidity()" ion-button color="primary" (click)="next()">Next</button>
+            <button [disabled]="attachmentPage.valid()" ion-button color="primary" (click)="next()">Next</button>
         </ion-slide>
         <!--Signature page-->
         <ion-slide>
             <page-create-signature #signaturePage (signatureEvent)="recieveSignature($event)"></page-create-signature>
             <button ion-button color="primary"  (click)="prev()">Previous</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
-            <button [disabled]="signaturePage.getValidity()" ion-button color="primary" (click)="next()">Next</button>
+            <button [disabled]="!signaturePage.valid()" ion-button color="primary" (click)="next()">Next</button>
         </ion-slide>
         <!--Submit page-->
         <ion-slide>
