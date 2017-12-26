@@ -23,7 +23,7 @@ export class WaiverForm {
         });
     }
 
-    getValidity() {
+    valid() {
         return this.waiver.valid;
     }
 

@@ -14,7 +14,7 @@ import {Storage} from "@ionic/storage";
   templateUrl: 'create-signature.html',
 })
 export class CreateSignaturePage {
-    signature = null;
+    signature = '';
 
     @Output()
     signatureEvent = new EventEmitter<any>();
@@ -60,8 +60,8 @@ export class CreateSignaturePage {
         this.signaturePad.clear();
     }
 
-    getValidity() {
-      return this.signature === null;
+    valid() {
+      return this.signature != '';
     }
 
 }

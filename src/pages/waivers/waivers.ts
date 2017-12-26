@@ -5,7 +5,6 @@ import {TranslateService} from "@ngx-translate/core";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/debounceTime';
-import {model} from "../../models/model";
 import {WaiverDetailPage} from "../waiver-detail/waiver-detail";
 import {FormControl} from "@angular/forms";
 import {CreateWaiverPage} from "../create-waiver/create-waiver";
@@ -31,15 +30,14 @@ export class WaiversPage {
 
     /**
      * This component handles the loading of all different waivers
+     * @param {AlertController} alertCtrl
      * @param {NavController} navCtrl
      * @param {Waivers} waivers
-     * @param {Guests} guests
-     * @param {ToastController} toastCtrl
      * @param {TranslateService} translateService
      * @param {LoadingController} loadingCtrl
      */
 
-    constructor(private alertCtrl: AlertController,
+    constructor(public alertCtrl: AlertController,
                 public navCtrl: NavController,
                 public waivers: Waivers,
                 public translateService: TranslateService,

@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {NavController, ToastController} from "ionic-angular";
+import {AlertController, NavController, ToastController} from "ionic-angular";
 import {Waivers} from "../../providers/waivers-api";
 import {WaiversPage} from "../waivers/waivers";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
@@ -19,7 +19,11 @@ export class SubmitWaiver {
     @Input()
     waiver:any;
 
-    constructor(public navCtrl: NavController, private waiversApi: Waivers, private photoViewer:PhotoViewer, private toastCtrl: ToastController) {}
+    constructor(public navCtrl: NavController,
+                public alertCtrl: AlertController,
+                private waiversApi: Waivers,
+                private photoViewer:PhotoViewer,
+                private toastCtrl: ToastController) {}
 
 
     ionViewDidLoad() {
@@ -31,7 +35,7 @@ export class SubmitWaiver {
     }
 
     submit() {
-        //#TODO: Fix this is future
+        //#TODO: This ought not to be hardcoded
         this.waiver.userId = 1;
         this.waiversApi.add(this.waiver).subscribe(
             response => {
@@ -51,7 +55,26 @@ export class SubmitWaiver {
     }
 
     cancel() {
-        this.navCtrl.push(WaiversPage)
+        let alert = this.alertCtrl.create({
+            title: 'Waiver Incomplete',
+            message: 'Are you sure you want to exit the waiver creation process?',
+            buttons: [
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        this.navCtrl.setRoot(WaiversPage)
+                    }
+                }
+            ]
+        });
+        alert.present();
     }
 
     showPicture (url) {

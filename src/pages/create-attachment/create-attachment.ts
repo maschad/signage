@@ -11,9 +11,11 @@ export class CreateAttachmentPage {
     @Output()
     imagesEvent = new EventEmitter<any[]>();
 
-    images:any[] = [];
+    images:any[];
 
-    constructor(private imagePicker: ImagePicker, private camera: Camera) { }
+    constructor(private imagePicker: ImagePicker, private camera: Camera) {
+        this.images = [];
+    }
 
     openGallery () {
         let options = {
@@ -50,8 +52,8 @@ export class CreateAttachmentPage {
         });
     }
 
-    getValidity() {
-        return this.images !== [];
+    valid() {
+        return this.images != [];
     }
 
 
