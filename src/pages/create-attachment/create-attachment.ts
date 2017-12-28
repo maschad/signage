@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {ImagePicker} from "@ionic-native/image-picker";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -11,11 +11,9 @@ export class CreateAttachmentPage {
     @Output()
     imagesEvent = new EventEmitter<any[]>();
 
-    images:any[];
+    images:any[] = [];
 
-    constructor(private imagePicker: ImagePicker, private camera: Camera) {
-        this.images = [];
-    }
+    constructor(private imagePicker: ImagePicker, private camera: Camera) {}
 
     openGallery () {
         let options = {
@@ -53,7 +51,11 @@ export class CreateAttachmentPage {
     }
 
     valid() {
-        return this.images != [];
+        return this.images !== [];
+    }
+
+    removePhoto(index) {
+        this.images.slice(index,1);
     }
 
 

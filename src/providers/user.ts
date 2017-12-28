@@ -90,4 +90,8 @@ export class User {
       console.log('response', resp);
     this._user = resp;
   }
+
+  getUser() {
+      return this._user;
+  }
 }

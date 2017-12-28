@@ -82,7 +82,10 @@ export class WaiversPage {
                         waiver.guest.address.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
                 });
                 loading.dismiss().catch();
-            }, () => this.presentAlert());
+            }, () => {
+                this.presentAlert();
+                loading.dismiss().catch();
+            });
         });
     }
 
