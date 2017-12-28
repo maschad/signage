@@ -3,6 +3,7 @@ import {AlertController, NavController, ToastController} from "ionic-angular";
 import {Waivers} from "../../providers/waivers-api";
 import {WaiversPage} from "../waivers/waivers";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
+import {User} from "../../providers/user";
 
 
 /**
@@ -18,11 +19,13 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
 export class SubmitWaiver implements OnChanges{
     @Input()
     waiver:any;
+    user: User;
     waiverViewModel: any = {
         guest: {
             open: true
         },
         attachments: {
+            attachments: [],
             open: true
         },
         witness: {
@@ -46,10 +49,9 @@ export class SubmitWaiver implements OnChanges{
     }
 
     submit() {
-        //#TODO: This ought not to be hardcoded
-        this.waiver.userId = 1;
+        this.waiver.id = this.user.getUser().id;
         this.waiversApi.add(this.waiver).subscribe(
-            response => {
+            () => {
                 this.successPopup()
             }, error => {
                 console.log(`error ${error}`);
@@ -100,12 +102,24 @@ export class SubmitWaiver implements OnChanges{
         this.photoViewer.show(url, `${this.waiver.guest.name} ${this.waiver.guest.lastname}`,{share:false})
     }
 
+
+    /**
+     * For the purpose of the view model, we need to update it separately
+     * as the model to be posted has slight property differences
+     * @param {SimpleChanges} changes
+     */
     ngOnChanges(changes: SimpleChanges) {
         for(let propName in changes) {
-            if(propName == 'signature') {
-                this.waiverViewModel.signature.signature = changes['signature']
-            } else {
-                this.waiverViewModel[propName] = changes[propName]
+            console.log('propname' , propName);
+            console.log('change', changes[propName]);
+            if(propName === 'waiver'){
+                for(let property in changes[propName].currentValue){
+                    if(property == 'signature' || property === 'attachments'){
+                        this.waiverViewModel[property][property] = changes[propName].currentValue[property]
+                    } else {
+                        this.waiverViewModel[property] = changes[propName].currentValue[property]
+                    }
+                }
             }
         }
     }
