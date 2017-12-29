@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { PhotoViewer } from "@ionic-native/photo-viewer";
 import 'rxjs/add/operator/map';
-import * as _ from 'lodash';
-import { tassign } from 'tassign';
 
 
 /**
@@ -34,9 +32,6 @@ export class IncidentDetailPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad IncidentDetailPage');
-  }
 
   toggleSection(item) {
     item.open = !item.open

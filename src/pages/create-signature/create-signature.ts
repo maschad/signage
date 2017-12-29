@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {NavController, ToastController} from 'ionic-angular';
 import {SignaturePad} from "angular2-signaturepad/signature-pad";
-import {Storage} from "@ionic/storage";
 
 /**
  * Generated class for the CreateSignaturePage page.
@@ -30,8 +29,7 @@ export class CreateSignaturePage {
         'penColor': '#27272a'
     };
 
-  constructor(private navCtrl: NavController,
-              private toastCtrl: ToastController) {}
+  constructor(private toastCtrl: ToastController) {}
 
     ionViewDidEnter() {
         this.signaturePad.clear();

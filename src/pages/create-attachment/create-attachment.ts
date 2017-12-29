@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {ImagePicker} from "@ionic-native/image-picker";
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import {AlertController} from "ionic-angular";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -9,11 +11,26 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class CreateAttachmentPage {
     @Output()
-    imagesEvent = new EventEmitter<any[]>();
+    imagesEvent = new EventEmitter<string>();
 
     images:any[] = [];
+    cameraErrorString:string;
+    galleryErrorString:string;
 
-    constructor(private imagePicker: ImagePicker, private camera: Camera) {}
+    constructor(
+        private alertCtrl: AlertController,
+        private imagePicker: ImagePicker,
+        private camera: Camera,
+        private translateService: TranslateService,
+    )
+    {
+        this.translateService.get(
+            'CAMERA_LOAD_ERROR',
+        'PHOTO_LOAD_ERROR').subscribe((values) => {
+            this.cameraErrorString = values.CAMERA_LOAD_ERROR;
+            this.galleryErrorString = values.PHOTO_LOAD_ERROR;
+        });
+    }
 
     openGallery () {
         let options = {
@@ -26,11 +43,24 @@ export class CreateAttachmentPage {
         this.imagePicker.getPictures(options).then(
             images => {
                 this.images.push(images);
-                this.imagesEvent.emit(this.images);
+                this.imagesEvent.emit(this.images.toString());
             },
-                    err => console.log('Error retrieving photos')
+                    err => {
+                        this.presentAlert(this.galleryErrorString);
+                        console.log('Error retrieving photos')
+                    }
         );
     }
+
+    presentAlert(message) {
+        let alert = this.alertCtrl.create({
+            title: 'Woops',
+            subTitle: message,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    }
+
 
     takePicture () {
         let options: CameraOptions = {
@@ -44,15 +74,18 @@ export class CreateAttachmentPage {
             // imageData is either a base64 encoded string or a file URI
             // If it's base64:
             this.images.push(imageData);
-            this.imagesEvent.emit(this.images);
+            this.imagesEvent.emit(this.images.toString());
         }, (err) => {
             // Handle error
+            console.log('error', err);
+            this.presentAlert(this.cameraErrorString);
         });
     }
 
     valid() {
-        return this.images !== [];
+        return this.images.length > 0;
     }
+
 
     removePhoto(index) {
         this.images.slice(index,1);

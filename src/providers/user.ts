@@ -43,8 +43,8 @@ export class User {
     seq
       .map(res => res.json())
       .subscribe(res => {
-        // If the API returned a successful response, mark the user as logged in
-        if (res.status == 'success') {
+          // If the API returned a successful response, mark the user as logged in
+        if (res.status != 404) {
           this._loggedIn(res);
         } else {
         }
@@ -87,7 +87,7 @@ export class User {
    * Process a login/signup response to store user data
    */
   _loggedIn(resp) {
-      console.log('response', resp);
+   console.log('user logged in', JSON.stringify(resp))
     this._user = resp;
   }
 

@@ -7,7 +7,7 @@
             <ion-list *ngIf="images.length > 0">
                 <ion-item *ngFor="let image of images; let i = index">
                     <button *ngIf="images.length > 0" ion-button (click)="removePhoto(i)">X</button>
-                    <img src="{{image}}">
+                    <img src="{{image}}" style="height: 100%; width: 100%;">
                 </ion-item>
             </ion-list>
         </ion-card>
