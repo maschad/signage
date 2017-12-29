@@ -19,13 +19,13 @@ import {User} from "../../providers/user";
 export class SubmitWaiver implements OnChanges{
     @Input()
     waiver:any;
-    user: User;
     waiverViewModel: any = {
+        id: 0,
         guest: {
             open: true
         },
         attachments: {
-            attachments: [],
+            attachments: '',
             open: true
         },
         witness: {
@@ -38,6 +38,7 @@ export class SubmitWaiver implements OnChanges{
     };
 
     constructor(public navCtrl: NavController,
+                private user: User,
                 public alertCtrl: AlertController,
                 private waiversApi: Waivers,
                 private photoViewer:PhotoViewer,
@@ -50,6 +51,7 @@ export class SubmitWaiver implements OnChanges{
 
     submit() {
         this.waiver.id = this.user.getUser().id;
+        console.log('waiver', JSON.stringify(this.waiver));
         this.waiversApi.add(this.waiver).subscribe(
             () => {
                 this.successPopup()
@@ -110,12 +112,13 @@ export class SubmitWaiver implements OnChanges{
      */
     ngOnChanges(changes: SimpleChanges) {
         for(let propName in changes) {
-            console.log('propname' , propName);
-            console.log('change', changes[propName]);
             if(propName === 'waiver'){
                 for(let property in changes[propName].currentValue){
-                    if(property == 'signature' || property === 'attachments'){
+                    if(property == 'signature'){
                         this.waiverViewModel[property][property] = changes[propName].currentValue[property]
+                    }
+                    else if (property === 'attachments'){
+                        this.waiverViewModel[property][property] = changes[propName].currentValue[property].split(',')
                     } else {
                         this.waiverViewModel[property] = changes[propName].currentValue[property]
                     }

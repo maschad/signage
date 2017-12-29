@@ -82,7 +82,8 @@ export class WaiversPage {
                         waiver.guest.address.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
                 });
                 loading.dismiss().catch();
-            }, () => {
+            }, error => {
+                console.log('error', JSON.stringify(error));
                 this.presentAlert();
                 loading.dismiss().catch();
             });

@@ -27,8 +27,7 @@ export class CreateWaiverPage {
     @ViewChild('createWaiverSlider') createWaiverSlider: any;
     slides: Slide[];
     waiver: any;
-    attachments: any[] = [];
-    signature: any[] = [];
+    attachments: string = '';
 
   constructor(public alertCtrl: AlertController,
               public navCtrl: NavController,
