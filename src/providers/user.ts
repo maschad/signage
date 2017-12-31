@@ -87,7 +87,6 @@ export class User {
    * Process a login/signup response to store user data
    */
   _loggedIn(resp) {
-   console.log('user logged in', JSON.stringify(resp))
     this._user = resp;
   }
 

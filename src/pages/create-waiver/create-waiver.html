@@ -42,7 +42,10 @@
         </ion-slide>
         <!--Submit page-->
         <ion-slide>
-            <submit-waiver [waiver]="waiver"></submit-waiver>
+            <submit-waiver #submitWaver [waiver]="waiver"></submit-waiver>
+            <button ion-button color="primary"  (click)="prev()">Previous</button>
+            <button ion-button color="primary"  (click)="cancel()">Cancel</button>
+            <button ion-button color="primary" (click)="submitWaver.submit()">Save</button>
         </ion-slide>
     </ion-slides>
 </ion-content>

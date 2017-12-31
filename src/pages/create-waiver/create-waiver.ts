@@ -1,9 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
-import {FormBuilder} from "@angular/forms";
+import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {TranslateService} from "@ngx-translate/core";
 import {WaiverForm} from "./waiver-form";
 import {WaiversPage} from "../waivers/waivers";
+import {User} from "../../providers/user";
+import {FormBuilder} from "@angular/forms";
 
 
 /**
@@ -29,13 +30,16 @@ export class CreateWaiverPage {
     waiver: any;
     attachments: string = '';
 
-  constructor(public alertCtrl: AlertController,
+  constructor(
+              protected user: User,
+              public alertCtrl: AlertController,
               public navCtrl: NavController,
+              public formBuilder: FormBuilder,
               public translate: TranslateService,
-              public formBuilder: FormBuilder
+              private navParams: NavParams
              ) {
 
-
+      let guest = navParams.get('guest');
       translate.get(['WAIVER_FORM_SLIDE1_TITLE',
           'WAIVER_FORM_SLIDE2_TITLE'
       ]).subscribe(
@@ -43,7 +47,7 @@ export class CreateWaiverPage {
               this.slides = [
                   {
                       title: values.WAIVER_FORM_SLIDE1_TITLE,
-                      page: new WaiverForm (formBuilder),
+                      page: new WaiverForm (formBuilder, guest),
                   },
                   {
                       title: values.WAIVER_FORM_SLIDE2_TITLE,
@@ -96,6 +100,7 @@ export class CreateWaiverPage {
 
   recieveSignature($event) {
       this.waiver = {
+          id: 8,
           guest: this.slides[0].page.waiver.value,
           witness: this.slides[1].page.waiver.value,
           attachments: this.attachments,

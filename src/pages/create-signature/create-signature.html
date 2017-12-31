@@ -1,20 +1,22 @@
-<div class="title">Please draw your Signature</div>
-<ion-row [ngClass]="{'drawing-active': isDrawing}">
-    <ion-col></ion-col>
-    <ion-col>
-        <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
-    </ion-col>
-    <ion-col></ion-col>
+<ion-grid>
+    <ion-row align-items-center justify-content-center>
+        <ion-col align-self-center>
+            <h2 class="title">Please draw your Signature</h2>
+            <ion-row [ngClass]="{'drawing-active': isDrawing}">
+                <ion-col>
+                    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+                </ion-col>
+            </ion-row>
+            <button ion-button full color="danger" (click)="clearPad()">Clear</button>
+            <button ion-button full color="secondary" (click)="savePad()">Save</button>
 
-</ion-row>
-<button ion-button full color="danger" (click)="clearPad()">Clear</button>
-<button ion-button full color="secondary" (click)="savePad()">Save</button>
+            <ion-row>
+                <ion-col>
+                    <img *ngIf="signature" [src]="signature"/>
+                </ion-col>
+            </ion-row>
+        </ion-col>
+    </ion-row>
+</ion-grid>
 
-<ion-row>
-    <ion-col></ion-col>
-    <ion-col width-80>
-        <img *ngIf="signature" [src]="signature"/>
-    </ion-col>
-    <ion-col></ion-col>
-</ion-row>
 
