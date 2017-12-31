@@ -1,16 +1,18 @@
-<ion-grid style="height: 100%">
-    <ion-row justify-content-center align-items-center style="height: 100%">
-        <ion-card>
-            <h2> Take a picture or select from your gallery</h2>
-            <button ion-button color="primary" (click)="openGallery()"><ion-icon name="images"></ion-icon></button>
-            <button ion-button color="primary" (click)="takePicture()"><ion-icon name="camera"></ion-icon></button>
-            <ion-list *ngIf="images.length > 0">
-                <ion-item *ngFor="let image of images; let i = index">
-                    <button *ngIf="images.length > 0" ion-button (click)="removePhoto(i)">X</button>
-                    <img src="{{image}}" style="height: 100%; width: 100%;">
-                </ion-item>
-            </ion-list>
-        </ion-card>
+<ion-grid>
+    <ion-row justify-content-center align-items-center>
+        <ion-col align-self-center>
+            <ion-card>
+                <h2> Take a picture or select from your gallery</h2>
+                <button ion-button color="primary" (click)="openGallery()"><ion-icon name="images"></ion-icon></button>
+                <button ion-button color="primary" (click)="takePicture()"><ion-icon name="camera"></ion-icon></button>
+                <ion-list *ngIf="images.length > 0">
+                    <ion-item *ngFor="let image of images; let i = index">
+                        <button *ngIf="images.length > 0" ion-button (click)="removePhoto(i)">X</button>
+                        <img src="{{image}}" style="height: 100%; width: 100%;">
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+        </ion-col>
     </ion-row>
 </ion-grid>
 

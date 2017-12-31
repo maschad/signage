@@ -41,6 +41,7 @@ import {Incidents} from "../providers/incidents-api";
 import {CreateWaiverModule} from "../pages/create-waiver/create-waiver-module";
 import {SignaturePadModule} from "angular2-signaturepad";
 import {ImagePicker} from "@ionic-native/image-picker";
+import {Guest} from "../models/guest";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -122,6 +123,7 @@ export function provideSettings(storage: Storage) {
     Camera,
     GoogleMaps,
     Guests,
+    Guest,
     Incidents,
     ImagePicker,
     PhotoViewer,
