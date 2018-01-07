@@ -42,6 +42,7 @@ import {CreateWaiverModule} from "../pages/create-waiver/create-waiver-module";
 import {SignaturePadModule} from "angular2-signaturepad";
 import {ImagePicker} from "@ionic-native/image-picker";
 import {Guest} from "../models/guest";
+import {Upload} from "../providers/upload";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -130,6 +131,7 @@ export function provideSettings(storage: Storage) {
     SplashScreen,
     StatusBar,
     Waivers,
+    Upload,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }
