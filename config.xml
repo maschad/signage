@@ -3,7 +3,7 @@
     <name>AHGate</name>
     <description>Application for AlligatorHead</description>
     <author email="info@yam.ba" href="">Yamba</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.100.69:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -79,6 +79,7 @@
     <allow-navigation href="http://192.168.100.71:8100" />
     <allow-navigation href="http://192.168.100.68:8100" />
     <allow-navigation href="http://192.168.100.72:8100" />
+    <allow-navigation href="http://192.168.100.69:8100" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.11" />
     <plugin name="com.synconset.imagepicker" spec="~2.1.8">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="your usage message" />

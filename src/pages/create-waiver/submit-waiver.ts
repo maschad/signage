@@ -1,7 +1,9 @@
 import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
-import {NavController, ToastController} from "ionic-angular";
+import {LoadingController, NavController, ToastController} from "ionic-angular";
 import {Waivers} from "../../providers/waivers-api";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
+import {Upload} from "../../providers/upload";
+import * as _ from 'lodash';
 
 
 /**
@@ -36,6 +38,8 @@ export class SubmitWaiver implements OnChanges{
 
     constructor(public navCtrl: NavController,
                 private waiversApi: Waivers,
+                private loadingCtrl: LoadingController,
+                private uploadApi : Upload,
                 private photoViewer:PhotoViewer,
                 private toastCtrl: ToastController) {}
 
@@ -45,6 +49,8 @@ export class SubmitWaiver implements OnChanges{
     }
 
     submit() {
+        this.uploadAttachments();
+        this.uploadSignature();
         console.log('waiver', JSON.stringify(this.waiver));
         this.waiversApi.add(this.waiver).subscribe(
             () => {
@@ -52,7 +58,38 @@ export class SubmitWaiver implements OnChanges{
             }, error => {
                 console.log(`error ${error}`);
                 this.failurePopup();
+            })
+    }
+
+    uploadSignature () {
+        let loadingSignature = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Uploading Signature'
+        });
+        return this.uploadApi.add(this.waiver.signature).subscribe( signatureLink => {
+            loadingSignature.present().then( () => {
+                this.waiver.signature = signatureLink
+                loadingSignature.dismiss().catch()
+            })
         })
+    }
+
+    uploadAttachments () {
+        let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Uploading attachments'
+        });
+
+        return  _.forEach(this.waiver.attachments, attachment => {
+            loading.present().then( () =>
+                this.uploadApi.add(attachment).subscribe( attachmentLink  => {
+                        attachment = attachmentLink
+                        loading.dismiss().catch()
+                        this.successPopup()
+                    }
+                    , () => this.failurePopup())
+            )
+        });
     }
 
     successPopup () {

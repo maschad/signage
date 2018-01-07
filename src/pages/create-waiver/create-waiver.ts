@@ -100,7 +100,7 @@ export class CreateWaiverPage {
 
   recieveSignature($event) {
       this.waiver = {
-          id: 8,
+          id: this.user._user.id,
           guest: this.slides[0].page.waiver.value,
           witness: this.slides[1].page.waiver.value,
           attachments: this.attachments,
