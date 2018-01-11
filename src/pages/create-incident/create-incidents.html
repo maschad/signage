@@ -1,18 +1,40 @@
 <!--
-  Generated template for the CreateIncidentsPage page.
+  Generated template for the CreateWaiverPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>CreateIncidentsPage</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button menuToggle icon-only>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{ 'INCIDENT_MASTER_TITLE' | translate }}</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-
+    <ion-slides #createIncidentSlider>
+        <ion-slide>
+            <report-form #reportForm (reportEvent)="recieveReport($event)"></report-form>
+            <button ion-button color="primary"  (click)="prev()">Previous</button>
+            <button ion-button color="primary" (click)="cancel()">Cancel</button>
+            <button [disabled]="!reportForm.valid()" ion-button color="primary" (click)="next()">Next</button>
+        </ion-slide>
+        <ion-slide>
+            <page-create-attachment #attachmentPage (imagesEvent)="recieveImages($event)"></page-create-attachment>
+            <button ion-button color="primary"  (click)="prev()">Previous</button>
+            <button ion-button color="primary" (click)="cancel()">Cancel</button>
+            <button [disabled]="!attachmentPage.valid()" ion-button color="primary" (click)="next()">Next</button>
+        </ion-slide>
+        <ion-slide>
+            <submit-incident #submitIncident [incident]="incident"></submit-incident>
+            <button ion-button color="primary"  (click)="prev()">Previous</button>
+            <button ion-button color="primary"  (click)="cancel()">Cancel</button>
+            <button ion-button color="primary" (click)="submitIncident.submit()">Save</button>
+        </ion-slide>
+    </ion-slides>
 </ion-content>

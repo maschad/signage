@@ -1,0 +1,25 @@
+<!-- Report Accordion -->
+<button ion-item color="primary" (click)="toggleSection(incidentViewModel.report)" detail-none [ngClass]="{'section-active': incidentViewModel.attachments.open, 'section': !incidentViewModel.attachments.open}">
+    <ion-icon item-right name="arrow-dropup" *ngIf="incidentViewModel.report.open"></ion-icon>
+    <ion-icon item-right name="arrow-dropdown" *ngIf="!incidentViewModel.report.open"></ion-icon>
+    Report
+</button>
+<ion-card *ngIf="incidentViewModel.report.open">
+    <h2>{{incidentViewModel.report.title}}</h2>
+    <p>{{incidentViewModel.report.description}}</p>
+</ion-card>
+
+
+<!-- Attachment Accordion -->
+<button ion-item color="primary" (click)="toggleSection(incidentViewModel.attachments)" detail-none [ngClass]="{'section-active': incidentViewModel.attachments.open, 'section': !incidentViewModel.attachments.open}">
+    <ion-icon item-right name="arrow-dropup" *ngIf="incidentViewModel.attachments.open"></ion-icon>
+    <ion-icon item-right name="arrow-dropdown" *ngIf="!incidentViewModel.attachments.open"></ion-icon>
+    Attachments
+</button>
+<ion-card *ngIf="incidentViewModel.attachments.open">
+    <ion-list *ngFor="let attachment of incidentViewModel.attachments.attachments">
+        <ion-item>
+            <img src="{{attachment}}" (click)="showPicture(attachment)">
+        </ion-item>
+    </ion-list>
+</ion-card>

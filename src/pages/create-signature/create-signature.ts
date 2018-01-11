@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {NavController, ToastController} from 'ionic-angular';
+import {ToastController} from 'ionic-angular';
 import {SignaturePad} from "angular2-signaturepad/signature-pad";
 
 /**
