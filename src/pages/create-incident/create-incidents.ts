@@ -73,8 +73,8 @@ export class CreateIncidentsPage {
     }
 
     recieveReport($event) {
-        this.title = $event.title.value;
-        this.description = $event.description.value;
+        this.title = $event.value.title;
+        this.description = $event.value.description;
     }
 
     ionViewDidLoad() {
