@@ -24,7 +24,7 @@ export class SubmitWaiver implements OnChanges{
             open: true
         },
         attachments: {
-            attachments: '',
+            attachments: [],
             open: true
         },
         witness: {
@@ -126,7 +126,7 @@ export class SubmitWaiver implements OnChanges{
                         this.waiverViewModel[property][property] = changes[propName].currentValue[property]
                     }
                     else if (property === 'attachments'){
-                        this.waiverViewModel[property][property] = changes[propName].currentValue[property].split(',')
+                        this.waiverViewModel[property][property] = changes[propName].currentValue[property]
                     } else {
                         this.waiverViewModel[property] = changes[propName].currentValue[property]
                     }

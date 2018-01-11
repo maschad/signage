@@ -1,0 +1,9 @@
+<form [formGroup]="report" padding>
+    <ion-item>
+        <ion-label floating align-items-center>Title</ion-label>
+        <ion-input type="text" formControlName="title"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-textarea placeholder="Enter a description" formControlName="description"></ion-textarea>
+    </ion-item>
+</form>

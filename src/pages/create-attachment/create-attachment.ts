@@ -11,7 +11,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class CreateAttachmentPage {
     @Output()
-    imagesEvent = new EventEmitter<string>();
+    imagesEvent = new EventEmitter<any>();
 
     images:any[] = [];
     cameraErrorString:string;
@@ -43,7 +43,7 @@ export class CreateAttachmentPage {
         this.imagePicker.getPictures(options).then(
             images => {
                 this.images.push(images);
-                this.imagesEvent.emit(this.images.toString());
+                this.imagesEvent.emit(this.images);
             },
                     err => {
                         this.presentAlert(this.galleryErrorString);
@@ -74,7 +74,7 @@ export class CreateAttachmentPage {
             // imageData is either a base64 encoded string or a file URI
             // If it's base64:
             this.images.push(imageData);
-            this.imagesEvent.emit(this.images.toString());
+            this.imagesEvent.emit(this.images);
         }, (err) => {
             // Handle error
             console.log('error', err);

@@ -43,6 +43,7 @@ import {SignaturePadModule} from "angular2-signaturepad";
 import {ImagePicker} from "@ionic-native/image-picker";
 import {Guest} from "../models/guest";
 import {Upload} from "../providers/upload";
+import {CreateIncidentModule} from "../pages/create-incident/create-incident-module";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -70,7 +71,6 @@ export function provideSettings(storage: Storage) {
     MyApp,
     CardsPage,
     ContentPage,
-    CreateIncidentsPage,
     IncidentsPage,
     IncidentDetailPage,
     WaiverDetailPage,
@@ -86,6 +86,7 @@ export function provideSettings(storage: Storage) {
   imports: [
     BrowserModule,
     CreateWaiverModule,
+    CreateIncidentModule,
     HttpModule,
     UtilitiesModule.forRoot(),
     TranslateModule.forRoot({

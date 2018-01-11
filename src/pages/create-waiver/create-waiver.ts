@@ -28,7 +28,7 @@ export class CreateWaiverPage {
     @ViewChild('createWaiverSlider') createWaiverSlider: any;
     slides: Slide[];
     waiver: any;
-    attachments: string = '';
+    attachments:any[] = [];
 
   constructor(
               protected user: User,
@@ -39,7 +39,7 @@ export class CreateWaiverPage {
               private navParams: NavParams
              ) {
 
-      let guest = navParams.get('guest');
+      let guest = this.navParams.get('guest');
       translate.get(['WAIVER_FORM_SLIDE1_TITLE',
           'WAIVER_FORM_SLIDE2_TITLE'
       ]).subscribe(
