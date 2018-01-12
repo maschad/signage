@@ -69,26 +69,25 @@ export class SubmitIncident implements OnChanges {
         let options: FileUploadOptions = {
             fileKey: 'file',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU='
             }
         };
-
+            console.log('all attachments', this.incident.attachments)
         _.forEach(this.incident.attachments, attachment => {
-            loading.present().then( () =>
-                observableBatch.push(
-                    this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
-                        .then( attachmentLink  => {
-                            attachment = attachmentLink;
+            loading.present().then( () => {
+                    observableBatch.push(
+                        this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+                            .then( attachmentLink  => {
+                                attachment = attachmentLink.response;
+                                loading.dismiss().catch();
+                                this.successAttachmentPopup();
+                            }).catch(error => {
+                            console.log('error', error);
                             loading.dismiss().catch();
-                            this.successAttachmentPopup();
-                        },
-                    error => {
-                        console.log('error', error);
-                        loading.dismiss().catch();
-                        this.failurePopup()
-                    })
-            ))
+                            this.failurePopup()
+                        })
+                    )
+            })
         });
         return Observable.forkJoin(observableBatch)
     }
@@ -147,13 +146,11 @@ export class SubmitIncident implements OnChanges {
         for(let propName in changes) {
             if(propName === 'incident'){
                 for(let property in changes[propName].currentValue){
-                    console.log('property', property)
                     if (property === 'attachments'){
                         this.incidentViewModel[property][property] = changes[propName].currentValue[property]
                     } else {
                         this.incidentViewModel['report']['title'] = changes[propName].currentValue['title']
                         this.incidentViewModel['report']['description'] = changes[propName].currentValue['report']
-                        console.log('incidentView model', JSON.stringify(this.incidentViewModel))
                     }
                 }
             }

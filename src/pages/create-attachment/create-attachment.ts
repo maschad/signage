@@ -42,7 +42,7 @@ export class CreateAttachmentPage {
 
         this.imagePicker.getPictures(options).then(
             images => {
-                this.images.push(images);
+                this.images = images;
                 this.imagesEvent.emit(this.images);
             },
                     err => {
@@ -73,7 +73,7 @@ export class CreateAttachmentPage {
         this.camera.getPicture(options).then((imageData) => {
             // imageData is either a base64 encoded string or a file URI
             // If it's base64:
-            this.images.push(imageData);
+            this.images = imageData;
             this.imagesEvent.emit(this.images);
         }, (err) => {
             // Handle error
