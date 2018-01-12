@@ -2,11 +2,12 @@ import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {LoadingController, NavController, ToastController} from "ionic-angular";
 import {Incidents} from "../../providers/incidents-api";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
-import {Upload} from "../../providers/upload";
+import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native/file-transfer";
+
+//RxJs & Lodash
 import * as _ from 'lodash';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/forkJoin'
-import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native/file-transfer";
 
 
 
@@ -64,7 +65,6 @@ export class SubmitIncident implements OnChanges {
             content: 'Uploading attachments'
         });
 
-        let observableBatch = [];
 
         let options: FileUploadOptions = {
             fileKey: 'file',
@@ -72,24 +72,23 @@ export class SubmitIncident implements OnChanges {
                 'Authorization': 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU='
             }
         };
-            console.log('all attachments', this.incident.attachments)
-        _.forEach(this.incident.attachments, attachment => {
-            loading.present().then( () => {
-                    observableBatch.push(
-                        this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
-                            .then( attachmentLink  => {
-                                attachment = attachmentLink.response;
-                                loading.dismiss().catch();
-                                this.successAttachmentPopup();
-                            }).catch(error => {
-                            console.log('error', error);
+
+        return Observable.forkJoin(
+            _.forEach(this.incident.attachments, attachment => {
+                loading.present().then( () => {
+                    return this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+                        .then( attachmentLink  => {
+                            console.log('attachmentLink', attachmentLink);
+                            attachment = attachmentLink.response['fileName'];
                             loading.dismiss().catch();
-                            this.failurePopup()
-                        })
-                    )
+                            this.successAttachmentPopup();
+                        }).catch(error => {
+                        loading.dismiss().catch();
+                        this.failurePopup()
+                    })
+                })
             })
-        });
-        return Observable.forkJoin(observableBatch)
+        )
     }
 
     submit() {
