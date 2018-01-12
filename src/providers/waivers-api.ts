@@ -23,7 +23,7 @@ export class Waivers {
       .map(resp => resp.json());
   }
 
-  add(waiver: model): Observable<any> {
+  add(waiver: any): Observable<any> {
     return this.api.post('waiver', waiver, this.options)
         .map(resp => resp.json());
   }

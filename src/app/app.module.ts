@@ -28,6 +28,8 @@ import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -128,6 +130,9 @@ export function provideSettings(storage: Storage) {
     Guest,
     Incidents,
     ImagePicker,
+    File,
+    FileTransfer,
+    FileTransferObject,
     PhotoViewer,
     SplashScreen,
     StatusBar,
