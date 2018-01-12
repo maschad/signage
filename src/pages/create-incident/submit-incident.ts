@@ -4,6 +4,10 @@ import {Incidents} from "../../providers/incidents-api";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {Upload} from "../../providers/upload";
 import * as _ from 'lodash';
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/observable/forkJoin'
+import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native/file-transfer";
+
 
 
 /**
@@ -22,6 +26,9 @@ export class SubmitIncident implements OnChanges {
     @Input()
     incident: any;
 
+    fileTransfer: FileTransferObject;
+
+
     incidentViewModel: any = {
         report: {
             title: '',
@@ -37,11 +44,15 @@ export class SubmitIncident implements OnChanges {
     constructor(
         public navCtrl: NavController,
         private loadingCtrl: LoadingController,
-        private uploadApi: Upload,
+        private transfer: FileTransfer,
+        private incidentApi: Incidents,
         private toastCtrl: ToastController,
         private photoViewer: PhotoViewer
 
-    ) {}
+    ) {
+        this.fileTransfer = this.transfer.create();
+    }
+
 
     toggleSection(item) {
         item.open = !item.open
@@ -53,22 +64,68 @@ export class SubmitIncident implements OnChanges {
             content: 'Uploading attachments'
         });
 
-        return  _.forEach(this.incident.attachments, attachment => {
+        let observableBatch = [];
+
+        let options: FileUploadOptions = {
+            fileKey: 'file',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU='
+            }
+        };
+
+        _.forEach(this.incident.attachments, attachment => {
             loading.present().then( () =>
-                this.uploadApi.add(attachment).subscribe( attachmentLink  => {
-                        attachment = attachmentLink
-                        loading.dismiss().catch()
-                        this.successPopup()
-                    }
-                    , () => this.failurePopup())
-            )
+                observableBatch.push(
+                    this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+                        .then( attachmentLink  => {
+                            attachment = attachmentLink;
+                            loading.dismiss().catch();
+                            this.successAttachmentPopup();
+                        },
+                    error => {
+                        console.log('error', error);
+                        loading.dismiss().catch();
+                        this.failurePopup()
+                    })
+            ))
         });
+        return Observable.forkJoin(observableBatch)
+    }
+
+    submit() {
+        this.uploadAttachments().subscribe(() => this.uploadIncident())
+    }
+
+    uploadIncident () {
+        let incidentToSend = {
+            id: this.incident.id,
+            title: this.incident.title,
+            report: this.incident.report,
+            attachments: this.incident.attachments.toString()
+        };
+
+        return this.incidentApi.add(incidentToSend).subscribe(
+            () => {
+                this.successPopup()
+            }, error => {
+                console.log(`error ${error}`);
+                this.failurePopup();
+            })
     }
 
 
     successPopup () {
         let toast = this.toastCtrl.create({
-            message: 'New Waiver saved.',
+            message: 'New Incident saved.',
+            duration: 3000
+        });
+        toast.present();
+    }
+
+    successAttachmentPopup () {
+        let toast = this.toastCtrl.create({
+            message: 'Attachment Uploaded.',
             duration: 3000
         });
         toast.present();

@@ -9,19 +9,24 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class Incidents {
+    options: any;
+    headers: any;
+
 
     constructor(public http: Http, public api: Api) {
+        this.headers = new Headers({'Content-Type': 'application/json'});
+        this.headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
+        this.options = new RequestOptions({ headers: this.headers });
     }
 
     query(params?: any): Observable<any> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
-        let options = new RequestOptions({ headers: headers });
-        return this.api.get('/incident', params,options)
+        return this.api.get('/incident', params,this.options)
             .map(resp => resp.json());
     }
 
-    add(incident: model): void {
+    add(incident: any): Observable<any> {
+        return this.api.post('incident', incident, this.options)
+            .map(resp => resp.json());
     }
 
     delete(incident: model): void {
