@@ -4,8 +4,7 @@ import {Incidents} from "../../providers/incidents-api";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native/file-transfer";
 
-//RxJs & Lodash
-import * as _ from 'lodash';
+//RxJs
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/forkJoin'
 
@@ -60,6 +59,7 @@ export class SubmitIncident implements OnChanges {
     }
 
     uploadAttachments () {
+        let observableBatch = [];
         let loading = this.loadingCtrl.create({
             spinner: 'circles',
             content: 'Uploading attachments'
@@ -73,31 +73,35 @@ export class SubmitIncident implements OnChanges {
             }
         };
 
-        return Observable.forkJoin(
-            _.forEach(this.incident.attachments, attachment => {
+        this.incident.attachments.forEach( (attachment, index) => {
+            observableBatch.push(
                 loading.present().then( () => {
                     return this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
                         .then( attachmentLink  => {
-                            console.log('attachmentLink', attachmentLink);
-                            attachment = attachmentLink.response['fileName'];
+                            this.incident.attachments[index] = JSON.parse(attachmentLink.response).fileName;
                             loading.dismiss().catch();
                             this.successAttachmentPopup();
                         }).catch(error => {
-                        loading.dismiss().catch();
-                        this.failurePopup()
-                    })
+                            loading.dismiss().catch();
+                            this.failurePopup()
+                        })
                 })
-            })
-        )
+            )
+        });
+
+        return Observable.forkJoin(observableBatch);
+
     }
 
     submit() {
         this.uploadAttachments().subscribe(() => this.uploadIncident())
     }
 
+
     uploadIncident () {
         let incidentToSend = {
-            id: this.incident.id,
+            id: 8,
+            userId:2,
             title: this.incident.title,
             report: this.incident.report,
             attachments: this.incident.attachments.toString()
