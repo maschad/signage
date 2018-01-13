@@ -62,7 +62,8 @@ export class SubmitIncident implements OnChanges {
         let observableBatch = [];
         let loading = this.loadingCtrl.create({
             spinner: 'circles',
-            content: 'Uploading attachments'
+            content: 'Uploading attachments',
+            duration: 5000
         });
 
 
@@ -78,8 +79,8 @@ export class SubmitIncident implements OnChanges {
                 loading.present().then( () => {
                     return this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
                         .then( attachmentLink  => {
-                            this.incident.attachments[index] = JSON.parse(attachmentLink.response).fileName;
                             loading.dismiss().catch();
+                            this.incident.attachments[index] = JSON.parse(attachmentLink.response).fileName;
                             this.successAttachmentPopup();
                         }).catch(error => {
                             loading.dismiss().catch();

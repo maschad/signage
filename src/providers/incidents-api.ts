@@ -20,7 +20,7 @@ export class Incidents {
     }
 
     query(params?: any): Observable<any> {
-        return this.api.get('/incident', params,this.options)
+        return this.api.get('incident', params,this.options)
             .map(resp => resp.json());
     }
 
