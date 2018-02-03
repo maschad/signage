@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav, Config } from 'ionic-angular';
+import {Platform, Nav, Config} from 'ionic-angular';
 
+import { Keyboard } from '@ionic-native/keyboard';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { FirstRunPage } from '../pages/pages';
 
-import { Settings } from '../providers/providers';
+import { Settings } from '../providers/settings';
 
 import { TranslateService } from '@ngx-translate/core'
 
@@ -19,7 +20,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
 
-  constructor(private translate: TranslateService,
+  constructor(private keyboard: Keyboard,
+              private translate: TranslateService,
               private platform: Platform, settings: Settings,
               private config: Config, private statusBar: StatusBar,
               private splashScreen: SplashScreen) {
@@ -32,6 +34,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.keyboard.disableScroll(true)
+
     });
   }
 

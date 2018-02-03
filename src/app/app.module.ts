@@ -46,6 +46,7 @@ import {ImagePicker} from "@ionic-native/image-picker";
 import {Guest} from "../models/guest";
 import {Upload} from "../providers/upload";
 import {CreateIncidentModule} from "../pages/create-incident/create-incident-module";
+import {Keyboard} from "@ionic-native/keyboard";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -98,7 +99,7 @@ export function provideSettings(storage: Storage) {
         deps: [Http]
       }
     }),
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, { scrollAssist: false, autoFocusAssist: false }),
     IonicStorageModule.forRoot(),
     SignaturePadModule
   ],
@@ -123,22 +124,23 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
-    User,
     Camera,
+    File,
+    FileTransfer,
+    FileTransferObject,
     GoogleMaps,
     Guests,
     Guest,
     Incidents,
     ImagePicker,
-    File,
-    FileTransfer,
-    FileTransferObject,
+    Keyboard,
     PhotoViewer,
     SplashScreen,
     StatusBar,
     Waivers,
     Upload,
-    { provide: Settings, useFactory: provideSettings, deps: [Storage] },
+    User,
+      { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
