@@ -37,7 +37,7 @@ export class SubmitIncident implements OnChanges {
         },
         attachments: {
             attachments:[],
-            open: true
+            open: false
         }
     }
 
