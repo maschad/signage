@@ -26,6 +26,7 @@ export interface Slide {
 export class CreateWaiverPage {
 
     @ViewChild('createWaiverSlider') createWaiverSlider: any;
+    @ViewChild('createWaiverContent') createWaiverContent: any;
     slides: Slide[];
     waiver: any;
     attachments:any[] = [];
@@ -60,6 +61,7 @@ export class CreateWaiverPage {
 
   next() {
       this.createWaiverSlider.lockSwipes(false);
+      this.createWaiverContent.scrollToTop();
       this.createWaiverSlider.slideNext();
       this.createWaiverSlider.lockSwipes(true);
   }
@@ -90,6 +92,7 @@ export class CreateWaiverPage {
 
   prev() {
       this.createWaiverSlider.lockSwipes(false);
+      this.createWaiverContent.scrollToTop();
       this.createWaiverSlider.slidePrev();
       this.createWaiverSlider.lockSwipes(true);
   }
