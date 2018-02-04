@@ -101,7 +101,7 @@ export class SubmitIncident implements OnChanges {
 
     uploadIncident () {
         let incidentToSend = {
-            id: 8,
+            id: 0,
             userId:2,
             title: this.incident.title,
             report: this.incident.report,
