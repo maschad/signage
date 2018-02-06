@@ -23,7 +23,7 @@
         "@ionic-native/file": "^4.5.2",
         "@ionic-native/file-transfer": "^4.5.2",
         "@ionic-native/google-maps": "^3.12.1",
-        "@ionic-native/image-picker": "^4.5.2",
+        "@ionic-native/image-picker": "^4.5.3",
         "@ionic-native/keyboard": "^4.5.3",
         "@ionic-native/photo-viewer": "^4.4.2",
         "@ionic-native/splash-screen": "3.12.1",
@@ -69,7 +69,7 @@
             "com-sarriaroman-photoviewer": {},
             "cordova-plugin-camera": {},
             "com.synconset.imagepicker": {
-                "PHOTO_LIBRARY_USAGE_DESCRIPTION": "your usage message"
+                "PHOTO_LIBRARY_USAGE_DESCRIPTION": "For uploading photos as incidents"
             },
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-file": {}
