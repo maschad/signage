@@ -39,13 +39,15 @@ export class CreateAttachmentPage {
             maximumImagesCount: 4,
             width: 500,
             height: 500,
-            quality: 75
+            quality: 75,
+            outputType: 1
         };
 
         this.imagePicker.getPictures(options).then(
-            images => {
+            (images) => {
                 _.forEach(images, image => {
-                    this.images.push(image);
+                    this.images.push(base64prepend.concat(image));
+
                 });
                 this.images.reverse();
                 this.imagesEvent.emit(this.images);
