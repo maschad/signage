@@ -20,7 +20,6 @@
     <ion-slides #createIncidentSlider>
         <ion-slide>
             <report-form #reportForm (reportEvent)="recieveReport($event)"></report-form>
-            <button ion-button color="primary"  (click)="prev()">Previous</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
             <button [disabled]="!reportForm.valid()" ion-button color="primary" (click)="next()">Next</button>
         </ion-slide>
