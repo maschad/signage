@@ -16,7 +16,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding #createIncidentContent>
     <ion-slides #createIncidentSlider>
         <ion-slide>
             <report-form #reportForm (reportEvent)="recieveReport($event)"></report-form>

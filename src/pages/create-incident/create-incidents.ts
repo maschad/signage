@@ -13,6 +13,7 @@ import {FormBuilder} from "@angular/forms";
 export class CreateIncidentsPage {
 
     @ViewChild('createIncidentSlider') createIncidentSlider: any;
+    @ViewChild('createIncidentContent') createIncidentContent: any;
     incident: any;
     report: any;
     title: any;
@@ -30,6 +31,7 @@ export class CreateIncidentsPage {
     next() {
         this.createIncidentSlider.lockSwipes(false);
         this.createIncidentSlider.slideNext();
+        this.createIncidentContent.scrollToTop();
         this.createIncidentSlider.lockSwipes(true);
     }
 
@@ -60,6 +62,7 @@ export class CreateIncidentsPage {
     prev() {
         this.createIncidentSlider.lockSwipes(false);
         this.createIncidentSlider.slidePrev();
+        this.createIncidentContent.scrollToTop();
         this.createIncidentSlider.lockSwipes(true);
     }
 
