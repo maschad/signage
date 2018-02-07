@@ -8,6 +8,7 @@ import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/forkJoin'
 import {User} from "../../providers/user";
+import {IncidentsPage} from "../incidents/incidents";
 
 
 
@@ -62,12 +63,6 @@ export class SubmitIncident implements OnChanges {
 
     uploadAttachments () {
         let observableBatch = [];
-        let loading = this.loadingCtrl.create({
-            spinner: 'circles',
-            content: 'Uploading attachments',
-            duration: 5000
-        });
-
 
         let options: FileUploadOptions = {
             fileKey: 'file',
@@ -78,17 +73,11 @@ export class SubmitIncident implements OnChanges {
 
         this.incident.attachments.forEach( (attachment, index) => {
             observableBatch.push(
-                loading.present().then( () => {
-                    return this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
-                        .then( attachmentLink  => {
-                            loading.dismiss().catch();
-                            this.incident.attachments[index] = JSON.parse(attachmentLink.response).fileName;
-                            this.successAttachmentPopup();
-                        }).catch(error => {
-                            loading.dismiss().catch();
-                            this.failurePopup()
-                        })
-                })
+                this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+                    .then( attachmentLink  => {
+                        //we can only present a toast once loading is complete
+                        this.incident.attachments[index] = JSON.parse(attachmentLink.response).fileName;
+                    }).catch(error =>  console.log('error'))
             )
         });
 
@@ -97,7 +86,21 @@ export class SubmitIncident implements OnChanges {
     }
 
     submit() {
-        this.uploadAttachments().subscribe(() => this.uploadIncident())
+
+        let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Uploading attachments',
+            dismissOnPageChange: true
+        });
+
+        loading.present();
+
+        this.uploadAttachments().subscribe(
+            () => {
+                loading.dismiss().then(() =>  this.uploadIncident())
+            },
+                error => loading.dismiss().then(() => this.failurePopup())
+        )
     }
 
 
@@ -113,6 +116,7 @@ export class SubmitIncident implements OnChanges {
         return this.incidentApi.add(incidentToSend).subscribe(
             () => {
                 this.successPopup()
+                this.navCtrl.push(IncidentsPage)
             }, error => {
                 console.log(`error ${error}`);
                 this.failurePopup();
@@ -131,7 +135,7 @@ export class SubmitIncident implements OnChanges {
     successAttachmentPopup () {
         let toast = this.toastCtrl.create({
             message: 'Attachment Uploaded.',
-            duration: 3000
+            duration: 1000
         });
         toast.present();
     }
