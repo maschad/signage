@@ -7,6 +7,8 @@ import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native
 //RxJs
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/forkJoin';
+import {User} from "../../providers/user";
+import {WaiversPage} from "../waivers/waivers";
 
 
 /**
@@ -43,6 +45,7 @@ export class SubmitWaiver implements OnChanges{
 
 
     constructor(public navCtrl: NavController,
+                private user: User,
                 private waiversApi: Waivers,
                 private loadingCtrl: LoadingController,
                 private transfer: FileTransfer,
@@ -60,12 +63,6 @@ export class SubmitWaiver implements OnChanges{
 
     uploadAttachmentsAndSignature () {
         let observableBatch = [];
-        let loading = this.loadingCtrl.create({
-            spinner: 'circles',
-            content: 'Uploading attachments and signature',
-            duration: 5000
-        });
-
 
         let options: FileUploadOptions = {
             fileKey: 'file',
@@ -75,43 +72,51 @@ export class SubmitWaiver implements OnChanges{
         };
 
         observableBatch.push(
-            loading.present().then( () => {
-                return this.fileTransfer.upload(this.waiver.signature, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
-                    .then(signatureLink => {
-                        loading.dismiss().catch();
-                        this.waiver.signature = JSON.parse(signatureLink.response).fileName;
-                        this.successAttachmentPopup();
+            this.fileTransfer.upload(this.waiver.signature, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+                .then(signatureLink => {
+                    this.waiver.signature = JSON.parse(signatureLink.response).fileName;
 
-                    })
-                    .catch(error => {
-                        loading.dismiss().catch();
-                        this.failurePopup();
-                        console.log(`error`)
-                    });
-        }));
+                })
+                .catch(error => {
+                    console.log(`error`)
+                })
+        );
         this.waiver.attachments.forEach( (attachment, index) => {
             observableBatch.push(
-                loading.present().then( () => {
-                    return this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
-                        .then( attachmentLink  => {
-                            loading.dismiss().catch();
-                            this.waiver.attachments[index] = JSON.parse(attachmentLink.response).fileName;
-                            this.successAttachmentPopup();
-                        }).catch(error => {
-                            loading.dismiss().catch();
-                            this.failurePopup()
-                        })
-            }));
+                this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+                    .then( attachmentLink  => {
+                        this.waiver.attachments[index] = JSON.parse(attachmentLink.response).fileName;
+                    }).catch(error => {
+                        console.log(`error`)
+                    })
+            );
         });
 
         return Observable.forkJoin(observableBatch);
 
     }
 
+    submit() {
+        let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Uploading attachments and signature',
+            dismissOnPageChange: true
+        });
+
+        loading.present();
+        this.uploadAttachmentsAndSignature().subscribe(
+            ()  => {
+                loading.dismiss().then(() => {
+                    this.uploadWaiver()
+                })
+            }, error => loading.dismiss().then(() => this.failurePopup())
+        );
+    }
+
     uploadWaiver () {
         let waiverToSend = {
             id: 0,
-            userId: 1,
+            userId: this.user.getUserId(),
             name: this.waiver.guest.name,
             lastName: this.waiver.guest.lastName,
             trn: this.waiver.guest.trn,
@@ -137,16 +142,14 @@ export class SubmitWaiver implements OnChanges{
         console.log('waiver', JSON.stringify(waiverToSend));
         return this.waiversApi.add(waiverToSend).subscribe(
             () => {
-                this.successPopup()
+                this.successPopup();
+                this.navCtrl.push(WaiversPage);
             }, error => {
                 console.log(`error ${error}`);
                 this.failurePopup();
             })
     }
 
-    submit() {
-        this.uploadAttachmentsAndSignature().subscribe( ()  => this.uploadWaiver());
-    }
 
     successAttachmentPopup () {
         let toast = this.toastCtrl.create({
