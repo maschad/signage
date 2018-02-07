@@ -87,10 +87,14 @@ export class User {
    * Process a login/signup response to store user data
    */
   _loggedIn(resp) {
-    this._user = resp;
+    this._user = resp[0];
   }
 
   getUser() {
       return this._user;
+  }
+
+  getUserId() {
+      return this._user.id;
   }
 }

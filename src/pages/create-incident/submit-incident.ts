@@ -7,6 +7,7 @@ import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native
 //RxJs
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/forkJoin'
+import {User} from "../../providers/user";
 
 
 
@@ -42,6 +43,7 @@ export class SubmitIncident implements OnChanges {
     }
 
     constructor(
+        private user: User,
         public navCtrl: NavController,
         private loadingCtrl: LoadingController,
         private transfer: FileTransfer,
@@ -102,7 +104,7 @@ export class SubmitIncident implements OnChanges {
     uploadIncident () {
         let incidentToSend = {
             id: 0,
-            userId:2,
+            userId: this.user.getUserId(),
             title: this.incident.title,
             report: this.incident.report,
             attachments: this.incident.attachments.toString()
