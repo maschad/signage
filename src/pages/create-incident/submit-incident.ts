@@ -116,7 +116,7 @@ export class SubmitIncident implements OnChanges {
         return this.incidentApi.add(incidentToSend).subscribe(
             () => {
                 this.successPopup()
-                this.navCtrl.push(IncidentsPage)
+                this.navCtrl.setRoot(IncidentsPage)
             }, error => {
                 console.log(`error ${error}`);
                 this.failurePopup();
@@ -132,17 +132,9 @@ export class SubmitIncident implements OnChanges {
         toast.present();
     }
 
-    successAttachmentPopup () {
-        let toast = this.toastCtrl.create({
-            message: 'Attachment Uploaded.',
-            duration: 1000
-        });
-        toast.present();
-    }
-
     failurePopup() {
         let toast = this.toastCtrl.create({
-            message: 'Oops! There was an error sending your request',
+            message: 'Oops! There was an error sending your info',
             duration: 3000
         });
         toast.present();

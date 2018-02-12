@@ -3,6 +3,7 @@ import {LoadingController, NavController, ToastController} from "ionic-angular";
 import {Waivers} from "../../providers/waivers-api";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native/file-transfer";
+import _ from 'lodash'
 
 //RxJs
 import {Observable} from "rxjs/Observable";
@@ -74,6 +75,8 @@ export class SubmitWaiver implements OnChanges{
         observableBatch.push(
             this.fileTransfer.upload(this.waiver.signature, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
                 .then(signatureLink => {
+                    console.log('signature to send', this.waiver.signature);
+                    console.log('signature link', signatureLink);
                     this.waiver.signature = JSON.parse(signatureLink.response).fileName;
 
                 })
@@ -81,10 +84,12 @@ export class SubmitWaiver implements OnChanges{
                     console.log(`error`)
                 })
         );
-        this.waiver.attachments.forEach( (attachment, index) => {
+        _.forEach(this.waiver.attachments, (attachment, index) => {
             observableBatch.push(
                 this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
                     .then( attachmentLink  => {
+                        console.log('attachment to send', attachment);
+                        console.log('attachment link', attachmentLink);
                         this.waiver.attachments[index] = JSON.parse(attachmentLink.response).fileName;
                     }).catch(error => {
                         console.log(`error`)
@@ -109,7 +114,7 @@ export class SubmitWaiver implements OnChanges{
                 loading.dismiss().then(() => {
                     this.uploadWaiver()
                 })
-            }, error => loading.dismiss().then(() => this.failurePopup())
+            }, error => loading.dismiss().then(() => {console.log(`error ${error}`); this.failurePopup()})
         );
     }
 
@@ -143,20 +148,11 @@ export class SubmitWaiver implements OnChanges{
         return this.waiversApi.add(waiverToSend).subscribe(
             () => {
                 this.successPopup();
-                this.navCtrl.push(WaiversPage);
+                this.navCtrl.setRoot(WaiversPage);
             }, error => {
                 console.log(`error ${error}`);
                 this.failurePopup();
             })
-    }
-
-
-    successAttachmentPopup () {
-        let toast = this.toastCtrl.create({
-            message: 'File Uploaded.',
-            duration: 3000
-        });
-        toast.present();
     }
 
     successPopup () {
@@ -169,7 +165,7 @@ export class SubmitWaiver implements OnChanges{
 
     failurePopup() {
         let toast = this.toastCtrl.create({
-            message: 'Oops! There was an error sending your request',
+            message: 'Oops! There was an error sending your info',
             duration: 3000
         });
         toast.present();
