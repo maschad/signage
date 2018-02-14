@@ -52,6 +52,7 @@
   "SIGNUP_BUTTON": "Sign up",
 
   "WAIVER_MASTER_TITLE": "Waivers",
+  "NEW_WAIVER_TITLE": "New Waiver",
   "WAIVER_DETAIL_TITLE": "Waiver Info",
 
   "WAIVER_FORM_SLIDE1_TITLE": "Guest",
@@ -74,6 +75,7 @@
   "INCIDENT_LOAD_ERROR": "unable to load Incidents",
 
   "INCIDENT_MASTER_TITLE": "Incidents",
+  "NEW_INCIDENT_TITLE": "New Incident",
   "INCIDENT_DETAIL_TITLE": "Incidents",
 
   "CREATE_ATTACHMENT_TITLE": "Attachments",

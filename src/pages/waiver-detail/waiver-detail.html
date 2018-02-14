@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ 'WAIVER_DETAIL_TITLE' | translate }}</ion-title>
+    <ion-title>{{waiver.guest.name}} {{waiver.guest.lastname}}</ion-title>
     <ion-title [ngClass]="{'expired' : expired,  'valid': !expired}"> {{waiver.expirationDate * 1000 | date:'dd/MM/yyyy'}} </ion-title>
     <ion-title [ngClass]="{'expired-header' : expired,  'valid-header': !expired}" ></ion-title>
   </ion-navbar>

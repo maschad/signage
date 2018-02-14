@@ -37,8 +37,8 @@ export class CreateIncidentsPage {
 
     cancel() {
         let alert = this.alertCtrl.create({
-            title: 'Incident form Incomplete',
-            message: 'Are you sure you want to exit the incident creation process?',
+            title: '',
+            message: 'Are you sure you want to exit?',
             buttons: [
                 {
                     text: 'No',

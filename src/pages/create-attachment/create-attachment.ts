@@ -97,8 +97,8 @@ export class CreateAttachmentPage {
 
     removePhoto(index) {
         let confirm = this.alertCtrl.create({
-            title: 'Sure you want to delete this photo? There is NO undo!',
-            message: '',
+            title: '',
+            message: 'Are you sure you want to delete this file?',
             buttons: [
                 {
                     text: 'No',

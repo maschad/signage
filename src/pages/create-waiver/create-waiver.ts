@@ -68,8 +68,8 @@ export class CreateWaiverPage {
 
   cancel() {
         let alert = this.alertCtrl.create({
-            title: 'Waiver Incomplete',
-            message: 'Are you sure you want to exit the waiver creation process?',
+            title: '',
+            message: 'Are you sure you want to exit?',
             buttons: [
                 {
                     text: 'No',
