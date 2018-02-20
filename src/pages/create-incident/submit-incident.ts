@@ -3,14 +3,9 @@ import {LoadingController, NavController, ToastController} from "ionic-angular";
 import {Incidents} from "../../providers/incidents-api";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native/file-transfer";
-
-//RxJs
-import {Observable} from "rxjs/Observable";
-import 'rxjs/add/observable/forkJoin'
 import {User} from "../../providers/user";
 import {IncidentsPage} from "../incidents/incidents";
-
-
+import _ from 'lodash'
 
 /**
  * Generated class for the IncidentDetailPage page.
@@ -61,27 +56,38 @@ export class SubmitIncident implements OnChanges {
         item.open = !item.open
     }
 
-    uploadAttachments () {
-        let observableBatch = [];
+    async uploadAttachments () {
+       let promiseBatch = []
 
+        _.forEach(this.incident.attachments, (attachment,index) => promiseBatch.push(this.uploadFile(attachment,index)))
+
+        return await Promise.all(promiseBatch)
+
+    }
+
+    async uploadFile(file, index){
         let options: FileUploadOptions = {
             fileKey: 'file',
+            fileName: `attachment_${Date.now()}.jpeg`,
             headers: {
                 'Authorization': 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU='
             }
         };
 
-        this.incident.attachments.forEach( (attachment, index) => {
-            observableBatch.push(
-                this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
-                    .then( attachmentLink  => {
-                        //we can only present a toast once loading is complete
-                        this.incident.attachments[index] = JSON.parse(attachmentLink.response).fileName;
-                    }).catch(error =>  console.log('error'))
-            )
-        });
 
-        return Observable.forkJoin(observableBatch);
+        return await new Promise((resolve, reject) => {
+            this.fileTransfer.upload(file, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+                .then( attachmentLink => {
+                    console.log('attachmentlink', attachmentLink);
+                    this.incident.attachments[index] = JSON.parse(attachmentLink.response).fileName;
+                    resolve()
+                })
+                .catch(error => {
+                    console.log('error');
+                    reject()
+                })
+
+        })
 
     }
 
@@ -95,7 +101,7 @@ export class SubmitIncident implements OnChanges {
 
         loading.present();
 
-        this.uploadAttachments().subscribe(
+        this.uploadAttachments().then(
             () => {
                 loading.dismiss().then(() =>  this.uploadIncident())
             },
