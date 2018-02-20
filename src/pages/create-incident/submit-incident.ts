@@ -68,7 +68,7 @@ export class SubmitIncident implements OnChanges {
     async uploadFile(file, index){
         let options: FileUploadOptions = {
             fileKey: 'file',
-            fileName: `attachment_${Date.now()}.jpeg`,
+            fileName: `incident_${Date.now()}.jpeg`,
             headers: {
                 'Authorization': 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU='
             }
@@ -78,7 +78,6 @@ export class SubmitIncident implements OnChanges {
         return await new Promise((resolve, reject) => {
             this.fileTransfer.upload(file, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
                 .then( attachmentLink => {
-                    console.log('attachmentlink', attachmentLink);
                     this.incident.attachments[index] = JSON.parse(attachmentLink.response).fileName;
                     resolve()
                 })

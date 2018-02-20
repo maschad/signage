@@ -8,8 +8,6 @@ import {WaiversPage} from "../waivers/waivers";
 
 import _ from 'lodash'
 
-//RxJs
-import {Observable} from "rxjs/Rx";
 
 
 /**
@@ -62,45 +60,45 @@ export class SubmitWaiver implements OnChanges{
     }
 
 
-    uploadAttachmentsAndSignature ()  {
+    async uploadAttachmentsAndSignature ()  {
+
+        let promiseBatch = []
+        //Upload signature
+        promiseBatch.push(this.uploadFile(this.waiver.signature, 'signature'));
+        //upload attachments
+        _.forEach(this.waiver.attachments, (attachment,index) => promiseBatch.push(this.uploadFile(attachment,'attachment',index)));
+
+        return await Promise.all(promiseBatch)
+
+    }
+
+    async uploadFile(file,type,index?) {
         let options: FileUploadOptions = {
             fileKey: 'file',
+            fileName: `${type}_${Date.now()}.jpeg`,
             headers: {
                 'Authorization': 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU='
             }
         };
 
-        let observableBatch = []
 
-        observableBatch.push(
-            this.fileTransfer.upload(this.waiver.signature, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
-                .then(signatureLink => {
-                    this.waiver.signature = JSON.parse(signatureLink.response).fileName;
+        return await new Promise((resolve, reject) => {
+            this.fileTransfer.upload(file, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+                .then( attachmentLink => {
+                    if(!_.isUndefined(index)){
+                        this.waiver.attachments[index] = JSON.parse(attachmentLink.response).fileName;
+                    } else {
+                        this.waiver.signature = JSON.parse(attachmentLink.response).fileName;
+                    }
+                    resolve()
                 })
                 .catch(error => {
-                    console.log(`error`)
+                    console.log('error');
+                    reject()
                 })
-        );
 
-
-        _.forEach(this.waiver.attachments, (attachment, index) => {
-            observableBatch.push(
-                this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
-                .then( attachmentLink  => {
-                    this.waiver.attachments[index] = JSON.parse(attachmentLink.response).fileName;
-                }).catch(error => {
-                    console.log(`error`)
-                })
-            )
-        });
-
-
-
-        return Observable.concat(...observableBatch)
-
+        })
     }
-
-
 
 
 
@@ -114,7 +112,7 @@ export class SubmitWaiver implements OnChanges{
         });
 
         loading.present();
-        this.uploadAttachmentsAndSignature().subscribe(
+        this.uploadAttachmentsAndSignature().then(
             ()  => {
                 loading.dismiss().then(() => {
                     this.uploadWaiver()
