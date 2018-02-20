@@ -3,13 +3,13 @@ import {LoadingController, NavController, ToastController} from "ionic-angular";
 import {Waivers} from "../../providers/waivers-api";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native/file-transfer";
+import {User} from "../../providers/user";
+import {WaiversPage} from "../waivers/waivers";
+
 import _ from 'lodash'
 
 //RxJs
-import {Observable} from "rxjs/Observable";
-import 'rxjs/add/observable/forkJoin';
-import {User} from "../../providers/user";
-import {WaiversPage} from "../waivers/waivers";
+import {Observable} from "rxjs/Rx";
 
 
 /**
@@ -62,9 +62,7 @@ export class SubmitWaiver implements OnChanges{
     }
 
 
-    uploadAttachmentsAndSignature () {
-        let observableBatch = [];
-
+    uploadAttachmentsAndSignature ()  {
         let options: FileUploadOptions = {
             fileKey: 'file',
             headers: {
@@ -72,34 +70,41 @@ export class SubmitWaiver implements OnChanges{
             }
         };
 
+        let observableBatch = []
+
         observableBatch.push(
             this.fileTransfer.upload(this.waiver.signature, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
                 .then(signatureLink => {
-                    console.log('signature to send', this.waiver.signature);
-                    console.log('signature link', signatureLink);
                     this.waiver.signature = JSON.parse(signatureLink.response).fileName;
-
                 })
                 .catch(error => {
                     console.log(`error`)
                 })
         );
+
+
         _.forEach(this.waiver.attachments, (attachment, index) => {
             observableBatch.push(
                 this.fileTransfer.upload(attachment, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
-                    .then( attachmentLink  => {
-                        console.log('attachment to send', attachment);
-                        console.log('attachment link', attachmentLink);
-                        this.waiver.attachments[index] = JSON.parse(attachmentLink.response).fileName;
-                    }).catch(error => {
-                        console.log(`error`)
-                    })
-            );
+                .then( attachmentLink  => {
+                    this.waiver.attachments[index] = JSON.parse(attachmentLink.response).fileName;
+                }).catch(error => {
+                    console.log(`error`)
+                })
+            )
         });
 
-        return Observable.forkJoin(observableBatch);
+
+
+        return Observable.concat(...observableBatch)
 
     }
+
+
+
+
+
+
 
     submit() {
         let loading = this.loadingCtrl.create({
@@ -119,30 +124,49 @@ export class SubmitWaiver implements OnChanges{
     }
 
     uploadWaiver () {
-        let waiverToSend = {
-            id: 0,
-            userId: this.user.getUserId(),
-            name: this.waiver.guest.name,
-            lastName: this.waiver.guest.lastName,
-            trn: this.waiver.guest.trn,
-            email: this.waiver.guest.email,
-            address: this.waiver.guest.address,
-            occupation: this.waiver.guest.occupation,
-            phone:this.waiver.guest.phone,
-            city:this.waiver.guest.city,
-            country: "Jamaica",
-            witnessName: this.waiver.witness.name,
-            witnessLastName: this.waiver.witness.lastName,
-            witnessTrn: this.waiver.witness.trn,
-            witnessEmail: this.waiver.witness.email,
-            witnessAddress: this.waiver.witness.address,
-            witnessOccupation: this.waiver.witness.occupation,
-            witnessPhone: this.waiver.witness.phone,
-            witnessCity: this.waiver.witness.city,
-            witnessCountry: this.waiver.witness.country,
-            signature: this.waiver.signature,
-            attachments: this.waiver.attachments.toString()
-        };
+        let waiverToSend = {};
+
+        if(this.waiver.witness.name === '' ) {
+            waiverToSend = {
+                id: 0,
+                userId: this.user.getUserId(),
+                name: this.waiver.guest.name,
+                lastName: this.waiver.guest.lastName,
+                trn: this.waiver.guest.trn,
+                email: this.waiver.guest.email,
+                address: this.waiver.guest.address,
+                occupation: this.waiver.guest.occupation,
+                phone:this.waiver.guest.phone,
+                city:this.waiver.guest.city,
+                country: "Jamaica",
+                signature: this.waiver.signature,
+                attachments: this.waiver.attachments.toString()
+            };
+        } else {
+            waiverToSend = {
+                id: 0,
+                userId: this.user.getUserId(),
+                name: this.waiver.guest.name,
+                lastName: this.waiver.guest.lastName,
+                trn: this.waiver.guest.trn,
+                email: this.waiver.guest.email,
+                address: this.waiver.guest.address,
+                occupation: this.waiver.guest.occupation,
+                phone:this.waiver.guest.phone,
+                city:this.waiver.guest.city,
+                country: "Jamaica",
+                witnessName: this.waiver.witness.name,
+                witnessLastName: this.waiver.witness.lastName,
+                witnessTrn: this.waiver.witness.trn,
+                witnessEmail: this.waiver.witness.email,
+                witnessAddress: this.waiver.witness.address,
+                witnessOccupation: this.waiver.witness.occupation,
+                witnessPhone: this.waiver.witness.phone,
+                witnessCity: this.waiver.witness.city,
+                witnessCountry: this.waiver.witness.country,
+                signature: this.waiver.signature,
+                attachments: this.waiver.attachments.toString()}
+        }
 
         console.log('waiver', JSON.stringify(waiverToSend));
         return this.waiversApi.add(waiverToSend).subscribe(
