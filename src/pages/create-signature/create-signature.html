@@ -1,7 +1,7 @@
 <ion-grid>
     <ion-row align-items-center justify-content-center>
         <ion-col align-self-center>
-            <h2 class="title">Please draw your Signature</h2>
+            <h2 class="title">'Enter your signature using your finger below</h2>
             <ion-row [ngClass]="{'drawing-active': isDrawing}">
                 <ion-col>
                     <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>

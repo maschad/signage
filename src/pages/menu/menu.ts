@@ -24,10 +24,10 @@ export class MenuPage {
   constructor(public navCtrl: NavController) {
     // used for an example of ngFor and navigation
     this.pages = [
-        {title: 'Waivers', component: WaiversPage},
         {title: 'New Waiver', component: CreateWaiverPage},
-        {title: 'Incidents', component: IncidentsPage},
         {title: 'New Incident', component: CreateIncidentsPage},
+        {title: 'Search Waivers', component: WaiversPage},
+        {title: 'Search Incidents', component: IncidentsPage},
         {title: 'Sign Out', component: LoginPage}
     ];
   }
