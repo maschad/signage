@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, LoadingController, NavController} from 'ionic-angular';
+import {AlertController, LoadingController, NavController, Platform} from 'ionic-angular';
 import {Waivers} from "../../providers/waivers-api";
 import {TranslateService} from "@ngx-translate/core";
 import 'rxjs/add/operator/map';
@@ -41,7 +41,8 @@ export class WaiversPage {
                 public navCtrl: NavController,
                 public waivers: Waivers,
                 public translateService: TranslateService,
-                public loadingCtrl: LoadingController
+                public loadingCtrl: LoadingController,
+                public platform: Platform
     ) {
         this.translateService.get('WAIVER_LOAD_ERROR').subscribe((value) => {
             this.waiverErrorString = value;
@@ -49,6 +50,10 @@ export class WaiversPage {
         //Getting Unix timestamp to compare
         this.currentDate = Date.now()/1000 | 0;
         this.searchControl = new FormControl();
+        this.platform.registerBackButtonAction(() => {
+            console.log('back pressed')
+        }, 500);
+
     }
 
     presentAlert() {

@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, NavController, NavParams, Platform} from 'ionic-angular';
 import {TranslateService} from "@ngx-translate/core";
 import {WaiverForm} from "./waiver-form";
 import {WaiversPage} from "../waivers/waivers";
@@ -37,7 +37,8 @@ export class CreateWaiverPage {
               public navCtrl: NavController,
               public formBuilder: FormBuilder,
               public translate: TranslateService,
-              private navParams: NavParams
+              private navParams: NavParams,
+              public platform: Platform
              ) {
 
       let guest = this.navParams.get('guest');
@@ -57,6 +58,11 @@ export class CreateWaiverPage {
               ]
           }
       );
+
+      this.platform.registerBackButtonAction(() => {
+         this.cancel();
+      }, 500);
+
   }
 
   next() {
