@@ -12,6 +12,7 @@ export class WaiverForm {
 
     constructor(private formBuilder: FormBuilder, private guest?: Guest) {
         //#TODO: Build City validator abstract control
+        // If this guest has an expired waiver, pre-populate the fields
         if(this.guest){
             this.waiver = this.formBuilder.group({
                 name: [this.guest.name, [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
@@ -21,9 +22,12 @@ export class WaiverForm {
                 address: [this.guest.address, Validators.required],
                 city: [this.guest.city, Validators.required],
                 occupation: [this.guest.occupation, Validators.required],
+                state: [this.guest.state, Validators.required],
+                zipcode:[this.guest.zipcode, Validators.required],
+                country: [this.guest.country, Validators.required],
                 phone: [this.guest.phone, [Validators.maxLength(11), Validators.minLength(7), Validators.required]]
             });
-        }else {
+        } else {
             this.waiver = this.formBuilder.group({
                 name: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
                 lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$') ]],
@@ -32,6 +36,9 @@ export class WaiverForm {
                 address: ['', Validators.required],
                 city: ['', Validators.required],
                 occupation: ['', Validators.required],
+                state: [ '', Validators.required],
+                zipcode:['', Validators.required],
+                country: ['', Validators.required],
                 phone: ['', [Validators.maxLength(11), Validators.minLength(7), Validators.required]]
             });
         }
