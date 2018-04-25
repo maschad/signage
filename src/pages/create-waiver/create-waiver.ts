@@ -30,6 +30,7 @@ export class CreateWaiverPage {
     slides: Slide[];
     waiver: any;
     attachments:any[] = [];
+    waiverAttachmentTitle: string = `Capture Photo of ID`
 
   constructor(
               protected user: User,

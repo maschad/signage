@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ImagePicker} from "@ionic-native/image-picker";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {AlertController, LoadingController} from "ionic-angular";
@@ -14,6 +14,9 @@ const base64prepend: string = 'data:image/jpeg;base64,';
 export class CreateAttachmentPage {
     @Output()
     imagesEvent = new EventEmitter<any>();
+
+    @Input()
+    title: string;
 
     images:any[] = [];
     cameraErrorString:string;

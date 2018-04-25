@@ -28,7 +28,7 @@
         </ion-slide>
         <!--Attachments page-->
         <ion-slide>
-            <page-create-attachment #attachmentPage (imagesEvent)="recieveImages($event)" ></page-create-attachment>
+            <page-create-attachment #attachmentPage (imagesEvent)="recieveImages($event)" [title]="waiverAttachmentTitle"></page-create-attachment>
             <button ion-button color="primary"  (click)="prev()">Previous</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
             <button [disabled]="!attachmentPage.valid()" ion-button color="primary" (click)="next()">Next</button>

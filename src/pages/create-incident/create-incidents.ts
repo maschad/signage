@@ -19,6 +19,7 @@ export class CreateIncidentsPage {
     title: any;
     description: any;
     attachments: any[] = [];
+    incidentAttachmentTitle: string = `Capture Photo of Incident`
 
     constructor(
         protected user: User,
