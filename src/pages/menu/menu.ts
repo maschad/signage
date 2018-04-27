@@ -6,6 +6,7 @@ import {CreateWaiverPage} from "../create-waiver/create-waiver";
 import {IncidentsPage} from "../incidents/incidents";
 import {CreateIncidentsPage} from "../create-incident/create-incidents";
 import {LoginPage} from "../login/login";
+import {LegalWaiverDocumentPage} from "../legal-waiver-document/legal-waiver-document";
 
 
 
@@ -24,7 +25,7 @@ export class MenuPage {
   constructor(public navCtrl: NavController) {
     // used for an example of ngFor and navigation
     this.pages = [
-        {title: 'New Waiver', component: CreateWaiverPage},
+        {title: 'New Waiver', component: LegalWaiverDocumentPage},
         {title: 'New Incident', component: CreateIncidentsPage},
         {title: 'Search Waivers', component: WaiversPage},
         {title: 'Search Incidents', component: IncidentsPage},

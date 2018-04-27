@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { legalWaiverDocument } from './legalWaiverDocumentHTML';
+import {CreateWaiverPage} from "../create-waiver/create-waiver";
 
 /**
  * Generated class for the LegalWaiverDocumentPage page.
@@ -20,6 +21,10 @@ export class LegalWaiverDocumentPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LegalWaiverDocumentPage');
+  }
+
+  completeWaiver() {
+      this.navCtrl.setRoot(CreateWaiverPage);
   }
 
 }

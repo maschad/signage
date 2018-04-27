@@ -47,6 +47,7 @@ import {Guest} from "../models/guest";
 import {Upload} from "../providers/upload";
 import {CreateIncidentModule} from "../pages/create-incident/create-incident-module";
 import {Keyboard} from "@ionic-native/keyboard";
+import {LegalWaiverDocumentPage} from "../pages/legal-waiver-document/legal-waiver-document";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -78,6 +79,7 @@ export function provideSettings(storage: Storage) {
     IncidentDetailPage,
     WaiverDetailPage,
     LoginPage,
+    LegalWaiverDocumentPage,
     MapPage,
     MenuPage,
     SettingsPage,
@@ -113,6 +115,7 @@ export function provideSettings(storage: Storage) {
     IncidentsPage,
     IncidentDetailPage,
     LoginPage,
+    LegalWaiverDocumentPage,
     MapPage,
     MenuPage,
     SettingsPage,
