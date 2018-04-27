@@ -24,7 +24,7 @@
             <waiver-form [waiver]="slide.page.waiver"></waiver-form>
             <button ion-button color="primary" [disabled]="slideNumber == 0" (click)="prev()">Previous</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
-            <button [disabled]="!slide.page.valid() && slideNumber !== 1" ion-button color="primary" (click)="next()">Next</button>
+            <button ion-button color="primary" (click)="next(slide.page.waiver, index)">Next</button>
         </ion-slide>
         <!--Attachments page-->
         <ion-slide>

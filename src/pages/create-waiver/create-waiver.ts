@@ -68,11 +68,31 @@ export class CreateWaiverPage {
 
   }
 
-  next() {
-      this.createWaiverSlider.lockSwipes(false);
-      this.createWaiverContent.scrollToTop();
-      this.createWaiverSlider.slideNext();
-      this.createWaiverSlider.lockSwipes(true);
+  next(valid, index) {
+    if (!valid && index === 0)  {
+            this.completeForm()
+    } else {
+          this.createWaiverSlider.lockSwipes(false);
+          this.createWaiverContent.scrollToTop();
+          this.createWaiverSlider.slideNext();
+          this.createWaiverSlider.lockSwipes(true);
+      }
+  }
+
+  completeForm () {
+      let alert = this.alertCtrl.create({
+          title: 'Attention',
+          message: 'The form is incomplete!',
+          buttons: [
+              {
+                  text: 'OK',
+                  handler: () => {
+                      console.log('Cancel clicked');
+                  }
+              }
+          ]
+      });
+      alert.present();
   }
 
   cancel() {
