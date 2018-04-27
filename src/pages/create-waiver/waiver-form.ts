@@ -1,6 +1,7 @@
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Component, Input} from "@angular/core";
 import {Guest} from "../../models/guest";
+import {Waivers} from "../../providers/waivers-api";
 
 @Component({
     selector: 'waiver-form',
@@ -10,7 +11,12 @@ export class WaiverForm {
     @Input()
     waiver : FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private guest?: Guest) {
+    countries: any[];
+
+    constructor(private formBuilder: FormBuilder,
+                private waiversApi: Waivers,
+                private guest?: Guest
+    ) {
         //#TODO: Build City validator abstract control
         // If this guest has an expired waiver, pre-populate the fields
         if(this.guest){
@@ -42,6 +48,7 @@ export class WaiverForm {
                 phone: ['', [Validators.maxLength(11), Validators.minLength(7), Validators.required]]
             });
         }
+        this.waiversApi.getCountries().subscribe(countries => this.countries = countries)
     }
 
     valid() {

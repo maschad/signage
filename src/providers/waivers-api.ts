@@ -28,6 +28,11 @@ export class Waivers {
         .map(resp => resp.json());
   }
 
+  getCountries(params?: any): Observable<any> {
+      return this.api.get('countries', params, this.options)
+          .map(resp => resp.json())
+  }
+
   delete(waiver: model): void {
   }
 

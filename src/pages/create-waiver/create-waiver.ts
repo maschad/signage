@@ -5,6 +5,7 @@ import {WaiverForm} from "./waiver-form";
 import {WaiversPage} from "../waivers/waivers";
 import {User} from "../../providers/user";
 import {FormBuilder} from "@angular/forms";
+import {Waivers} from "../../providers/waivers-api";
 
 
 /**
@@ -34,6 +35,7 @@ export class CreateWaiverPage {
 
   constructor(
               protected user: User,
+              public waiversApi: Waivers,
               public alertCtrl: AlertController,
               public navCtrl: NavController,
               public formBuilder: FormBuilder,
@@ -50,11 +52,11 @@ export class CreateWaiverPage {
               this.slides = [
                   {
                       title: values.WAIVER_FORM_SLIDE1_TITLE,
-                      page: new WaiverForm (formBuilder, guest),
+                      page: new WaiverForm (formBuilder, waiversApi, guest),
                   },
                   {
                       title: values.WAIVER_FORM_SLIDE2_TITLE,
-                      page: new WaiverForm (formBuilder)
+                      page: new WaiverForm (formBuilder, waiversApi)
                   }
               ]
           }
