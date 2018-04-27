@@ -68,7 +68,7 @@ export class CreateWaiverPage {
 
   }
 
-  next(valid, index) {
+  next(valid:boolean, index:number) {
     if (!valid && index === 0)  {
             this.completeForm()
     } else {
