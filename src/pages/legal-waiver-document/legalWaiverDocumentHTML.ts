@@ -3,7 +3,7 @@ export const legalWaiverDocument = `<html>
 <title>Alligator Head Limited Release and Discharge</title>	
 </head>	
 <body>
-<h1 align="center">Alligator Head Limited Release and Discharge n.104 - David Lee</h1>
+<h1 align="center">Alligator Head Limited Release and Discharge</h1>
 <p><b>TO: ALLIGATOR HEAD LTD</b>  as well as its parents, subsidiaries, affiliated companies, successors and assigns, and its and their current and former employees, agents, 
 	representatives, shareholders, officers and directors of each of those companies 
 	(hereinafter collectively referred to as the "<b>Owner</b>") AND
