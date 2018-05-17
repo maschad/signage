@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, LoadingController, NavController} from 'ionic-angular';
+import {AlertController, LoadingController, NavController, Platform} from 'ionic-angular';
 import {TranslateService} from "@ngx-translate/core";
 import {Incidents} from "../../providers/incidents-api";
 import {model} from "../../models/model";
@@ -30,11 +30,17 @@ export class IncidentsPage {
               public incidents: Incidents,
               public translateService: TranslateService,
               public loadingCtrl: LoadingController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              public platform: Platform
+  ) {
       this.translateService.get('INCIDENT_LOAD_ERROR').subscribe((value) => {
           this.incidentsErrorString = value;
       });
       this.searchControl = new FormControl();
+      this.platform.registerBackButtonAction(() => {
+          console.log('back pressed')
+      }, 500);
+
   }
 
   ionViewDidLoad() {

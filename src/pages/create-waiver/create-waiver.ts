@@ -1,10 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, NavController, NavParams, Platform} from 'ionic-angular';
 import {TranslateService} from "@ngx-translate/core";
 import {WaiverForm} from "./waiver-form";
 import {WaiversPage} from "../waivers/waivers";
 import {User} from "../../providers/user";
 import {FormBuilder} from "@angular/forms";
+import {Waivers} from "../../providers/waivers-api";
 
 
 /**
@@ -30,14 +31,17 @@ export class CreateWaiverPage {
     slides: Slide[];
     waiver: any;
     attachments:any[] = [];
+    waiverAttachmentTitle: string = `Capture Photo of ID`
 
   constructor(
               protected user: User,
+              public waiversApi: Waivers,
               public alertCtrl: AlertController,
               public navCtrl: NavController,
               public formBuilder: FormBuilder,
               public translate: TranslateService,
-              private navParams: NavParams
+              private navParams: NavParams,
+              public platform: Platform
              ) {
 
       let guest = this.navParams.get('guest');
@@ -48,22 +52,47 @@ export class CreateWaiverPage {
               this.slides = [
                   {
                       title: values.WAIVER_FORM_SLIDE1_TITLE,
-                      page: new WaiverForm (formBuilder, guest),
+                      page: new WaiverForm (formBuilder, waiversApi, guest),
                   },
                   {
                       title: values.WAIVER_FORM_SLIDE2_TITLE,
-                      page: new WaiverForm (formBuilder)
+                      page: new WaiverForm (formBuilder, waiversApi)
                   }
               ]
           }
       );
+
+      this.platform.registerBackButtonAction(() => {
+         this.cancel();
+      }, 500);
+
   }
 
-  next() {
-      this.createWaiverSlider.lockSwipes(false);
-      this.createWaiverContent.scrollToTop();
-      this.createWaiverSlider.slideNext();
-      this.createWaiverSlider.lockSwipes(true);
+  next(valid:boolean, index:number) {
+    if (!valid && index === 0)  {
+            this.completeForm()
+    } else {
+          this.createWaiverSlider.lockSwipes(false);
+          this.createWaiverContent.scrollToTop();
+          this.createWaiverSlider.slideNext();
+          this.createWaiverSlider.lockSwipes(true);
+      }
+  }
+
+  completeForm () {
+      let alert = this.alertCtrl.create({
+          title: 'Attention',
+          message: 'The form is incomplete!',
+          buttons: [
+              {
+                  text: 'OK',
+                  handler: () => {
+                      console.log('Cancel clicked');
+                  }
+              }
+          ]
+      });
+      alert.present();
   }
 
   cancel() {

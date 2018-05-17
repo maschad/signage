@@ -24,6 +24,20 @@
         <ion-input type="text" formControlName="city"></ion-input>
     </ion-item>
     <ion-item>
+        <ion-label floating>State</ion-label>
+        <ion-input type="text" formControlName="state"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Zipcode</ion-label>
+        <ion-input type="text" formControlName="zipcode"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Country</ion-label>
+        <ion-select formControlName="country">
+            <ion-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
         <ion-label floating>Occupation</ion-label>
         <ion-input type="text" formControlName="occupation"></ion-input>
     </ion-item>

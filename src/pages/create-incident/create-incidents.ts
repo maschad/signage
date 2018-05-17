@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
+import {AlertController, NavController, Platform} from 'ionic-angular';
 import {User} from "../../providers/user";
 import {IncidentsPage} from "../incidents/incidents";
 import {TranslateService} from "@ngx-translate/core";
@@ -19,14 +19,19 @@ export class CreateIncidentsPage {
     title: any;
     description: any;
     attachments: any[] = [];
+    incidentAttachmentTitle: string = `Capture Photo of Incident`
 
     constructor(
         protected user: User,
         public alertCtrl: AlertController,
         public navCtrl: NavController,
         public translate: TranslateService,
-        private formBuilder: FormBuilder
-    ) {}
+        public platform: Platform
+    ) {
+        this.platform.registerBackButtonAction(() => {
+            this.cancel();
+        }, 500);
+    }
 
     next() {
         this.createIncidentSlider.lockSwipes(false);

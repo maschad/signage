@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ImagePicker} from "@ionic-native/image-picker";
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import {AlertController} from "ionic-angular";
+import {AlertController, LoadingController} from "ionic-angular";
 import {TranslateService} from "@ngx-translate/core";
 import _ from 'lodash'
 
@@ -15,6 +15,9 @@ export class CreateAttachmentPage {
     @Output()
     imagesEvent = new EventEmitter<any>();
 
+    @Input()
+    title: string;
+
     images:any[] = [];
     cameraErrorString:string;
     galleryErrorString:string;
@@ -23,6 +26,7 @@ export class CreateAttachmentPage {
         private alertCtrl: AlertController,
         private imagePicker: ImagePicker,
         private camera: Camera,
+        private loadingCtrl: LoadingController,
         private translateService: TranslateService,
     )
     {
@@ -42,7 +46,13 @@ export class CreateAttachmentPage {
             quality: 75,
             outputType: 1
         };
+        let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Loading Image',
+            dismissOnPageChange: true
+        });
 
+        loading.present();
         this.imagePicker.getPictures(options).then(
             (images) => {
                 _.forEach(images, image => {
@@ -51,9 +61,10 @@ export class CreateAttachmentPage {
                 });
                 this.images.reverse();
                 this.imagesEvent.emit(this.images);
+                loading.dismiss();
             },
                     err => {
-                        this.presentAlert(this.galleryErrorString);
+                        loading.dismiss().then(() => this.presentAlert(this.galleryErrorString));
                         console.log('Error retrieving photos')
                     }
         );
@@ -76,17 +87,25 @@ export class CreateAttachmentPage {
             encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE
         };
+        let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Processing Image',
+            dismissOnPageChange: true
+        });
 
+        loading.present();
         this.camera.getPicture(options).then((imageData) => {
             // imageData is either a base64 encoded string or a file URI
             // If it's base64:
             this.images.push(base64prepend.concat(imageData));
             this.images.reverse();
             this.imagesEvent.emit(this.images);
+            loading.dismiss();
         }, (err) => {
             // Handle error
             console.log('error', err);
-            this.presentAlert(this.cameraErrorString);
+            loading.dismiss().then( () => this.presentAlert(this.cameraErrorString));
+
         });
     }
 

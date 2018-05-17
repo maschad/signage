@@ -19,16 +19,16 @@
 <ion-content padding #createWaiverContent>
     <ion-slides #createWaiverSlider>
         <!--First two forms-->
-        <ion-slide *ngFor="let slide of slides; let i = index">
+        <ion-slide *ngFor="let slide of slides; let slideNumber = index">
             <h2 [innerHTML]="slide.title"></h2>
             <waiver-form [waiver]="slide.page.waiver"></waiver-form>
-            <button ion-button color="primary" [disabled]="i == 0" (click)="prev()">Previous</button>
+            <button ion-button color="primary" [disabled]="slideNumber == 0" (click)="prev()">Previous</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
-            <button [disabled]="!slide.page.valid() && i !== 1" ion-button color="primary" (click)="next()">Next</button>
+            <button ion-button color="primary" (click)="next(slide.page.waiver.valid, slideNumber)">Next</button>
         </ion-slide>
         <!--Attachments page-->
         <ion-slide>
-            <page-create-attachment #attachmentPage (imagesEvent)="recieveImages($event)" ></page-create-attachment>
+            <page-create-attachment #attachmentPage (imagesEvent)="recieveImages($event)" [title]="waiverAttachmentTitle"></page-create-attachment>
             <button ion-button color="primary"  (click)="prev()">Previous</button>
             <button ion-button color="primary" (click)="cancel()">Cancel</button>
             <button [disabled]="!attachmentPage.valid()" ion-button color="primary" (click)="next()">Next</button>

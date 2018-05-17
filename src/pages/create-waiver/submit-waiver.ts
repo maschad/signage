@@ -136,7 +136,9 @@ export class SubmitWaiver implements OnChanges{
                 occupation: this.waiver.guest.occupation,
                 phone:this.waiver.guest.phone,
                 city:this.waiver.guest.city,
-                country: "Jamaica",
+                country: this.waiver.guest.country,
+                zipcode: this.waiver.guest.zipcode,
+                state: this.waiver.guest.state,
                 signature: this.waiver.signature,
                 attachments: this.waiver.attachments.toString()
             };
@@ -152,7 +154,7 @@ export class SubmitWaiver implements OnChanges{
                 occupation: this.waiver.guest.occupation,
                 phone:this.waiver.guest.phone,
                 city:this.waiver.guest.city,
-                country: "Jamaica",
+                country: this.waiver.guest.country,
                 witnessName: this.waiver.witness.name,
                 witnessLastName: this.waiver.witness.lastName,
                 witnessTrn: this.waiver.witness.trn,
@@ -162,11 +164,12 @@ export class SubmitWaiver implements OnChanges{
                 witnessPhone: this.waiver.witness.phone,
                 witnessCity: this.waiver.witness.city,
                 witnessCountry: this.waiver.witness.country,
+                witnessState: this.waiver.witness.state,
+                witnessZipcode: this.waiver.witness.zipcode,
                 signature: this.waiver.signature,
                 attachments: this.waiver.attachments.toString()}
         }
 
-        console.log('waiver', JSON.stringify(waiverToSend));
         return this.waiversApi.add(waiverToSend).subscribe(
             () => {
                 this.successPopup();

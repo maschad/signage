@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class Api {
-  url: string = 'http://ahgate.yam.ba/restserver/index.php/api';
+  url: string = 'http://ahgate.yamba-ltd.com/restserver/index.php/api';
 
   constructor(public http: Http) {
   }
