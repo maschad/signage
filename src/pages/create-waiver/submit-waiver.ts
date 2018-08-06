@@ -77,7 +77,7 @@ export class SubmitWaiver implements OnChanges{
             fileKey: 'file',
             fileName: `${type}_${Date.now()}.jpeg`,
             headers: {
-                'Authorization': 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU='
+                'Authorization': 'Basic Y2xpZW50OkxWVjh5VnpXZnZIeGFQTGE='
             }
         };
 
@@ -93,7 +93,7 @@ export class SubmitWaiver implements OnChanges{
                     resolve()
                 })
                 .catch(error => {
-                    console.log('error');
+                    console.log('error', error);
                     reject()
                 })
 

@@ -13,11 +13,7 @@ export class Guests {
     }
 
     query(params?: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
-        let options = new RequestOptions({ headers: headers });
-
-        return this.api.get('/guest', params,options)
+        return this.api.get('/guest', params)
             .map(resp => resp.json());
     }
 

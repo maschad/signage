@@ -70,7 +70,7 @@ export class SubmitIncident implements OnChanges {
             fileKey: 'file',
             fileName: `incident_${Date.now()}.jpeg`,
             headers: {
-                'Authorization': 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU='
+                'Authorization': 'Basic Y2xpZW50OkxWVjh5VnpXZnZIeGFQTGE='
             }
         };
 

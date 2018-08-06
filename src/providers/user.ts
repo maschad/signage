@@ -35,10 +35,7 @@ export class User {
    * the user entered on the form.
    */
   login(accountInfo: any) {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
-    let options = new RequestOptions({ headers: headers });
-    let seq = this.api.post('signin', accountInfo, options).share();
+    let seq = this.api.post('signin', accountInfo).share();
 
     seq
       .map(res => res.json())

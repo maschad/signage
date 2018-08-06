@@ -9,18 +9,13 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class Upload {
-    options: any;
-    headers: any;
 
     constructor(public http: Http, public api: Api) {
-        this.headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
-        this.headers.append('Authorization', 'Basic Y2xpZW50OkNdNjZnYWM/bmZnSn1CcXU=');
-        this.options = new RequestOptions({ headers: this.headers });
     }
 
 
     add(file: any): Observable<any> {
-        return this.api.post('upload', file, this.options)
+        return this.api.post('upload', file)
             .map(resp => resp.json());
     }
 
