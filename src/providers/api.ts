@@ -11,7 +11,7 @@ export class Api {
     contentType: string = 'application/json';
     headers: any;
     options: any;
-    url: string = 'http://ahgate.alligatorhead.net/restserver/index.php/api/';
+    url: string = 'http://ahgate.alligatorhead.net/restserver/index.php/api';
 
     constructor(public http: Http) {
       this.headers = new Headers({'Content-Type': this.contentType});

@@ -83,7 +83,7 @@ export class SubmitWaiver implements OnChanges{
 
 
         return await new Promise((resolve, reject) => {
-            this.fileTransfer.upload(file, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+            this.fileTransfer.upload(file, 'http://ahgate.alligatorhead.net/restserver/index.php/api/upload', options)
                 .then( attachmentLink => {
                     if(!_.isUndefined(index)){
                         this.waiver.attachments[index] = JSON.parse(attachmentLink.response).fileName;
@@ -129,7 +129,7 @@ export class SubmitWaiver implements OnChanges{
                 id: 0,
                 userId: this.user.getUserId(),
                 name: this.waiver.guest.name,
-                lastName: this.waiver.guest.lastName,
+                lastName: this.waiver.guest.lastname,
                 trn: this.waiver.guest.trn,
                 email: this.waiver.guest.email,
                 address: this.waiver.guest.address,
@@ -138,7 +138,6 @@ export class SubmitWaiver implements OnChanges{
                 city:this.waiver.guest.city,
                 country: this.waiver.guest.country,
                 zipcode: this.waiver.guest.zipcode,
-                state: this.waiver.guest.state,
                 signature: this.waiver.signature,
                 attachments: this.waiver.attachments.toString()
             };
@@ -147,7 +146,7 @@ export class SubmitWaiver implements OnChanges{
                 id: 0,
                 userId: this.user.getUserId(),
                 name: this.waiver.guest.name,
-                lastName: this.waiver.guest.lastName,
+                lastName: this.waiver.guest.lastname,
                 trn: this.waiver.guest.trn,
                 email: this.waiver.guest.email,
                 address: this.waiver.guest.address,
@@ -156,7 +155,7 @@ export class SubmitWaiver implements OnChanges{
                 city:this.waiver.guest.city,
                 country: this.waiver.guest.country,
                 witnessName: this.waiver.witness.name,
-                witnessLastName: this.waiver.witness.lastName,
+                witnessLastName: this.waiver.witness.lastname,
                 witnessTrn: this.waiver.witness.trn,
                 witnessEmail: this.waiver.witness.email,
                 witnessAddress: this.waiver.witness.address,
@@ -164,11 +163,11 @@ export class SubmitWaiver implements OnChanges{
                 witnessPhone: this.waiver.witness.phone,
                 witnessCity: this.waiver.witness.city,
                 witnessCountry: this.waiver.witness.country,
-                witnessState: this.waiver.witness.state,
                 witnessZipcode: this.waiver.witness.zipcode,
                 signature: this.waiver.signature,
                 attachments: this.waiver.attachments.toString()}
         }
+
 
         return this.waiversApi.add(waiverToSend).subscribe(
             () => {

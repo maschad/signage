@@ -22,7 +22,7 @@ export class WaiverForm {
         if(this.guest){
             this.waiver = this.formBuilder.group({
                 name: [this.guest.name, [Validators.required]],
-                lastName: [this.guest.lastname, [Validators.required]],
+                lastname: [this.guest.lastname, [Validators.required]],
                 trn: [this.guest.trn,[Validators.required]],
                 email: [this.guest.email, [Validators.required,Validators.email]],
                 address: [this.guest.address, Validators.required],
@@ -36,7 +36,7 @@ export class WaiverForm {
         } else {
             this.waiver = this.formBuilder.group({
                 name: ['', [Validators.required]],
-                lastName: ['', [Validators.required]],
+                lastname: ['', [Validators.required]],
                 trn: ['',[Validators.required]],
                 email: ['', [Validators.required,Validators.email]],
                 address: ['', Validators.required],

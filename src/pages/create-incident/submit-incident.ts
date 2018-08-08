@@ -76,7 +76,7 @@ export class SubmitIncident implements OnChanges {
 
 
         return await new Promise((resolve, reject) => {
-            this.fileTransfer.upload(file, 'http://ahgate.yam.ba/restserver/index.php/api/upload', options)
+            this.fileTransfer.upload(file, 'http://ahgate.alligatorhead.net/restserver/index.php/api/upload', options)
                 .then( attachmentLink => {
                     this.incident.attachments[index] = JSON.parse(attachmentLink.response).fileName;
                     resolve()
