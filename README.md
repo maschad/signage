@@ -1,8 +1,7 @@
 ## ShieldsGate Signage Application
 
-<img src="reko_ware.png" width="400" />
 
-This application was built by Reko ware to serve as a one stop solution for managing signage for Shields Gate :blush:
+This application was built by me to serve as a one stop solution for managing signage for Shields Gate :blush:
 
 Take a look at the [Settings page](https://github.com/ionic-team/ionic-starter-super/blob/master/src/pages/settings/settings.html#L38) for a cool example of a page navigating to itself to provide a different UI without duplicating code.
 
